@@ -34,6 +34,1024 @@
       console.warn('Typekit not loaded.');
     }
     "></script>
+
+
+<meta name="description" content="Portfolio case study and game design document for Death Race by Dinesh A, Game Design Intern." />
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#213D3A;--bg2:#10161e;--panel:#151c26;--panel2:#1b2430;--line:#2b3644;--line2:#3a4859;
+  --text:#F4F1E6;--mute:#a8b3c1;--cyan:#2E7E8E;--cyan-d:#F5FBF5;--orange:#E8783B;--lime:#4B8A3B;--amber:#f2c230;--violet:#E9BF3E;
+  --s1:.5rem;--s2:1rem;--s3:1.5rem;--s4:2.5rem;--s5:4rem;--s6:7rem;
+  --disp:"Bahnschrift","Barlow Condensed","Roboto Condensed","Arial Narrow","Liberation Sans Narrow","Helvetica Neue Condensed",sans-serif;
+  --body:"Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
+  --cut:14px;
+} #death-race-case-study, #death-race-case-study * { box-sizing: border-box; }
+[hidden]{display:none!important}
+html { scroll-behavior: smooth; scroll-padding-top: 105px; }
+#death-race-case-study { font: 1.0625rem/1.6 var(--body); -webkit-font-smoothing: antialiased; } #death-race-case-study img, #death-race-case-study svg { max-width: 100%; } #death-race-case-study a { color: var(--cyan); text-underline-offset: 3px; } #death-race-case-study a:hover { color: #fff; } #death-race-case-study :focus-visible {outline:3px solid var(--orange);outline-offset:3px;border-radius:2px}
+.skip{position:absolute;left:-999px;top:0;background:var(--cyan);color:var(--cyan-d);padding:.6rem 1rem;z-index:100}
+.skip:focus{left:8px;top:8px} #death-race-case-study p { margin: 0 0 1rem; max-width: 68ch; } #death-race-case-study h1, #death-race-case-study h2, #death-race-case-study h3, #death-race-case-study h4 { font-family: var(--disp); margin: 0; line-height: 1.02; font-weight: 700; } #death-race-case-study h2 { font-size: clamp(2.1rem, 4.6vw, 3.6rem); font-style: italic; text-transform: uppercase; letter-spacing: 0.005em; } #death-race-case-study h3 { font-size: clamp(1.35rem, 2.2vw, 1.75rem); letter-spacing: 0.01em; } #death-race-case-study h4 { font-size: 1.15rem; letter-spacing: 0.01em; }
+.wrap{max-width:1180px;margin:0 auto;padding:0 clamp(16px,4vw,40px)}
+.narrow{max-width:760px}
+section{position:relative}
+.sec{padding:var(--s6) 0 var(--s5)}
+.sec+.sec{border-top:1px solid var(--line)}
+.sec-head{margin-bottom:var(--s4);max-width:880px}
+.sec-head p{color:var(--mute);font-size:1.15rem;margin-top:var(--s2)}
+.mono{font-family:var(--mono);font-size:.86em}
+.muted{color:var(--mute)} #death-race-case-study small, #death-race-case-study .small {font-size:.9rem}
+
+/* top bar */
+.bar{position:sticky;top:0;z-index:50;background:rgba(12,16,22,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;gap:var(--s3);height:56px}
+.brand{font-family:var(--disp);font-weight:800;font-style:italic;font-size:1.4rem;letter-spacing:.04em;color:var(--text);text-decoration:none;white-space:nowrap}
+.brand b{color:var(--cyan)}
+.bar nav{display:flex;gap:.25rem;overflow-x:auto;scrollbar-width:none;flex:1}
+.bar nav a{color:var(--mute);text-decoration:none;padding:.45rem .7rem;font-size:.95rem;white-space:nowrap;border-radius:3px}
+.bar nav a:hover,.bar nav a.on{color:#fff;background:var(--panel2)}
+.bar nav a.part{color:var(--cyan);font-weight:600}
+.lap{position:absolute;left:0;bottom:-1px;height:3px;width:0;background:linear-gradient(90deg,var(--cyan),var(--lime))}
+
+/* tags */
+.tag{display:inline-flex;align-items:center;gap:.4em;font-size:.82rem;line-height:1;padding:.32rem .55rem;border:1px solid currentColor;border-radius:2px;white-space:nowrap;font-weight:600;vertical-align:middle}
+.tag::before{content:"";width:.6em;height:.6em;background:currentColor;flex:none}
+.t-conf{color:var(--cyan)}
+.t-recall{color:var(--lime)}.t-recall::before{border-radius:50%}
+.t-prop{color:var(--orange)}.t-prop::before{transform:rotate(45deg) scale(.9)}
+.t-val{color:var(--amber)}.t-val::before{clip-path:polygon(50% 0,100% 100%,0 100%);width:.75em;height:.7em}
+
+/* hero */
+.hero{padding:clamp(3rem,7vw,6rem) 0 var(--s5);overflow:hidden;background:radial-gradient(1200px 500px at 85% -10%,#D7E9E6 0,transparent 60%),var(--bg)}
+.hero-track{position:absolute;inset:0;opacity:.5;pointer-events:none}
+.hero-track path{stroke-dasharray:2600;stroke-dashoffset:2600;animation:draw 2.8s .2s cubic-bezier(.5,0,.2,1) forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.hero-grid{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--s4);align-items:center}
+.hero h1{font-size:clamp(3.6rem,8.4vw,7.2rem);font-style:italic;font-weight:800;letter-spacing:.02em;line-height:.88;margin-bottom:var(--s2)}
+.hero h1 span{color:var(--cyan)}
+.role{display:inline-block;background:var(--orange);color:#1a0c05;font-weight:700;padding:.4rem .8rem;clip-path:polygon(0 0,100% 0,calc(100% - 10px) 100%,0 100%);padding-right:1.4rem;margin-bottom:var(--s2)}
+.lede{font-size:clamp(1.15rem,2vw,1.4rem);line-height:1.45;color:#dfe6ee;max-width:34ch}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:var(--s3);padding:0;list-style:none}
+.chips li{border:1px solid var(--line2);background:rgba(21,28,38,.7);padding:.35rem .7rem;font-size:.92rem;border-radius:2px}
+.video{position:relative;aspect-ratio:16/9;background:#05080b;border:1px solid var(--line2);clip-path:polygon(0 0,calc(100% - 28px) 0,100% 28px,100% 100%,28px 100%,0 calc(100% - 28px))}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.video-face{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;text-align:center;padding:1rem;background:repeating-linear-gradient(135deg,#0f161e 0 18px,#0c1218 18px 36px)}
+.btn{display:inline-flex;align-items:center;gap:.6rem;background:var(--cyan);color:var(--cyan-d);border:0;font:700 1rem var(--body);padding:.8rem 1.3rem;cursor:pointer;text-decoration:none;clip-path:polygon(0 0,100% 0,calc(100% - 12px) 100%,0 100%);padding-right:1.8rem}
+.btn:hover{background:#7ae6fb;color:var(--cyan-d)}
+.btn.ghost{background:transparent;color:var(--cyan);box-shadow:inset 0 0 0 1px var(--cyan);clip-path:none;padding-right:1.3rem}
+.btn.ghost:hover{background:var(--panel2);color:#fff}
+.play{width:0;height:0;border-left:14px solid currentColor;border-top:9px solid transparent;border-bottom:9px solid transparent}
+.evid{margin-top:var(--s4);display:flex;flex-wrap:wrap;gap:.6rem 1.4rem;align-items:center;padding:.9rem 1.1rem;border:1px solid var(--line);background:rgba(16,22,30,.8);font-size:.95rem;color:var(--mute);position:relative}
+.evid strong{color:var(--text)}
+
+/* generic panels */
+.split>.panel{align-self:start}
+.panel{background:var(--panel);border:1px solid var(--line);padding:var(--s3)}
+.cut{clip-path:polygon(0 0,calc(100% - var(--cut)) 0,100% var(--cut),100% 100%,var(--cut) 100%,0 calc(100% - var(--cut)))}
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--s4)}
+.split.wide-l{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr)}
+.split.wide-r{grid-template-columns:minmax(0,1fr) minmax(0,1.3fr)}
+.rule{border:0;border-top:1px solid var(--line);margin:var(--s4) 0}
+.kicker{font-weight:600;color:var(--cyan);margin:0 0 .4rem}
+ul.clean{list-style:none;padding:0;margin:0 0 1rem}
+ul.clean li{position:relative;padding-left:1.2rem;margin-bottom:.55rem;max-width:68ch}
+ul.clean li::before{content:"";position:absolute;left:0;top:.7em;width:.5rem;height:2px;background:var(--cyan)}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:var(--s3)}
+.facts div{background:var(--bg2);padding:1rem}
+.facts b{font-family:var(--disp);font-size:2rem;display:block;line-height:1;color:var(--cyan);font-style:italic}
+.facts span{color:var(--mute);font-size:.92rem}
+
+/* pressures */
+.pressures{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-top:2px solid var(--cyan)}
+.pressures>div{padding:var(--s3) var(--s3) var(--s3) 0;border-right:1px solid var(--line);padding-left:var(--s3)}
+.pressures>div:first-child{padding-left:0}
+.pressures>div:last-child{border-right:0}
+.pressures h3{margin-bottom:var(--s1);font-size:1.7rem}
+.pull{margin:var(--s5) 0 0;padding:var(--s3) 0 var(--s3) var(--s3);border-left:4px solid var(--orange);font-family:var(--disp);font-style:italic;font-size:clamp(1.6rem,3.4vw,2.6rem);line-height:1.1;max-width:24em}
+.pull small{display:block;margin-top:.6rem;font-family:var(--body);font-style:normal;font-size:.9rem;color:var(--mute)}
+
+/* ownership table */
+.own{width:100%;border-collapse:collapse}
+.own th{font-weight:600;text-align:left;color:var(--mute);padding:.6rem .8rem;border-bottom:1px solid var(--line2);font-size:.92rem}
+.own td{padding:1rem .8rem;border-bottom:1px solid var(--line);vertical-align:top}
+.own td:first-child{font-family:var(--disp);font-size:1.3rem;font-weight:700;width:19%}
+.own td:nth-child(3){color:var(--mute);width:30%}
+.own td:last-child{width:14%}
+.verb{color:var(--lime);font-weight:700}
+
+/* flows */
+.flow{list-style:none;padding:0;margin:0;display:flex;gap:0;align-items:stretch}
+.flow>li{flex:1;position:relative;background:var(--panel);border:1px solid var(--line);padding:1rem .9rem 1rem 1.1rem;margin-right:26px;min-width:0}
+.flow>li:last-child{margin-right:0}
+.flow>li::after{content:"";position:absolute;right:-27px;top:50%;width:26px;height:2px;background:var(--cyan)}
+.flow>li::before{content:"";position:absolute;right:-27px;top:calc(50% - 5px);border-left:8px solid var(--cyan);border-top:6px solid transparent;border-bottom:6px solid transparent;transform:translateX(0);z-index:1}
+.flow>li:last-child::after,.flow>li:last-child::before{display:none}
+.flow h4{margin-bottom:.35rem}
+.flow p{font-size:.92rem;color:var(--mute);margin:0}
+.flow .hl{border-color:var(--cyan);background:#EAF4EC}
+.flow .fork{border-color:var(--orange)}
+.forkrow{display:flex;gap:.5rem;margin-top:.7rem;flex-wrap:wrap}
+.forkrow span{border:1px solid var(--orange);color:#9C4D3E;font-size:.85rem;padding:.25rem .5rem;border-radius:2px}
+.gantt{margin-top:var(--s3);border:1px solid var(--line);background:var(--bg2);padding:var(--s2) var(--s3)}
+.gantt .row{display:grid;grid-template-columns:230px 1fr;gap:var(--s2);align-items:center;padding:.7rem 0;border-bottom:1px dashed var(--line)}
+.gantt .row:last-of-type{border-bottom:0}
+.gantt .lane{position:relative;height:30px;background:repeating-linear-gradient(90deg,transparent 0 calc(10% - 1px),var(--line) calc(10% - 1px) 10%)}
+.gantt .bar2{position:absolute;top:4px;bottom:4px;background:var(--cyan);color:var(--cyan-d);font-weight:700;font-size:.82rem;display:flex;align-items:center;justify-content:center;min-width:12px;white-space:nowrap}
+.gantt .bar2.pt{background:var(--orange);width:12px;transform:translateX(-6px);clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%)}
+.gantt .axis{display:grid;grid-template-columns:230px 1fr;gap:var(--s2);color:var(--mute);font-size:.82rem}
+.gantt .axis div:last-child{display:flex;justify-content:space-between}
+.gantt .nm b{display:block}
+.gantt .nm span{color:var(--mute);font-size:.88rem}
+
+/* map */
+.mapbox{background:var(--bg2);border:1px solid var(--line)}
+.tabs{display:flex;flex-wrap:wrap;border-bottom:1px solid var(--line)}
+.tabs button{background:transparent;border:0;border-right:1px solid var(--line);color:var(--mute);font:600 .95rem var(--body);padding:.85rem 1.1rem;cursor:pointer}
+.tabs button[aria-selected=true]{background:var(--panel2);color:#fff;box-shadow:inset 0 -3px 0 var(--cyan)}
+.tabs button:hover{color:#fff}
+.mapgrid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:0}
+.mapgrid>div{padding:var(--s3)}
+.mapgrid>div:first-child{border-right:1px solid var(--line)}
+.mapsvg{width:100%;height:auto;display:block;background:#0a0e13}
+.legend{list-style:none;margin:0 0 var(--s2);padding:0;display:grid;gap:.45rem}
+.legend li{display:flex;align-items:center;gap:.6rem;font-size:.95rem}
+.legend svg{width:22px;height:22px;flex:none}
+.legend .n{margin-left:auto;font-family:var(--mono);color:var(--mute)}
+.zones{display:none}
+.showz .zones{display:inline}
+.zl{stroke:none;fill:#ffe6d9;font:600 13px var(--body)}
+.toggle{display:flex;gap:.6rem;align-items:center;font-size:.95rem;margin:var(--s2) 0;cursor:pointer}
+.toggle input{width:18px;height:18px;accent-color:var(--cyan)}
+.split>.note{align-self:start}
+.note{border-left:3px solid var(--amber);background:#FBF1DB;padding:.8rem 1rem;font-size:.95rem;margin:var(--s2) 0;max-width:68ch}
+.note.info{border-color:var(--cyan);background:#E8F3EB}
+.note p{margin:0}
+
+/* tier bars */
+.tiers{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:var(--s3)}
+.tier h4{margin-bottom:.7rem}
+.tier .b{display:grid;grid-template-columns:68px 1fr 42px;gap:.5rem;align-items:center;margin:.28rem 0;font-size:.86rem}
+.tier .b i{display:block;height:11px;background:var(--cyan)}
+.tier .b.base i{background:var(--line2)}
+.tier .b.noob i{background:var(--lime)}
+.tier .b span:last-child{font-family:var(--mono);text-align:right}
+.tier .track{background:var(--bg2);height:11px}
+.stack{display:grid;gap:var(--s2)}
+.sysmap{display:grid;grid-template-columns:1fr 36px 1fr 36px 1fr 36px 1fr;align-items:stretch;gap:0}
+.sysmap .arr{display:flex;align-items:center;justify-content:center;color:var(--cyan);font-size:1.5rem}
+.sysmap .nd{background:var(--panel);border:1px solid var(--line);padding:1rem}
+.sysmap .nd h4{margin-bottom:.5rem}
+.sysmap .nd ul{margin:0;padding-left:1.1rem;font-size:.92rem;color:var(--mute)}
+.sysmap .nd.key{border-color:var(--orange)}
+
+/* loop */
+.loop{display:flex;flex-wrap:wrap;gap:var(--s1);list-style:none;padding:0;margin:0;counter-reset:l}
+.loop li{flex:1 1 170px;background:var(--panel);border:1px solid var(--line);padding:1rem;position:relative;counter-increment:l}
+.loop li::before{content:counter(l);font-family:var(--disp);font-style:italic;font-weight:800;font-size:2.4rem;color:var(--cyan);line-height:1;display:block;margin-bottom:.3rem}
+.loop li p{font-size:.92rem;color:var(--mute);margin:0}
+.loopback{margin-top:var(--s1);border:1px dashed var(--cyan);padding:.6rem 1rem;color:var(--cyan);text-align:center;font-weight:600}
+.lanes{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3)}
+.lane-card{border:1px solid var(--line);background:var(--panel);padding:var(--s3)}
+.lane-card.a{border-top:4px solid var(--orange)}
+.lane-card.b{border-top:4px solid var(--lime)}
+.lane-card h3{margin-bottom:.4rem}
+.lane-card h4{margin:1rem 0 .35rem;color:var(--mute);font-family:var(--body);font-size:.95rem;font-weight:600}
+
+/* decision */
+.dec{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.dec>div{background:var(--panel);padding:1rem}
+.dec h4{margin-bottom:.4rem;color:var(--cyan)}
+.dec p{font-size:.95rem;margin:0;color:#d3dbe4}
+.tree{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;align-items:stretch}
+.tree>div{border:1px solid var(--line);padding:1rem;background:var(--panel);margin-right:24px;position:relative}
+.tree>div:last-child{margin-right:0}
+.tree>div:not(:last-child)::after{content:"›";position:absolute;right:-22px;top:50%;transform:translateY(-50%);color:var(--cyan);font-size:1.8rem;line-height:1}
+.tree h4{margin-bottom:.35rem}
+.tree ul{margin:0;padding-left:1.1rem;font-size:.92rem;color:var(--mute)}
+.tree .out{border-color:var(--orange)}
+.risk{width:100%;border-collapse:collapse;margin-top:var(--s2)}
+.risk th{text-align:left;color:var(--mute);font-weight:600;font-size:.92rem;padding:.6rem .8rem;border-bottom:1px solid var(--line2)}
+.risk td{padding:.85rem .8rem;border-bottom:1px solid var(--line);vertical-align:top;font-size:.97rem}
+.risk td:first-child{font-weight:700;width:24%}
+
+/* sound & vfx */
+.sv{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:var(--s2)}
+.sv>div{border-top:2px solid var(--line2);padding-top:.7rem}
+.sv h4{margin-bottom:.2rem}
+.sv small{color:var(--mute)}
+.sv ul{margin:.5rem 0 0;padding:0;list-style:none;font-size:.9rem;color:#cfd8e2}
+.sv.audio>div{border-top-color:var(--cyan)}
+.sv.fx>div{border-top-color:var(--orange)}
+.demo{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:var(--s3)}
+.demo>div{border-left:2px solid var(--cyan);padding-left:var(--s2)}
+.demo h3{margin-bottom:.4rem}
+
+/* GDD */
+.gdd-start{background:linear-gradient(180deg,#0f171f,var(--bg));border-top:6px solid var(--cyan);padding:var(--s5) 0 var(--s4)}
+.gdd-start h2{font-size:clamp(2.6rem,7vw,5.5rem)}
+.gdd-body{min-width:0}
+.gdd{display:grid;grid-template-columns:230px minmax(0,1fr);gap:var(--s4);align-items:start}
+.toc{position:sticky;top:76px;max-height:calc(100vh - 92px);overflow:auto;padding:.5rem 0;font-size:.93rem}
+.toc ol{list-style:none;margin:0;padding:0;border-left:1px solid var(--line)}
+.toc a{display:block;color:var(--mute);text-decoration:none;padding:.32rem .8rem;border-left:3px solid transparent;margin-left:-1px}
+.toc a:hover{color:#fff}
+.toc a.on{color:#fff;border-left-color:var(--cyan);background:var(--panel)}
+.toc .grp{font-weight:600;color:var(--text);padding:.9rem .8rem .2rem}
+.chap{padding:var(--s5) 0 var(--s4);border-top:1px solid var(--line)}
+.chap:first-child{border-top:0;padding-top:0}
+.chap>h3{font-size:clamp(1.8rem,3.4vw,2.6rem);font-style:italic;text-transform:uppercase;margin-bottom:var(--s2)}
+.chap h4{margin:var(--s3) 0 .5rem}
+.chap>.intro{font-size:1.1rem;color:var(--mute)}
+.tbl{width:100%;border-collapse:collapse;font-size:.95rem}
+.tbl th{text-align:left;font-weight:600;color:var(--mute);padding:.6rem .7rem;border-bottom:1px solid var(--line2);vertical-align:bottom;background:var(--bg)}
+.tbl td{padding:.7rem;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl code,.mono{font-family:var(--mono)}
+.scroll{overflow:auto;border:1px solid var(--line);background:var(--bg2);max-width:100%}
+.scroll .tbl th{position:sticky;top:0;z-index:2}
+.dt{max-height:640px}
+.dt .tbl th:first-child,.dt .tbl td:first-child{position:sticky;left:0;background:var(--bg2);z-index:1}
+.dt .tbl th:first-child{z-index:3;background:var(--bg)}
+.dt td:not(:first-child),.dt th:not(:first-child){text-align:right;font-family:var(--mono);white-space:nowrap}
+.dt td:nth-child(2),.dt th:nth-child(2){text-align:left;font-family:var(--body);color:var(--mute);white-space:normal;min-width:150px;max-width:210px;font-size:.88rem}
+.dt td,.dt th{padding:.55rem .6rem}
+.dt td.d{font-weight:700;color:#fff;background:#E2F2E9;box-shadow:inset 0 -2px 0 var(--cyan)}
+.dt tr.s td{background:var(--panel2);color:var(--cyan);font-family:var(--body);font-weight:700;text-align:left;position:static}
+.ctl{display:flex;flex-wrap:wrap;gap:var(--s2);align-items:center;margin:var(--s2) 0}
+.ctl input[type=search],.ctl select,.calc input{background:var(--panel);color:var(--text);border:1px solid var(--line2);padding:.6rem .8rem;font:inherit;border-radius:2px;min-width:0}
+.ctl input[type=search]{flex:1 1 220px}
+details.acc{border:1px solid var(--line);background:var(--panel);margin:.6rem 0}
+details.acc>summary{cursor:pointer;padding:.9rem 1.1rem;font-weight:600;list-style:none;display:flex;gap:.7rem;align-items:center}
+details.acc>summary::-webkit-details-marker{display:none}
+details.acc>summary::before{content:"+";font-family:var(--mono);color:var(--cyan);width:1rem;text-align:center;font-size:1.3rem;line-height:1}
+details.acc[open]>summary::before{content:"–"}
+details.acc>summary .r{margin-left:auto;color:var(--mute);font-weight:400;font-size:.9rem}
+details.acc>div{padding:0 1.1rem 1.1rem}
+.formula{font-family:var(--mono);background:var(--panel);border:1px solid var(--cyan);padding:1.1rem 1.2rem;font-size:clamp(.9rem,2.2vw,1.2rem);overflow-x:auto;white-space:nowrap}
+.calc{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:var(--s2);align-items:end;margin:var(--s2) 0}
+.calc label{display:grid;gap:.3rem;font-size:.9rem;color:var(--mute)}
+.calc output{display:block;font-family:var(--disp);font-size:2.2rem;font-style:italic;line-height:1}
+.calc .res{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:var(--s3);align-items:baseline;padding:1rem;background:var(--bg2);border:1px solid var(--line)}
+.sources li{margin-bottom:.4rem}
+.ph{border:1px dashed var(--amber);padding:.1rem .45rem;color:var(--amber);font-size:.92em;white-space:nowrap} #death-race-case-study .case-study-footer { border-top: 1px solid var(--line); padding: var(--s4) 0; color: var(--mute); font-size: 0.95rem; }
+.sw{display:flex;gap:.6rem;flex-wrap:wrap;margin:.8rem 0}
+.sw i{width:64px;height:64px;border:1px dashed var(--amber);display:grid;place-items:center;color:var(--amber);font-style:normal;font-size:.8rem}
+
+@media(max-width:1000px){
+  .gdd{grid-template-columns:minmax(0,1fr)}
+  .toc{position:static;max-height:none;border:1px solid var(--line);padding:.5rem}
+  .toc ol{display:grid;grid-template-columns:1fr 1fr;border-left:0}
+  .toc .grp{grid-column:1/-1}
+  .hero-grid,.split,.split.wide-l,.split.wide-r,.mapgrid,.lanes{grid-template-columns:1fr}
+  .mapgrid>div:first-child{border-right:0;border-bottom:1px solid var(--line)}
+  .pressures{grid-template-columns:1fr}
+  .pressures>div{border-right:0;border-bottom:1px solid var(--line);padding-left:0}
+  .flow{flex-direction:column}
+  .flow>li{margin:0 0 26px}
+  .flow>li::after{right:auto;left:50%;top:100%;width:2px;height:26px}
+  .flow>li::before{right:auto;left:calc(50% - 6px);top:calc(100% + 16px);border-left:6px solid transparent;border-right:6px solid transparent;border-top:8px solid var(--cyan);border-bottom:0}
+  .sysmap{grid-template-columns:1fr}
+  .sysmap .arr{transform:rotate(90deg);height:34px}
+  .tree{grid-template-columns:1fr}
+  .tree>div{margin:0 0 24px}
+  .tree>div:not(:last-child)::after{content:"›";right:auto;left:50%;top:auto;bottom:-30px;transform:rotate(90deg)}
+  .own,.own tbody,.own tr,.own td{display:block;width:auto!important}
+  .own thead{display:none}
+  .own tr{border-bottom:1px solid var(--line);padding:1rem 0}
+  .own td{border:0;padding:.25rem 0}
+}
+@media(max-width:600px){
+  .facts{grid-template-columns:1fr}
+  #death-race-case-study { font-size: 1rem; }
+  .gantt .row,.gantt .axis{grid-template-columns:1fr;gap:.4rem}
+  .gantt .axis div:first-child{display:none}
+  .toc ol{grid-template-columns:1fr}
+  .bar .wrap{gap:.6rem}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .hero-track path{animation:none;stroke-dashoffset:0}
+}
+@media print{
+  :root{--bg:#fff;--bg2:#fff;--panel:#fff;--panel2:#f1f3f5;--line:#c8ced6;--line2:#9aa3ad;--text:#111;--mute:#444;--cyan:#006b82;--orange:#b33c00;--lime:#3d5a00;--amber:#7a5b00;--cyan-d:#fff}
+  #death-race-case-study { background: #fff !important; color: #111 !important; font-size: 10.5pt !important; }
+  .bar,.toc,.hero-track,.btn,.ctl,.skip,.lap{display:none!important}
+  .hero,.gdd-start{background:#fff}
+  .gdd{display:block}
+  .video{display:none}
+  .sec,.chap{padding:1.2rem 0;break-inside:auto} #death-race-case-study h2, #death-race-case-study h3, #death-race-case-study h4 { break-after: avoid; }
+  .panel,.flow>li,details,.tree>div,.lane-card,.mapbox,.scroll{break-inside:avoid}
+  .scroll{overflow:visible;max-height:none}
+  .mapsvg{background:#f3f5f7} #death-race-case-study a { color: #111; }
+  .tabs{display:none}
+  .mapbox [role=tabpanel][hidden]{display:block!important}
+}
+
+
+/* Death Race identity and wide gameplay showcase */
+.hero{padding-bottom:clamp(3.5rem,6vw,5.5rem)}
+.hero-grid{grid-template-columns:minmax(0,1fr);gap:0;align-items:start}
+.hero-grid>div:first-child{max-width:1080px}
+.hero-grid>div:nth-child(2){margin-top:clamp(2rem,4vw,3.25rem);min-width:0}
+.hero h1{font-size:clamp(3.8rem,10.5vw,8.6rem);line-height:.94;letter-spacing:-.085em;max-width:100%;overflow-wrap:anywhere}
+.hero h1 span{color:var(--orange)}
+.gameplay-feature{width:100%;max-width:1410px;margin-inline:auto}
+.gameplay-header{display:flex;align-items:end;justify-content:space-between;gap:1.5rem;margin-bottom:1rem}
+.gameplay-kicker{display:inline-block;color:#2E7E8E;font-size:.76rem;letter-spacing:.16em;font-weight:800;text-transform:uppercase;margin-bottom:.45rem}
+.gameplay-caption{margin:0;color:#5B706B;font-size:.97rem;line-height:1.55;max-width:60ch}
+.gameplay-link{display:inline-flex;align-items:center;gap:.5rem;flex:none;color:#216D7A;text-decoration:none;font-size:.9rem;font-weight:750;padding:.65rem .95rem;border:1px solid #BDD7CA;background:rgba(255,254,250,.8);border-radius:999px}
+.gameplay-link:hover{color:#103D35;background:#E5F1E9;border-color:#9CC9B4}
+.video{position:relative;width:100%;aspect-ratio:16/9;min-height:0;background:#0A1714;border:1px solid #B6C8BC;border-radius:22px;clip-path:none;overflow:hidden;box-shadow:0 28px 70px rgba(30,73,62,.16)}
+.video iframe{position:absolute;inset:0;display:block;width:100%;height:100%;border:0}
+.gameplay-foot{display:flex;justify-content:space-between;gap:1rem;margin-top:.85rem;color:#5B706B;font-size:.75rem;letter-spacing:.06em}
+.gameplay-foot span:first-child{font-weight:800;color:#2E7E8E;letter-spacing:.12em}
+.brand{font-size:1.02rem;font-family:var(--body);font-weight:800;letter-spacing:.035em}
+.brand b{color:#2E7E8E}
+@media(max-width:700px){
+  .hero h1{font-size:clamp(3.3rem,14vw,5.5rem)}
+  .gameplay-header{align-items:flex-start;flex-direction:column;gap:.85rem}
+  .gameplay-link{align-self:flex-start}
+  .video{border-radius:14px}
+  .gameplay-foot{flex-direction:column;gap:.2rem}
+}
+@media print{.gameplay-feature{display:none!important}}
+
+
+</style>
+<style id="tropical-editorial-redesign">
+
+/* Tropical editorial redesign — layered over the original document styles */
+:root{
+  --bg:#F4F1E6;
+  --bg2:#ECF2E9;
+  --panel:#FFFEFA;
+  --panel2:#E7F0E8;
+  --line:#D8E3D9;
+  --line2:#B9CEC1;
+  --text:#213D3A;
+  --mute:#5B706B;
+  --cyan:#2E7E8E;
+  --cyan-d:#F5FBF5;
+  --orange:#E8783B;
+  --lime:#E9BF3E;
+  --amber:#A9763A;
+  --violet:#798B74;
+  --s1:.5rem;--s2:1rem;--s3:1.5rem;--s4:2.5rem;--s5:4rem;--s6:6.25rem;
+  --disp:"Space Grotesk","Avenir Next",Avenir,system-ui,sans-serif;
+  --body:"DM Sans","Avenir Next",Avenir,system-ui,sans-serif;
+  --mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace;
+  --cut:16px;
+}
+html { scroll-behavior: smooth; scroll-padding-top: 105px; }
+#death-race-case-study { font-family: var(--body); font-size: 16px; line-height: 1.72; letter-spacing: -0.008em; } #death-race-case-study ::selection {background:#C7E5D7;color:#153B35} #death-race-case-study img, #death-race-case-study svg { max-width: 100%; } #death-race-case-study a { color: var(--cyan); text-decoration-thickness: 1.5px; text-underline-offset: 3px; } #death-race-case-study a:hover { color: #0E554D; } #death-race-case-study :focus-visible {outline:3px solid var(--orange);outline-offset:4px;border-radius:5px}
+.skip{background:var(--text);color:#fff;border-radius:0 0 8px 0} #death-race-case-study p { max-width: 66ch; line-height: 1.75; } #death-race-case-study h1, #death-race-case-study h2, #death-race-case-study h3, #death-race-case-study h4 { font-family: var(--disp); font-style: normal; letter-spacing: -0.045em; text-transform: none; font-weight: 650; color: var(--text); line-height: 1.12; } #death-race-case-study h2 { font-size: clamp(2rem, 4vw, 3.25rem); letter-spacing: -0.055em; font-style: normal; text-transform: none; } #death-race-case-study h3 { font-size: clamp(1.35rem, 2vw, 1.75rem); letter-spacing: -0.04em; } #death-race-case-study h4 { font-size: 1.08rem; letter-spacing: -0.025em; }
+.wrap{max-width:1220px;padding-left:clamp(20px,4vw,52px);padding-right:clamp(20px,4vw,52px)}
+.sec{padding:clamp(4.5rem,8vw,7.5rem) 0 clamp(3.5rem,6vw,5.5rem)}
+.sec+.sec{border-top:1px solid var(--line)}
+.sec-head{max-width:800px;margin-bottom:clamp(2rem,4vw,3.5rem)}
+.sec-head p{font-size:1.08rem;color:var(--mute);margin-top:1rem;line-height:1.75}
+.muted,small,.small{color:var(--mute)}
+.kicker{font-size:.79rem;text-transform:uppercase;letter-spacing:.13em;font-weight:700;color:var(--cyan)}
+
+/* Navigation: restrained, glassy and readable */
+.bar{background:rgba(246,247,240,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(184,205,191,.8);box-shadow:0 3px 20px rgba(24,61,55,.035)}
+.bar .wrap{height:66px;gap:1.3rem}
+.brand{font-family:var(--disp);font-size:1.25rem;font-style:normal;letter-spacing:-.06em;color:var(--text)}
+.brand b{color:var(--orange)}
+.bar nav{gap:.2rem;scrollbar-width:none}
+.bar nav a{color:var(--mute);border-radius:999px;padding:.48rem .78rem;font-size:.86rem;font-weight:550;transition:background .18s,color .18s}
+.bar nav a:hover,.bar nav a.on{color:var(--text);background:var(--panel2)}
+.bar nav a.part{color:var(--cyan);font-weight:700}
+.lap{height:3px;background:linear-gradient(90deg,var(--cyan),#87BDA2,var(--orange))}
+
+/* Evidence tags */
+.tag{font-size:.72rem;letter-spacing:.015em;border-radius:999px;padding:.38rem .68rem;gap:.45rem;background:rgba(255,255,255,.65);font-weight:700;border-width:1px}
+.tag::before{width:.48em;height:.48em}
+.t-conf{color:#2E7E8E;background:#E2F1E9;border-color:#C7E3D5}
+.t-recall{color:#526E3D;background:#EFF3DE;border-color:#DCE7BF}
+.t-prop{color:#A84D3D;background:#FBE9E3;border-color:#F4CFC4}
+.t-val{color:#936321;background:#FBF0D5;border-color:#EEDAA3}
+
+/* Hero: airy tropical palette, restrained linework */
+.hero{padding:clamp(4.5rem,8vw,7.5rem) 0 3.5rem;overflow:hidden;background:radial-gradient(ellipse at 90% 4%,rgba(199,228,211,.75) 0,rgba(199,228,211,0) 43%),radial-gradient(ellipse at 2% 92%,rgba(242,213,190,.46) 0,rgba(242,213,190,0) 38%),var(--bg)}
+.hero-track{opacity:.19}
+.hero-track path{stroke:#5D9F8C;stroke-width:1.5}
+.hero-grid{gap:clamp(2.2rem,5vw,5rem);align-items:center}
+.hero h1{font-family:var(--disp);font-size:clamp(4rem,9vw,7.5rem);line-height:.91;letter-spacing:-.085em;font-style:normal;font-weight:700;margin:0 0 1.5rem;color:var(--text)}
+.hero h1 span{color:var(--orange)}
+.role{background:#DDEDE3;color:#216D7A;border:1px solid #C5E0D1;border-radius:999px;clip-path:none;padding:.5rem .9rem;margin-bottom:1.35rem;font-size:.82rem;letter-spacing:.04em;font-weight:750}
+.lede{font-size:clamp(1.12rem,1.8vw,1.35rem);line-height:1.62;color:#355850;max-width:39ch;letter-spacing:-.025em}
+.chips{gap:.55rem;margin-top:1.7rem}
+.chips li{background:rgba(255,254,250,.8);color:#355850;border:1px solid var(--line);border-radius:999px;padding:.45rem .8rem;font-size:.83rem;font-weight:600}
+.video{background:#153C37;border:1px solid #B6C8BC;border-radius:20px;clip-path:none;overflow:hidden;box-shadow:0 24px 60px rgba(30,73,62,.13)}
+.video-face{background:radial-gradient(ellipse at 50% 20%,#28584e 0,transparent 60%),repeating-linear-gradient(135deg,#193D37 0 20px,#173832 20px 40px);color:#F4F1E6}
+.video-face small{color:#D3E5D8}
+.btn{border-radius:999px;clip-path:none;background:var(--cyan);color:#fff;padding:.82rem 1.25rem;min-height:46px;font-size:.92rem;font-weight:700;box-shadow:0 5px 14px rgba(24,125,112,.15);transition:transform .18s,background .18s,box-shadow .18s}
+.btn:hover{background:#12685D;color:#fff;transform:translateY(-1px);box-shadow:0 8px 20px rgba(24,125,112,.2)}
+.btn.ghost{background:rgba(255,255,255,.08);color:#F4F1E6;box-shadow:inset 0 0 0 1px rgba(230,244,235,.55);border-radius:999px}
+.btn.ghost:hover{background:rgba(255,255,255,.15);color:#fff}
+.evid{margin-top:2.6rem;border:1px solid var(--line);border-radius:16px;background:rgba(255,254,250,.84);padding:1.1rem 1.25rem;gap:.8rem 1.25rem;box-shadow:0 8px 25px rgba(24,61,55,.035);font-size:.87rem;color:var(--mute)}
+.evid strong{color:var(--text)}
+
+/* Content surfaces and layout */
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:clamp(1.25rem,2vw,1.8rem);box-shadow:0 9px 28px rgba(25,62,53,.045)}
+.cut,.panel.cut{clip-path:none;border-radius:18px}
+.split{gap:clamp(1.5rem,3.5vw,3.25rem)}
+.rule{border-top-color:var(--line);margin:2.75rem 0}
+ul.clean{margin-top:1rem}
+ul.clean li{padding-left:1.15rem;margin-bottom:.8rem;line-height:1.65}
+ul.clean li::before{background:var(--orange);width:.42rem;height:.42rem;top:.65em;border-radius:50%}
+.facts{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--line);gap:1px}
+.facts div{background:var(--panel);padding:1.2rem}
+.facts b{font-family:var(--disp);font-style:normal;letter-spacing:-.07em;font-size:2.5rem;color:var(--cyan);line-height:1.05;margin-bottom:.4rem}
+.facts span{font-size:.84rem;line-height:1.5;display:block}
+
+/* Three challenge pillars */
+.pressures{border:0;border-top:0;gap:1rem;grid-template-columns:repeat(3,minmax(0,1fr))}
+.pressures>div,.pressures>div:first-child{background:var(--panel);border:1px solid var(--line);border-top:3px solid #86BDA2;border-radius:16px;padding:1.45rem 1.4rem 1.55rem;box-shadow:0 7px 24px rgba(25,62,53,.035)}
+.pressures>div:nth-child(2){border-top-color:var(--orange)}
+.pressures>div:nth-child(3){border-top-color:var(--lime)}
+.pressures h3{font-size:1.4rem;margin-bottom:.7rem}
+.pressures p{font-size:.95rem;color:var(--mute);margin:0}
+.pull{border-left:3px solid var(--orange);background:linear-gradient(90deg,#F7E9DF 0,rgba(247,233,223,0) 100%);padding:1.25rem 1.5rem;margin-top:3rem;border-radius:0 14px 14px 0;font-family:var(--disp);font-style:normal;font-weight:600;font-size:clamp(1.5rem,3vw,2.25rem);line-height:1.2;color:var(--text);max-width:27em}
+.pull small{font-family:var(--body);font-size:.82rem;font-weight:400;line-height:1.55}
+
+/* Ownership table */
+.own{border-collapse:separate;border-spacing:0;width:100%;background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden;font-size:.94rem}
+.own th{background:#E8F0E8;color:#4F6A61;font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;padding:.95rem 1rem;border-bottom:1px solid var(--line);font-weight:750}
+.own td{padding:1.05rem 1rem;border-bottom:1px solid var(--line);line-height:1.6}
+.own tbody tr:last-child td{border-bottom:0}
+.own tbody tr:hover td{background:#F8FBF6}
+.own td:first-child{font-family:var(--disp);font-size:1.05rem;letter-spacing:-.03em;font-weight:700;width:19%;color:var(--text)}
+.own td:nth-child(3){color:var(--mute);width:30%}
+.own td:last-child{width:14%}
+.verb{color:#2E7E8E;font-weight:750}
+
+/* Flows and instructional timelines */
+.flow{gap:.85rem;align-items:stretch}
+.flow>li{margin-right:16px;background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:1.2rem 1.1rem;box-shadow:0 6px 20px rgba(25,62,53,.035)}
+.flow>li:last-child{margin-right:0}
+.flow>li::after{right:-17px;width:16px;background:#8EBCAB;height:1.5px}
+.flow>li::before{right:-17px;border-left-color:#8EBCAB}
+.flow h4{font-size:1.06rem;letter-spacing:-.03em;margin-bottom:.5rem}
+.flow p{font-size:.86rem;line-height:1.6;color:var(--mute)}
+.flow .hl{border-color:#A5D0BB;background:#EAF4EC;box-shadow:inset 0 0 0 1px rgba(24,125,112,.04)}
+.flow .fork{border-color:#EFC2B5;background:#FCF0EB}
+.forkrow span{border:1px solid #E8B2A4;color:#9C4D3E;background:#FFF8F4;border-radius:999px;font-size:.78rem;padding:.35rem .65rem}
+.gantt{margin-top:2rem;border:1px solid var(--line);border-radius:16px;background:var(--panel);padding:1.2rem 1.4rem}
+.gantt .row{grid-template-columns:220px 1fr;gap:1.1rem;padding:.9rem 0;border-bottom:1px solid #E8EEE6}
+.gantt .lane{height:32px;border-radius:7px;overflow:visible;background:repeating-linear-gradient(90deg,transparent 0 calc(10% - 1px),#DDE7DD calc(10% - 1px) 10%)}
+.gantt .bar2{background:#2E7E8E;color:#fff;border-radius:5px;font-size:.76rem;font-weight:700;padding:0 .35rem;overflow:hidden}
+.gantt .bar2.pt{background:var(--orange);border-radius:50%;clip-path:none}
+.gantt .axis{grid-template-columns:220px 1fr;font-size:.75rem}
+.gantt .nm b{font-size:.9rem;font-weight:700}
+.gantt .nm span{font-size:.8rem}
+
+/* Redrawn map UI, retain rich diagrams as deep-green technical plates */
+.mapbox{background:var(--panel);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 10px 30px rgba(25,62,53,.04)}
+.tabs{background:#EAF1E9;border-bottom:1px solid var(--line);gap:.25rem;padding:.45rem .5rem}
+.tabs button{border:0;border-radius:999px;color:var(--mute);font-size:.84rem;padding:.7rem 1rem;transition:background .18s,color .18s;}
+.tabs button[aria-selected=true]{background:#2E7E8E;color:#fff;box-shadow:none}
+.tabs button:hover{color:var(--text);background:#D9E9DD}
+.tabs button[aria-selected=true]:hover{color:#fff;background:#12685D}
+.mapgrid{grid-template-columns:minmax(0,1.2fr) minmax(0,.9fr)}
+.mapgrid>div{padding:clamp(1rem,2.5vw,1.7rem)}
+.mapsvg{background:#213D3A;border-radius:14px;padding:.5rem}
+.legend li{font-size:.9rem;color:var(--text)}
+.legend .n{color:var(--mute)}
+.toggle{color:var(--text)}
+.toggle input{accent-color:var(--cyan)}
+.note{border-left:3px solid var(--amber);background:#FBF1DB;border-radius:0 12px 12px 0;padding:1rem 1.1rem;color:#704E22}
+.note.info{border-color:var(--cyan);background:#E8F3EB;color:#2D5E52}
+.note p{line-height:1.65}
+
+/* Systems and AI design */
+.tiers{gap:1rem}
+.tier{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:1.25rem}
+.tier .b{font-size:.8rem;margin:.45rem 0}
+.tier .b i{border-radius:99px;background:var(--cyan)}
+.tier .b.base i{background:#B8C9BE}
+.tier .b.noob i{background:#E9BF3E}
+.tier .track{background:#E9F0E8;border-radius:99px;overflow:hidden}
+.sysmap{grid-template-columns:minmax(0,1fr) 28px minmax(0,1fr) 28px minmax(0,1fr) 28px minmax(0,1fr);gap:0}
+.sysmap .arr{color:var(--cyan);font-size:1.35rem}
+.sysmap .nd{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:1rem;box-shadow:0 4px 16px rgba(25,62,53,.03)}
+.sysmap .nd h4{font-size:1rem;margin-bottom:.45rem}
+.sysmap .nd ul{font-size:.84rem;line-height:1.6;color:var(--mute)}
+.sysmap .nd.key{border-color:#E7B4A5;background:#FBF0EB}
+
+/* Playtest loop and audience cards */
+.loop{gap:.75rem}
+.loop li{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:1.1rem;box-shadow:0 5px 18px rgba(25,62,53,.03)}
+.loop li::before{font-family:var(--disp);font-size:2.1rem;font-style:normal;color:var(--cyan);letter-spacing:-.08em;margin-bottom:.6rem}
+.loop li h4{font-size:1.04rem}
+.loop li p{font-size:.88rem;line-height:1.6}
+.loopback{border:1px dashed #92BCA9;color:#2E7E8E;background:#EBF4EC;border-radius:999px;padding:.7rem 1rem;font-size:.88rem}
+.lanes{gap:1rem}
+.lane-card{background:var(--panel);border:1px solid var(--line);border-top:4px solid #E8783B!important;border-radius:16px;padding:1.4rem;box-shadow:0 7px 22px rgba(25,62,53,.04)}
+.lane-card.b{border-top-color:#B4C96A!important}
+.lane-card h3{font-size:1.35rem;margin-bottom:.55rem}
+.lane-card h4{color:var(--cyan);font-family:var(--body);font-size:.83rem;font-weight:750;letter-spacing:.03em;margin:1rem 0 .35rem}
+
+/* Decision stages and risk table */
+.dec{background:var(--line);border:1px solid var(--line);border-radius:16px;overflow:hidden;gap:1px}
+.dec>div{background:var(--panel);padding:1.2rem}
+.dec h4{color:var(--cyan);font-size:1rem}
+.dec p{font-size:.9rem;line-height:1.65;color:var(--mute)}
+.tree{gap:.75rem}
+.tree>div{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:1.15rem;margin-right:14px;box-shadow:0 5px 18px rgba(25,62,53,.035)}
+.tree>div:last-child{margin-right:0}
+.tree>div:not(:last-child)::after{right:-14px;color:#8EBCAB;font-size:1.5rem}
+.tree h4{font-size:1.03rem;margin-bottom:.5rem}
+.tree ul{font-size:.86rem;line-height:1.65}
+.tree .out{border-color:#E6B7A7;background:#FCF0EB}
+.risk{border-collapse:separate;border-spacing:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--panel)}
+.risk th{background:#E8F0E8;color:#4F6A61;font-size:.77rem;text-transform:uppercase;letter-spacing:.07em;padding:.85rem}
+.risk td{padding:.9rem;border-bottom:1px solid var(--line);font-size:.9rem;line-height:1.6}
+.risk tr:last-child td{border-bottom:0}
+.risk td:first-child{color:var(--text)}
+
+/* Audio and VFX summaries */
+.sv{gap:1.2rem}
+.sv>div{background:var(--panel);border:1px solid var(--line);border-top:3px solid #2E7E8E;padding:1rem 1.1rem;border-radius:12px}
+.sv.fx>div{border-top-color:var(--orange)}
+.sv h4{font-size:1rem;margin-bottom:.35rem}
+.sv small{font-size:.8rem}
+.sv ul{color:var(--mute);line-height:1.65}
+.demo{gap:1.5rem}
+.demo>div{border-left:3px solid #86BDA2;padding-left:1rem}
+.demo h3{font-size:1.25rem}
+
+/* GDD: distinct deep-green chapter divider, pale working surface */
+.gdd-start{background:#213D3A;border-top:5px solid #E8783B;padding:clamp(4.5rem,8vw,6.75rem) 0 3.5rem;color:#F4F1E6}
+.gdd-start h2{color:#F4F1E6;font-size:clamp(2.5rem,6vw,4.8rem);line-height:1.05;letter-spacing:-.07em;font-style:normal}
+.gdd-start .kicker{color:#AAD9BF}
+.gdd-start p{color:#D0E3D7}
+.gdd{grid-template-columns:220px minmax(0,1fr);gap:clamp(2rem,4vw,3.75rem);padding-top:3rem}
+.toc{top:88px;max-height:calc(100vh - 108px);font-size:.84rem;padding:.25rem 0}
+.toc ol{border-left:1px solid var(--line)}
+.toc a{color:var(--mute);padding:.42rem .8rem;border-left-width:3px;transition:color .15s,background .15s}
+.toc a:hover{color:var(--text);background:#EAF1E9}
+.toc a.on{color:#145F55;border-left-color:var(--cyan);background:#E2F0E6;font-weight:700}
+.toc .grp{color:var(--text);font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;padding:.95rem .8rem .25rem}
+.chap{padding:clamp(3rem,6vw,5rem) 0 2.4rem;border-top:1px solid var(--line)}
+.chap:first-child{padding-top:0}
+.chap>h3{font-size:clamp(1.7rem,3vw,2.45rem);line-height:1.12;letter-spacing:-.06em;font-style:normal;text-transform:none;margin-bottom:1.15rem}
+.chap h4{margin:1.8rem 0 .65rem;font-size:1.1rem}
+.chap>.intro{font-size:1.03rem;line-height:1.75;color:var(--mute);margin-bottom:1.75rem;max-width:70ch}
+.tbl{font-size:.9rem}
+.tbl th{background:#E7EFE6;color:#536E64;padding:.78rem .85rem;font-size:.76rem;text-transform:uppercase;letter-spacing:.065em;border-bottom:1px solid var(--line2)}
+.tbl td{padding:.8rem .85rem;border-bottom:1px solid var(--line);line-height:1.6}
+.scroll{overflow:auto;border:1px solid var(--line);border-radius:14px;background:var(--panel);box-shadow:0 5px 20px rgba(25,62,53,.025)}
+.scroll .tbl th{background:#E7EFE6}
+.dt{max-height:640px}
+.dt .tbl th:first-child,.dt .tbl td:first-child{background:var(--panel)}
+.dt .tbl th:first-child{background:#E7EFE6}
+.dt td:not(:first-child),.dt th:not(:first-child){font-variant-numeric:tabular-nums}
+.dt td:nth-child(2),.dt th:nth-child(2){color:var(--mute)}
+.dt td.d{font-weight:750;color:#155E54;background:#E2F2E9;box-shadow:inset 0 -2px 0 #73B79C}
+.dt tr.s td{background:#DCECE0;color:#1D6357;border-bottom:1px solid #C3DDCC}
+.ctl{gap:.75rem;margin:1rem 0 1.2rem}
+.ctl input[type=search],.ctl select,.calc input{background:var(--panel);color:var(--text);border:1px solid var(--line2);border-radius:9px;padding:.7rem .85rem;font-size:.9rem}
+.ctl input[type=search]:focus,.ctl select:focus,.calc input:focus{outline:3px solid #C3E4D4;outline-offset:1px;border-color:#76B59D}
+details.acc{background:var(--panel);border:1px solid var(--line);border-radius:13px;overflow:hidden;margin:.7rem 0;box-shadow:0 3px 12px rgba(25,62,53,.02)}
+details.acc>summary{padding:1rem 1.1rem;font-size:.94rem;gap:.8rem;color:var(--text)}
+details.acc>summary::before{color:var(--cyan);font-size:1.2rem}
+details.acc>summary:hover{background:#F1F6EF}
+details.acc>summary .r{color:var(--mute);font-size:.8rem}
+details.acc>div{padding:0 1.15rem 1.25rem}
+.formula{font-size:clamp(.84rem,1.6vw,1.02rem);background:#EAF3EB;color:#165D53;border:1px solid #AAD3BC;border-radius:12px;padding:1.1rem;white-space:normal;overflow-wrap:anywhere;line-height:1.7}
+.calc{gap:1rem}
+.calc label{color:var(--mute);font-size:.84rem;font-weight:600}
+.calc output{font-family:var(--disp);font-size:2.5rem;font-style:normal;letter-spacing:-.07em;color:var(--cyan)}
+.calc .res{background:#EAF3EB;border:1px solid #C8E1D0;border-radius:13px;padding:1.2rem;gap:1.5rem}
+.sources li{margin-bottom:.65rem;line-height:1.6}
+.ph{border:1px dashed #D5AA63;border-radius:5px;padding:.12rem .45rem;color:#865E24;background:#FBF2DF;white-space:normal}
+.sw i{width:64px;height:64px;border:1px solid rgba(24,61,55,.1);border-radius:12px;box-shadow:0 3px 8px rgba(24,61,55,.05);color:var(--text)} #death-race-case-study .case-study-footer { background: #213D3A; color: #C9DED2; border-top: 0; padding: 2.5rem 0; font-size: 0.87rem; } #death-race-case-study .case-study-footer p { margin: 0; color: #C9DED2; }
+
+/* Small screen layout */
+@media(max-width:1000px){
+  .bar nav a{padding:.45rem .65rem}
+  .gdd{grid-template-columns:minmax(0,1fr);gap:1.6rem}
+  .toc{position:static;max-height:none;border:1px solid var(--line);border-radius:14px;padding:.65rem;background:var(--panel)}
+  .toc ol{grid-template-columns:1fr 1fr;border-left:0;gap:0 .4rem}
+  .toc .grp{grid-column:1/-1;padding-top:.85rem}
+  .hero-grid,.split,.split.wide-l,.split.wide-r,.mapgrid,.lanes{grid-template-columns:1fr}
+  .mapgrid>div:first-child{border-right:0;border-bottom:1px solid var(--line)}
+  .pressures{grid-template-columns:1fr}
+  .flow{flex-direction:column;gap:.4rem}
+  .flow>li{margin:0 0 16px}
+  .flow>li::after{right:auto;left:50%;top:100%;width:1.5px;height:16px}
+  .flow>li::before{right:auto;left:calc(50% - 5px);top:calc(100% + 8px);border-left:5px solid transparent;border-right:5px solid transparent;border-top:7px solid #8EBCAB;border-bottom:0}
+  .sysmap{grid-template-columns:1fr}
+  .sysmap .arr{transform:rotate(90deg);height:28px}
+  .tree{grid-template-columns:1fr}
+  .tree>div{margin:0 0 14px}
+  .tree>div:not(:last-child)::after{content:"↓";right:auto;left:50%;top:auto;bottom:-21px;transform:translateX(-50%);font-size:1rem}
+  .own,.own tbody,.own tr,.own td{display:block;width:auto!important}
+  .own thead{display:none}
+  .own tr{border-bottom:1px solid var(--line);padding:1rem}
+  .own tr:last-child{border-bottom:0}
+  .own td{border:0;padding:.28rem .25rem}
+  .own td:first-child{font-size:1.08rem;margin-bottom:.25rem}
+  .own td:nth-child(3){width:auto}
+  .own td:last-child{width:auto;margin-top:.35rem}
+}
+@media(max-width:600px){
+  #death-race-case-study { font-size: 15.5px; }
+  .sec{padding:4.25rem 0 3.25rem}
+  .hero{padding-top:4.25rem}
+  .hero h1{font-size:clamp(3.8rem,20vw,5.7rem)}
+  .facts{grid-template-columns:1fr 1fr}
+  .gantt .row,.gantt .axis{grid-template-columns:1fr;gap:.5rem}
+  .gantt .axis div:first-child{display:none}
+  .toc ol{grid-template-columns:1fr}
+  .bar .wrap{gap:.65rem;height:58px}
+  .brand{font-size:1.1rem}
+  .bar nav a{font-size:.77rem;padding:.4rem .55rem}
+  .evid{display:grid;grid-template-columns:1fr;align-items:start}
+  .tabs{overflow-x:auto;flex-wrap:nowrap}
+  .tabs button{white-space:nowrap;font-size:.78rem;padding:.65rem .8rem}
+  .calc{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .sw i{width:56px;height:56px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}
+}
+@media print{
+  :root{--bg:#fff;--bg2:#fff;--panel:#fff;--panel2:#f3f5f2;--line:#d5ddd6;--line2:#aebcb1;--text:#213D3A;--mute:#4f625b;--cyan:#2E7E8E;--orange:#B95643;--lime:#8F7623;--amber:#80551F;--cyan-d:#fff}
+  #death-race-case-study { background: #fff !important; color: #213D3A !important; font-size: 10.5pt !important; }
+  .bar,.toc,.hero-track,.btn,.ctl,.skip,.lap{display:none!important}
+  .hero,.gdd-start{background:#fff!important;color:#213D3A!important}
+  .hero h1,.gdd-start h2,.gdd-start p,.gdd-start .kicker{color:#213D3A!important}
+  .video{display:none}
+  .sec,.chap{padding:1.2rem 0;break-inside:auto} #death-race-case-study h2, #death-race-case-study h3, #death-race-case-study h4 { break-after: avoid; }
+  .panel,.flow>li,details,.tree>div,.lane-card,.mapbox,.scroll{break-inside:avoid;box-shadow:none}
+  .scroll{overflow:visible;max-height:none}
+  .mapsvg{background:#213D3A!important} #death-race-case-study a { color: #213D3A; }
+  .tabs{display:none}
+  .mapbox [role=tabpanel][hidden]{display:block!important} #death-race-case-study .case-study-footer { background: #fff !important; color: #213D3A; border-top: 1px solid #d5ddd6; } #death-race-case-study .case-study-footer p { color: #213D3A; }
+}
+
+
+</style>
+<style id="death-race-site-integration">
+
+:root{
+  --bg:#F4F1E6;--bg2:#E7EEE7;--panel:#FFFCF5;--panel2:#E0EBE7;
+  --line:#D0DCCF;--line2:#A9C2B8;--text:#213D3A;--mute:#596F69;
+  --cyan:#2E7E8E;--cyan-d:#F6FAF4;--orange:#E8783B;--lime:#4B8A3B;--amber:#E9BF3E;--violet:#567B66;
+  --disp:"Space Grotesk","Avenir Next",Avenir,system-ui,sans-serif;
+  --body:"DM Sans","Avenir Next",Avenir,system-ui,sans-serif;
+}
+#death-race-case-study { background: var(--bg); color: var(--text); }
+#death-race-case-study { font-family: var(--body); line-height: 1.68; }
+.bar{background:rgba(244,241,230,.94);border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}
+.bar .wrap{gap:clamp(.6rem,1.4vw,1.25rem)}
+.portfolio-back{display:inline-flex;align-items:center;gap:.45rem;white-space:nowrap;color:#5B706B;text-decoration:none;font-size:.78rem;font-weight:750;letter-spacing:.035em;border-right:1px solid var(--line);padding-right:1rem}
+.portfolio-back:hover{color:var(--cyan)}
+.portfolio-back span{display:inline}
+.brand{font-size:1rem;letter-spacing:.055em;color:var(--text)}
+.brand b{color:var(--orange)}
+.bar nav{scrollbar-width:thin}
+.bar nav a{border-radius:999px;color:var(--mute);font-size:.82rem;padding:.38rem .62rem}
+.bar nav a:hover,.bar nav a.on{background:var(--panel2);color:var(--text)}
+.bar nav a.part{color:#216C78}
+.lap{background:linear-gradient(90deg,#2E7E8E,#4B8A3B,#E9BF3E)}
+.hero{background:radial-gradient(ellipse at 86% 12%,rgba(46,126,142,.22),transparent 42%),radial-gradient(ellipse at 10% 90%,rgba(75,138,59,.17),transparent 34%),linear-gradient(135deg,#F4F1E6 0%,#E7EEE7 64%,#DCE9E3 100%)}
+.hero-track path:first-child{stroke:#2E7E8E;stroke-opacity:.38}
+.hero-track path:nth-child(2){stroke:#D6BE78;stroke-opacity:.75}
+.hero h1{color:#213D3A;letter-spacing:-.075em}
+.hero h1 span{color:#E8783B}
+.role{background:#E9BF3E;color:#293B32;border-radius:999px;clip-path:none;padding:.42rem .9rem;font-size:.88rem}
+.lede{color:#344D47}
+.chips li{background:rgba(255,252,245,.82);border:1px solid #CAD9CE;border-radius:999px;color:#34524A}
+.btn{background:#E9BF3E;color:#283A33;border-radius:999px;clip-path:none;padding:.82rem 1.3rem}
+.btn:hover{background:#F4D76D;color:#213D3A}
+.btn.ghost{background:rgba(255,252,245,.72);color:#216C78;border-color:#9CBFBD;border-radius:999px}
+.evid{background:rgba(255,252,245,.8);border-color:var(--line);border-radius:14px;color:var(--mute)}
+.panel,.panel.cut,.lane-card,.dec>div,.sysmap .nd,.mapbox,.gantt,.note,details.acc,.flow>li,.tree>div,.facts,.zone-card{border-radius:14px}
+.panel,.flow>li,.lane-card,.dec>div,.sysmap .nd,details.acc,.tree>div{background:var(--panel);border-color:var(--line)}
+.sec+.sec{border-color:var(--line)}
+.sec-head p,.muted,.chap>.intro{color:var(--mute)}
+.kicker,.tag.t-conf,.brand b{color:var(--cyan)}
+.tag{border-radius:999px;font-size:.74rem;letter-spacing:.015em}
+.t-conf{color:#267A88}.t-recall{color:#4B7E3A}.t-prop{color:#C6662E}.t-val{color:#946D24}
+.facts{overflow:hidden}
+.facts div{background:#FFFCF5}
+.facts div:nth-child(2){background:#EDF2E8}
+.facts div:nth-child(3){background:#E4EFEC}
+.facts b{color:#2E7E8E}
+.pressures{border-top-color:#2E7E8E}
+.pressures>div{border-color:var(--line)}
+.pull{border-left-color:#E8783B;color:#213D3A}
+.verb{color:#3F7B34}
+.flow>li{padding:1.15rem 1.1rem;border-radius:13px}
+.flow .hl{background:#E4F0EE;border-color:#6DADAF}
+.flow>li::after{background:#2E7E8E}.flow>li::before{border-left-color:#2E7E8E}
+.flow .fork{border-color:#E8783B;background:#FFF4E9}
+.forkrow span{border-color:#E8783B;color:#9B4D24}
+.gantt{background:#FFFCF5;border-color:var(--line)}
+.gantt .lane{background:repeating-linear-gradient(90deg,transparent 0 calc(10% - 1px),#D7E1D7 calc(10% - 1px) 10%)}
+.gantt .bar2{background:#2E7E8E;color:#F7FAF2;border-radius:7px}
+.gantt .bar2.pt{background:#E8783B}
+.tabs{background:#F1F2E8;border-bottom-color:var(--line);gap:.2rem;padding:.4rem;border-radius:14px 14px 0 0}
+.tabs button{border:0;border-radius:999px;color:#566D66;padding:.7rem .9rem}
+.tabs button[aria-selected=true]{background:#D9EAE5;color:#213D3A;box-shadow:inset 0 -3px 0 #2E7E8E}
+.mapbox{background:#FFFCF5;border:1px solid var(--line);overflow:hidden}
+.mapgrid>div:first-child{border-color:var(--line)}
+.mapsvg{background:#E7E9D8;border-radius:12px}.mapsvg .zl,.zl{fill:#213D3A!important;font-size:12px!important;font-weight:800!important;paint-order:stroke;stroke:#E7E9D8;stroke-width:3px;stroke-linejoin:round}
+.legend .n{color:var(--mute)}
+.note{background:#FBF2D9;border-color:#D2AD42;color:#4D4732}
+.note.info{background:#E4F0EE;border-color:#2E7E8E;color:#294C4A}
+.tier .b i{background:#2E7E8E}.tier .b.base i{background:#B9C7BC}.tier .b.noob i{background:#4B8A3B}
+.sysmap .nd.key{border-color:#E8783B;background:#FFF4E9}
+.loop li{background:#FFFCF5;border-color:var(--line);border-radius:13px}
+.loop li::before{color:#2E7E8E}
+.loopback{border-color:#2E7E8E;color:#216C78;border-radius:10px}
+.lane-card.a{border-top-color:#E8783B}.lane-card.b{border-top-color:#4B8A3B}
+.dec h4{color:#267A88}
+.tree .out{border-color:#E8783B;background:#FFF4E9}
+.risk th,.own th,.tbl th{color:#556D66;border-color:#C5D5C9;background:#EFF2E8}
+.risk td,.own td,.tbl td{border-color:#D6E0D4}
+.own tr:hover td,.tbl tbody tr:hover td{background:#F7F4E9}
+.scroll{background:#FFFCF5;border-color:var(--line);border-radius:12px}
+.dt td.d{background:#DCECE8;color:#1D4E50;box-shadow:inset 0 -2px 0 #2E7E8E}
+.dt tr.s td{background:#E7EEE7;color:#216C78}
+.ctl input[type=search],.ctl select,.calc input{background:#FFFCF5;color:var(--text);border:1px solid #ADC4B9;border-radius:9px}
+.formula{background:#E4F0EE;border-color:#77AFB0;color:#203D3A;border-radius:12px}
+.calc .res{background:#E7EEE7;border-color:var(--line);border-radius:12px}
+.gdd-start{background:linear-gradient(135deg,#213D3A,#285D5B 68%,#2E7E8E);border-top:5px solid #E9BF3E}
+.gdd-start h2,.gdd-start p{color:#F4F1E6}
+.toc ol{border-color:#B5C8BB}
+.toc a{border-left-color:transparent;color:#5B706B}
+.toc a.on{color:#213D3A;border-left-color:#2E7E8E;background:#E3EEE8}
+details.acc{border-color:var(--line)}
+details.acc>summary::before{color:#2E7E8E} #death-race-case-study .case-study-footer { background: #E7EEE7; color: #586D65; border-color: var(--line); }
+.portfolio-footer-links{display:flex;gap:1.1rem;flex-wrap:wrap;margin-top:.7rem}
+.portfolio-footer-links a{color:#216C78;text-decoration:none;font-weight:650}
+.portfolio-footer-links a:hover{text-decoration:underline}
+.zone-intent{margin:1rem 0 2.2rem;padding:clamp(1rem,2.4vw,1.6rem);background:linear-gradient(145deg,#E7EEE7,#F7F4EA);border:1px solid #CCD9CD;border-radius:18px}
+.zone-intent-head{max-width:760px;margin-bottom:1.1rem}
+.zone-eyebrow{font-size:.75rem;font-weight:800;letter-spacing:.13em;color:#267A88}
+.zone-intent-head h3{margin:.5rem 0;font-size:clamp(1.5rem,2.6vw,2.2rem);color:#213D3A}
+.zone-intent-head p{margin:0;color:#586D65;max-width:68ch}
+.zone-intent-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:.7rem}
+.zone-card{position:relative;min-width:0;padding:1rem;background:rgba(255,252,245,.84);border:1px solid #D0DCCF;border-top:3px solid #2E7E8E}
+.zone-card.zone-combat{border-top-color:#E8783B}
+.zone-card.zone-recovery{border-top-color:#4B8A3B}
+.zone-card.zone-collection{border-top-color:#2E7E8E}
+.zone-card.zone-navigation{border-top-color:#A9763A}
+.zone-card.zone-racing{border-top-color:#E9BF3E}
+.zone-number{display:block;font-size:.72rem;font-weight:800;letter-spacing:.11em;color:#71867C;margin-bottom:.6rem}
+.zone-card h4{font-size:1rem;line-height:1.25;margin:0 0 .45rem;color:#213D3A}
+.zone-card p{font-size:.88rem;line-height:1.55;color:#5B706B;margin:0}
+@media(max-width:1000px){.zone-intent-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.zone-card:last-child{grid-column:1/-1}}
+@media(max-width:700px){.portfolio-back{font-size:.72rem;padding-right:.65rem}.portfolio-back span{max-width:60px;overflow:hidden;text-overflow:ellipsis}.bar .wrap{gap:.6rem}.zone-intent-grid{grid-template-columns:1fr}.zone-card:last-child{grid-column:auto}.bar nav a{font-size:.78rem}}
+@media print{.portfolio-back,.portfolio-footer-links{display:none!important}:root{--bg:#fff;--bg2:#fff;--panel:#fff;--panel2:#f4f4f0;--line:#cbd4cc;--line2:#9eaea4;--text:#213D3A;--mute:#455B54} .hero,.gdd-start{background:#fff!important}.gdd-start h2,.gdd-start p{color:#213D3A}.zone-intent{break-inside:avoid}}
+
+</style>
+<style id="death-race-template-bridge">
+/* ==========================================================================
+   Death Race Integration & Full-Bleed Layout
+   ========================================================================== */
+
+/* 1. Eliminate Black Sidebars on Widescreen Displays (>1600px) */
+html,
+body {
+  background-color: #F4F1E6 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+  overflow-x: hidden;
+}
+
+.site-wrap,
+.site-container,
+.site-content,
+.page-container,
+.page.standard-modules,
+.page-content,
+#project-canvas,
+#project-modules {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background-color: #F4F1E6 !important;
+  border: none !important;
+}
+
+/* Ensure smooth scrolling with offset for the sticky portfolio header */
+html {
+  scroll-behavior: smooth !important;
+  scroll-padding-top: 105px !important;
+}
+
+/* Portfolio Site Header Integration */
+.site-header {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  z-index: 100 !important;
+}
+
+/* Case Study root wrapper */
+#death-race-case-study {
+  width: 100%;
+  position: relative;
+  background: var(--bg, #F4F1E6);
+  color: var(--text, #213D3A);
+  padding: 0;
+  margin: 0;
+}
+
+/* Hero section top padding to breathe below fixed site header */
+#death-race-case-study .hero {
+  padding-top: clamp(6.5rem, 11vw, 9rem) !important;
+}
+
+/* Ensure no secondary subpage bar is visible */
+#death-race-case-study .bar {
+  display: none !important;
+}
+
+/* 2. Document Elements: Table of Contents & GDD Layout */
+#death-race-case-study .gdd {
+  display: grid !important;
+  grid-template-columns: 260px minmax(0, 1fr) !important;
+  gap: clamp(2rem, 4vw, 3.75rem) !important;
+  align-items: start !important;
+  padding-top: 3rem !important;
+}
+
+#death-race-case-study .gdd-body {
+  min-width: 0 !important;
+  max-width: 100% !important;
+}
+
+#death-race-case-study .toc {
+  float: none !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  display: block !important;
+  position: sticky !important;
+  top: 105px !important;
+  max-height: calc(100vh - 125px) !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line2, #A9C2B8) transparent;
+  padding: 0.5rem 0.5rem 0.5rem 0 !important;
+  box-sizing: border-box !important;
+  border: none !important;
+  background: transparent !important;
+}
+
+#death-race-case-study .toc::-webkit-scrollbar {
+  width: 5px;
+}
+#death-race-case-study .toc::-webkit-scrollbar-thumb {
+  background: var(--line2, #A9C2B8);
+  border-radius: 4px;
+}
+#death-race-case-study .toc::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#death-race-case-study .toc ol {
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border-left: 2px solid var(--line, #D0DCCF) !important;
+}
+
+#death-race-case-study .toc li {
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+#death-race-case-study .toc .grp {
+  font-family: var(--disp, 'Space Grotesk', sans-serif) !important;
+  font-weight: 700 !important;
+  color: var(--text, #213D3A) !important;
+  font-size: 0.75rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.1em !important;
+  padding: 1rem 0.8rem 0.3rem !important;
+  display: block !important;
+}
+
+#death-race-case-study .toc a {
+  display: block !important;
+  color: var(--mute, #596F69) !important;
+  text-decoration: none !important;
+  padding: 0.38rem 0.8rem !important;
+  font-size: 0.86rem !important;
+  line-height: 1.4 !important;
+  border-left: 3px solid transparent !important;
+  margin-left: -2px !important;
+  transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease !important;
+  white-space: normal !important;
+  word-break: normal !important;
+}
+
+#death-race-case-study .toc a:hover {
+  color: var(--text, #213D3A) !important;
+  background: rgba(226, 240, 230, 0.6) !important;
+}
+
+#death-race-case-study .toc a.on {
+  color: var(--text, #213D3A) !important;
+  border-left-color: var(--cyan, #2E7E8E) !important;
+  background: #E2F0E6 !important;
+  font-weight: 700 !important;
+}
+
+@media (max-width: 960px) {
+  #death-race-case-study .gdd {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 1.6rem !important;
+  }
+  #death-race-case-study .toc {
+    position: static !important;
+    max-height: none !important;
+    border: 1px solid var(--line, #D0DCCF) !important;
+    border-radius: 12px !important;
+    padding: 0.75rem !important;
+    background: var(--panel, #FFFCF5) !important;
+  }
+  #death-race-case-study .toc ol {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    border-left: 0 !important;
+    gap: 0 0.5rem !important;
+  }
+  #death-race-case-study .toc .grp {
+    grid-column: 1 / -1 !important;
+    padding-top: 0.75rem !important;
+  }
+  #death-race-case-study .toc a {
+    border-left: none !important;
+    margin-left: 0 !important;
+    border-radius: 6px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  #death-race-case-study .toc ol {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* 3. Full-bleed Dark Sections at the Bottom */
+.other-projects {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  background-color: #000000 !important;
+  padding: 80px 0 60px !important;
+  position: relative;
+  z-index: 2;
+  clear: both;
+}
+
+.other-projects .title-container,
+.other-projects .project-covers {
+  max-width: 1220px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(20px, 4vw, 52px);
+  padding-right: clamp(20px, 4vw, 52px);
+}
+
+.site-footer {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  background-color: #000000 !important;
+  position: relative;
+  z-index: 2;
+  padding-top: 20px !important;
+  padding-bottom: 40px !important;
+}
+
+.site-footer .footer-text,
+.site-footer .social-icons,
+.site-footer > div {
+  max-width: 1220px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(20px, 4vw, 52px);
+  padding-right: clamp(20px, 4vw, 52px);
+}
+</style>
 </head>
   <body class="transition-enabled">  <div class='page-background-video page-background-video-with-panel'>
   </div>
@@ -163,37 +1181,529 @@
       <div class="page-content js-page-content" data-context="pages" data-identity="id:p6905e432671863e0af1cc0c12d1692a8197d5585bbcbc2f44a2e5">
         <div id="project-canvas" class="js-project-modules modules content">
           <div id="project-modules">
-              
-              
-              
-              
-              
-              <div class="project-module module text project-module-text align- js-project-module e2e-site-project-module-text">
-  <div class="rich-text js-text-editable module-text"><div><span class="texteditor-inline-color" style="color:#a9a9a9;"><span class="texteditor-inline-fontsize" style="font-size:31px;"><span style="font-family:nyty;font-weight:800;">Gameplay Footage</span></span></span></div></div>
+<div id="death-race-case-study">
+<a class="skip" href="#death-race-content">Skip to content</a>
+<div id="death-race-content">
+
+<!-- ============ PART A ============ -->
+<section aria-labelledby="h1" class="hero" id="top">
+<svg aria-hidden="true" class="hero-track" focusable="false" preserveaspectratio="xMidYMid slice" viewbox="0 0 1400 700">
+<path d="M-40 560 C 200 560 260 420 420 420 S 640 640 860 560 S 1060 200 1240 260 S 1400 330 1460 300" fill="none" stroke="#2E7E8E" stroke-opacity=".5" stroke-width="2"></path>
+<path d="M-40 600 C 200 600 250 470 420 470 S 650 690 880 610 S 1080 250 1250 310 S 1400 380 1460 350" fill="none" stroke="#2b3644" stroke-width="2"></path>
+</svg>
+<div class="wrap hero-grid">
+<div>
+<span class="role">Game Design Intern</span>
+<h1 id="h1">DEATH <span>RACE</span></h1>
+<p class="lede">A combat-racing game that had to earn its place inside a platform full of other games. I helped shape how players get into a race, how hard the opponents push back, and how the game sounds and feels.</p>
+<ul aria-label="Scope of my work" class="chips">
+<li>Entry flow and FTUE</li><li>Track and level layout</li><li>AI difficulty</li><li>Playtest iteration</li><li>Sound design</li><li>VFX supervision</li><li>Art coordination</li>
+</ul>
+</div>
+<div>
+<div class="gameplay-feature" aria-label="Featured gameplay video">
+<div class="gameplay-header">
+  <div>
+    <span class="gameplay-kicker">GAMEPLAY FOOTAGE</span>
+    <p class="gameplay-caption">Watch the original Death Race gameplay footage in a large, uninterrupted frame.</p>
+  </div>
+  <a class="gameplay-link" href="https://youtu.be/YIWqi_ZsUBg" target="_blank" rel="noopener noreferrer">Open on YouTube <span aria-hidden="true">↗</span></a>
+</div>
+<div class="video" id="video">
+  <iframe src="https://www.youtube-nocookie.com/embed/YIWqi_ZsUBg?rel=0&playsinline=1" title="Death Race gameplay video" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
+<div class="gameplay-foot"><span>DEATH RACE / GAMEPLAY</span><span>Video playback requires an internet connection.</span></div>
+</div>
+</div>
+</div>
+<div class="wrap">
+<div aria-label="How to read the evidence tags" class="evid" role="note"><strong>Shipped design priorities</strong>
+<span>Fast entry into the race</span>
+<span>Adaptive opponent pressure</span>
+<span>Playtest-led balancing</span>
+<span>Clear combat feedback</span></div>
+</div>
+</section>
+<section aria-labelledby="h-snap" class="sec" id="snapshot">
+<div class="wrap split wide-r">
+<div>
+<h2 id="h-snap">Project snapshot</h2>
+<p class="muted" style="margin-top:var(--s2)">Death Race is a combat-racing game with rockets, nitro, shields and health pickups. It lived inside an existing ready-to-play platform that hosted many other games.</p>
+<p class="muted">I worked across game design, art coordination, audio, VFX and implementation, partnering with the wider team to deliver the experience.</p>
+<div aria-label="Facts taken from the source files" class="facts">
+<div><b>4</b><span>pickup types on the track: rockets, nitros, shields, health</span></div>
+<div><b>2</b><span>laps, per the AI datasheet</span></div>
+<div><b>6</b><span>AI tuning columns: Existing, Easy, New Easy, Medium, Hard, Noob</span></div>
+</div>
+<p class="small muted" style="margin-top:.8rem">The figures here describe the track and AI tuning structure, rather than performance KPIs.</p>
+</div>
+<div class="panel cut">
+<h3 style="margin-bottom:var(--s2)">What I did, at a glance</h3>
+<ul class="clean">
+<li><span class="verb">Designed</span> the lock-and-go path from entry screen to race, and the staged in-race tutorial.</li>
+<li><span class="verb">Planned</span> track sections: obstacles, pickup routes and likely battle spots.</li>
+<li><span class="verb">Balanced</span> the racing AI and <span class="verb">designed</span> a way to classify players and adapt difficulty.</li>
+<li><span class="verb">Iterated</span> through user tests for racing veterans and for newcomers.</li>
+<li>Designed and shipped a conditional repositioning solution for AI opponents that drifted out of the race.</li>
+<li>Created the sound design and supervised VFX implementation across the game.</li>
+<li><span class="verb">Coordinated</span> with the art team on car colours and look.</li>
+</ul>
+</div>
+</div>
+</section>
+<section aria-labelledby="h-ch" class="sec" id="challenge">
+<div class="wrap">
+<div class="sec-head"><h2 id="h-ch">The design challenge</h2><p>Three pressures shaped almost every decision I made.</p></div>
+<div class="pressures">
+<div><h3>Seconds, not screens</h3><p>The entry flow needed to get players to the first race without unnecessary onboarding or navigation.</p></div>
+<div><h3>One race, two kinds of player</h3><p>Racing veterans want opponents that push back. People new to racing games want to feel they are getting somewhere. One AI setting cannot serve both.</p></div>
+<div><h3>AI the engine would not keep honest</h3><p>Engine and implementation constraints could cause opponents to drift away from the active race. I addressed this through conditional AI repositioning.</p></div>
+</div>
+<blockquote class="pull">The opponent should feel present, never absent, and never all-knowing.<small>A guiding principle for AI balancing and opponent repositioning.</small></blockquote>
+</div>
+</section>
+<section aria-labelledby="h-own" class="sec" id="ownership">
+<div class="wrap">
+<div class="sec-head"><h2 id="h-own">My design ownership</h2><p>A clear view of the systems I designed, balanced, delivered or supervised.</p></div>
+<table class="own"><thead><tr><th scope="col">Area</th><th scope="col">My contribution</th><th scope="col">Shipped impact</th></tr></thead>
+<tbody>
+<tr><td>Entry flow and FTUE</td><td>Designed the lock-and-go entry path and staged in-race tutorial.</td><td>Players move from the platform into the race quickly, then learn controls in context.</td></tr>
+<tr><td>Track and level layout</td><td>Planned obstacle placement, pickup routes, power-up sections and high-intensity encounter zones.</td><td>Track layout supports route decisions, combat opportunities and resource collection.</td></tr>
+<tr><td>AI balance and difficulty</td><td>Tuned AI difficulty profiles and designed player-performance classification.</td><td>Opponent pressure adapts across player skill levels instead of relying on one fixed setting.</td></tr>
+<tr><td>AI repositioning</td><td>Designed the conditional response to opponents drifting away from the player.</td><td>Opponents are brought back into a relevant race position while repositioning is managed around player-camera context.</td></tr>
+<tr><td>Playtesting and feedback</td><td>Participated in user testing, generated feedback, implemented tweaks and rebalanced for experienced racers and newcomers.</td><td>Feedback informed adjustments to opponent pressure, ability use and first-race learning.</td></tr>
+<tr><td>Sound design</td><td>Created the game’s sound design across vehicle response, collisions, pickups, abilities, music and race start.</td><td>Sound feedback supports speed, combat readability and gameplay-state recognition.</td></tr>
+<tr><td>VFX supervision</td><td>Supervised visual-effect direction and implementation across race starts, vehicles, pickups and abilities.</td><td>Effects reinforce speed, impact, pickup collection and ability activation.</td></tr>
+<tr><td>Art coordination</td><td>Worked with the art team on car texture colours and vehicle appearance while other designers supported environment design.</td><td>Vehicle colour and material direction supports a coherent racing-game presentation.</td></tr>
+</tbody></table>
+</div>
+</section>
+<section aria-labelledby="h-ftue" class="sec" id="ftue">
+<div class="wrap">
+<div class="sec-head"><h2 id="h-ftue">Entry and FTUE: lock and go</h2><p>From the platform hub to a race in as few steps as possible, then teach one control at a time while the car is already moving.</p></div>
+<h3 style="margin-bottom:var(--s2)">Entry to replay: the shipped flow</h3>
+<ol aria-label="Entry to race to replay flow" class="flow">
+<li><h4>Platform hub</h4><p>Player picks Death Race among other games.</p></li>
+<li class="hl"><h4>Hero screen</h4><p>One clear way in: play.</p></li>
+<li class="hl"><h4>Race</h4><p>First race carries the FTUE prompts.</p></li>
+<li><h4>Result</h4><p>The result communicates win or loss and performance-based points, then makes replay the clearest next action.</p></li>
+<li class="fork"><h4>Replay or leave</h4><p>The decision point the whole flow is built to win.</p><div class="forkrow"><span>Race again</span><span>Back to platform</span></div></li>
+</ol>
+<hr class="rule"/>
+<div class="split wide-l">
+<div>
+<h3>Why the tutorial lives inside the race</h3>
+<p class="muted">A tutorial screen asks players to wait before they have done anything. Here the car accelerates by itself, so players are racing within seconds. Each control is introduced only when it becomes useful.</p>
+<ul class="clean">
+<li>One UI button is introduced at a time.</li>
+<li>Steering teaches left and right together.</li>
+<li>Players start with one rocket and one boost, so the first use is guaranteed.</li>
+</ul>
+<p class="small muted">The staged prompt sequence is delivered in the first-race flow. Each prompt introduces a useful action when the player can apply it.</p>
+</div>
+<div class="note info">Testing focus. Observe whether players notice each prompt, use the relevant control at the right moment and learn without leaving the race.</div>
+</div>
+<div aria-label="FTUE prompts on a 0 to 50 second timeline" class="gantt" role="group">
+<div class="axis"><div></div><div><span>0 s</span><span>10</span><span>20</span><span>30</span><span>40</span><span>50 s</span></div></div>
+<div class="row"><div class="nm"><b>Automatic acceleration</b><span>Car drives itself</span></div><div class="lane"><div class="bar2" style="left:10%;width:10%">5–10 s</div></div></div>
+<div class="row"><div class="nm"><b>Steer left and right</b><span>Hold the buttons</span></div><div class="lane"><div class="bar2" style="left:30%;width:10%">15–20 s</div></div></div>
+<div class="row"><div class="nm"><b>Use rockets</b><span>Tap to launch</span></div><div class="lane"><div class="bar2" style="left:50%;width:10%">25–30 s</div></div></div>
+<div class="row"><div class="nm"><b>Use nitro</b><span>Tap to activate</span></div><div class="lane"><div class="bar2 pt" style="left:90%" title="45 s"></div><span style="position:absolute;left:78%;top:5px;font-size:.82rem;font-weight:700">45 s</span></div></div>
+<p class="small muted" style="margin:.8rem 0 0">Prompt timings reflect the implemented first-race sequence, in seconds after the race starts.</p>
+</div>
+</div>
+</section>
+<section aria-labelledby="h-track" class="sec" id="track">
+<div class="wrap">
+<div class="sec-head"><h2 id="h-track">Track and level design</h2><p>Map A established the track’s original activity-zone intent. After player feedback and playtesting, I made minor placement tweaks in Map B while keeping the overall structure intact.</p></div>
+<div class="zone-intent" aria-labelledby="zone-intent-title">
+  <div class="zone-intent-head"><span class="zone-eyebrow">MAP A / INITIAL DESIGN INTENT</span><h3 id="zone-intent-title">Five purposes. One continuous race.</h3><p>The first pass organised the lap around distinct player opportunities rather than scattering pickups without a gameplay role.</p></div>
+  <div class="zone-intent-grid">
+    <article class="zone-card zone-combat"><span class="zone-number">01</span><h4>Combat &amp; pressure</h4><p>Create moments where racers can attack, defend and contest position.</p></article>
+    <article class="zone-card zone-recovery"><span class="zone-number">02</span><h4>Recovery</h4><p>Give damaged players opportunities to recover and re-enter the fight.</p></article>
+    <article class="zone-card zone-collection"><span class="zone-number">03</span><h4>Resource collection</h4><p>Make pickup routes meaningful and create small decisions about what to pursue.</p></article>
+    <article class="zone-card zone-navigation"><span class="zone-number">04</span><h4>Hazards &amp; navigation</h4><p>Use obstacles to shape lines, attention and route choices.</p></article>
+    <article class="zone-card zone-racing"><span class="zone-number">05</span><h4>Racing line</h4><p>Protect the flow of speed, overtaking and forward momentum.</p></article>
+  </div>
+</div>
+<div class="mapbox" id="mapbox"><div aria-label="Track map views" class="tabs" role="tablist"><button aria-controls="p-obs" aria-selected="true" id="tab-obs" role="tab" tabindex="0">Obstacles</button><button aria-controls="p-exA" aria-selected="false" id="tab-exA" role="tab" tabindex="-1">Map A — Original zone plan</button><button aria-controls="p-exB" aria-selected="false" id="tab-exB" role="tab" tabindex="-1">Map B — Playtest refinement</button><button aria-controls="p-ftue" aria-selected="false" id="tab-ftue" role="tab" tabindex="-1">Final FTUE route</button></div><div aria-labelledby="tab-obs" class="mapgrid" id="p-obs" role="tabpanel"><div><svg aria-labelledby="t-obs d-obs" class="mapsvg" role="img" viewbox="60 40 510 530"><title id="t-obs">Four obstacle positions on the full loop</title><desc id="d-obs">Four obstacle positions on the full loop. The markers show the four authored obstacle positions around the circuit.</desc><path d="M114 514V106H509V514H114Z" fill="none" stroke="#9C845A" stroke-linecap="butt" stroke-linejoin="round" stroke-width="53"></path><path d="M119 278.5L205.5 112" fill="none" stroke="#9C845A" stroke-width="53"></path><path d="M114 514V106H509V514H114Z" fill="none" stroke="#43524A" stroke-linecap="butt" stroke-linejoin="round" stroke-width="47"></path><path d="M119 278.5L205.5 112" fill="none" stroke="#43524A" stroke-width="47"></path><path d="M114 514V106H509V514H114Z" fill="none" stroke="#D2C39A" stroke-dasharray="7 9" stroke-linejoin="round" stroke-width="1.5"></path><path d="M119 278.5L205.5 112" fill="none" stroke="#D2C39A" stroke-dasharray="7 9" stroke-width="1.5"></path><rect fill="#F4F1E6" height="8" width="8" x="418" y="490"></rect><rect fill="#213D3A" height="8" width="8" x="426" y="490"></rect><rect fill="#213D3A" height="8" width="8" x="418" y="498"></rect><rect fill="#F4F1E6" height="8" width="8" x="426" y="498"></rect><rect fill="#F4F1E6" height="8" width="8" x="418" y="506"></rect><rect fill="#213D3A" height="8" width="8" x="426" y="506"></rect><rect fill="#213D3A" height="8" width="8" x="418" y="514"></rect><rect fill="#F4F1E6" height="8" width="8" x="426" y="514"></rect><rect fill="#F4F1E6" height="8" width="8" x="418" y="522"></rect><rect fill="#213D3A" height="8" width="8" x="426" y="522"></rect><rect fill="#213D3A" height="8" width="8" x="418" y="530"></rect><rect fill="#F4F1E6" height="8" width="8" x="426" y="530"></rect><text fill="#213D3A" font-family="sans-serif" font-size="14" font-weight="700" text-anchor="middle" x="426" y="562">Start / finish</text><path d="M459 462H400" stroke="#2E7E8E" stroke-width="3"></path><path d="M408 455L400 462L408 469" fill="none" stroke="#2E7E8E" stroke-width="3"></path><g><g><rect fill="#E9BF3E" height="18" stroke="#213D3A" stroke-linejoin="round" stroke-width="2" transform="rotate(45 287.5 105.5)" width="18" x="278.5" y="96.5"></rect><path d="M283.5,101.5L291.5,109.5M291.5,101.5L283.5,109.5" stroke="#213D3A" stroke-width="2.2"></path></g><title>Obstacles</title></g><g><g><rect fill="#E9BF3E" height="18" stroke="#213D3A" stroke-linejoin="round" stroke-width="2" transform="rotate(45 441 105.5)" width="18" x="432" y="96.5"></rect><path d="M437,101.5L445,109.5M445,101.5L437,109.5" stroke="#213D3A" stroke-width="2.2"></path></g><title>Obstacles</title></g><g><g><rect fill="#E9BF3E" height="18" stroke="#213D3A" stroke-linejoin="round" stroke-width="2" transform="rotate(45 508 241)" width="18" x="499" y="232"></rect><path d="M504,237L512,245M512,237L504,245" stroke="#213D3A" stroke-width="2.2"></path></g><title>Obstacles</title></g><g><g><rect fill="#E9BF3E" height="18" stroke="#213D3A" stroke-linejoin="round" stroke-width="2" transform="rotate(45 113.5 350.5)" width="18" x="104.5" y="341.5"></rect><path d="M109.5,346.5L117.5,354.5M117.5,346.5L109.5,354.5" stroke="#213D3A" stroke-width="2.2"></path></g><title>Obstacles</title></g></svg></div><div><h3 style="margin-bottom:.5rem">Obstacles</h3><p class="muted">The markers show the four authored obstacle positions around the circuit.</p><ul class="legend"><li><svg aria-hidden="true" viewbox="0 0 24 24"><g><rect fill="#E9BF3E" height="18" stroke="#213D3A" stroke-linejoin="round" stroke-width="1.4" transform="rotate(45 12 12)" width="18" x="3" y="3"></rect><path d="M8,8L16,16M16,8L8,16" stroke="#213D3A" stroke-width="2.2"></path></g></svg><span>Obstacles</span><span class="n">4</span></li></ul><p class="small muted">Markers preserve the relative placement and route relationships from the level layout.</p></div></div><div aria-labelledby="tab-exA" class="mapgrid" hidden="" id="p-exA" role="tabpanel"><div><svg aria-labelledby="t-exA d-exA" class="mapsvg" role="img" viewbox="60 40 510 530"><title id="t-exA">Map A — original pickup layout and zone plan</title><desc id="d-exA">Map A — original pickup layout and zone plan.</desc><path d="M114 514V106H509V514H114Z" fill="none" stroke="#9C845A" stroke-linecap="butt" stroke-linejoin="round" stroke-width="53"></path><path d="M119 278.5L205.5 112" fill="none" stroke="#9C845A" stroke-width="53"></path><path d="M114 514V106H509V514H114Z" fill="none" stroke="#43524A" stroke-linecap="butt" stroke-linejoin="round" stroke-width="47"></path><path d="M119 278.5L205.5 112" fill="none" stroke="#43524A" stroke-width="47"></path><path d="M114 514V106H509V514H114Z" fill="none" stroke="#D2C39A" stroke-dasharray="7 9" stroke-linejoin="round" stroke-width="1.5"></path><path d="M119 278.5L205.5 112" fill="none" stroke="#D2C39A" stroke-dasharray="7 9" stroke-width="1.5"></path><rect fill="#F4F1E6" height="8" width="8" x="418" y="490"></rect><rect fill="#213D3A" height="8" width="8" x="426" y="490"></rect><rect fill="#213D3A" height="8" width="8" x="418" y="498"></rect><rect fill="#F4F1E6" height="8" width="8" x="426" y="498"></rect><rect fill="#F4F1E6" height="8" width="8" x="418" y="506"></rect><rect fill="#213D3A" height="8" width="8" x="426" y="506"></rect><rect fill="#213D3A" height="8" width="8" x="418" y="514"></rect><rect fill="#F4F1E6" height="8" width="8" x="426" y="514"></rect><rect fill="#F4F1E6" height="8" width="8" x="418" y="522"></rect><rect fill="#213D3A" height="8" width="8" x="426" y="522"></rect><rect fill="#213D3A" height="8" width="8" x="418" y="530"></rect><rect fill="#F4F1E6" height="8" width="8" x="426" y="530"></rect><text fill="#213D3A" font-family="sans-serif" font-size="14" font-weight="700" text-anchor="middle" x="426" y="562">Start / finish</text><path d="M459 462H400" stroke="#2E7E8E" stroke-width="3"></path><path d="M408 455L400 462L408 469" fill="none" stroke="#2E7E8E" stroke-width="3"></path><g aria-hidden="true" class="zones" fill="none" stroke="#E9BF3E" stroke-dasharray="6 5" stroke-width="2"><rect height="270" rx="6" width="88" x="458" y="140"></rect><text class="zl" x="352" y="288">Rocket corridor</text><rect height="86" rx="6" width="100" x="352" y="68"></rect><text class="zl" x="344" y="182">Resupply grid</text></g><g><polygon fill="#E8783B" points="321.5,491.5 331.5,510.5 311.5,510.5" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></polygon><title>Rockets</title></g><g><polygon fill="#E8783B" points="93.5,450.5 103.5,469.5 83.5,469.5" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></polygon><title>Rockets</title></g><g><polygon fill="#E8783B" points="131.5,429.5 141.5,448.5 121.5,448.5" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></polygon><title>Rockets</title></g><g><polygon fill="#E8783B" points="485.2,73.1 495.2,92.1 475.2,92.1" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></polygon><title>Rockets</title></g><g><polygon fill="#E8783B" points="473.1,114.9 483.1,133.9 463.1,133.9" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></polygon><title>Rockets</title></g><g><polygon fill="#E8783B" points="530.9,150.7 540.9,169.7 520.9,169.7" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></polygon><title>Rockets</title></g><g><polygon fill="#E8783B" points="531.9,224.7 541.9,243.7 521.9,243.7" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></polygon><title>Rockets</title></g><g><polygon fill="#E8783B" points="530.5,369.8 540.5,388.8 520.5,388.8" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></polygon><title>Rockets</title></g><g><polygon fill="#E8783B" points="512.5,303.8 522.5,322.8 502.5,322.8" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></polygon><title>Rockets</title></g><g><polygon fill="#E8783B" points="488.5,371.8 498.5,390.8 478.5,390.8" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></polygon><title>Rockets</title></g><g><polygon fill="#E8783B" points="487.5,149.8 497.5,168.8 477.5,168.8" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></polygon><title>Rockets</title></g><g><polygon fill="#E8783B" points="488.5,223.8 498.5,242.8 478.5,242.8" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></polygon><title>Rockets</title></g><g><polygon fill="#E8783B" points="93.5,235.5 103.5,254.5 83.5,254.5" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></polygon><title>Rockets</title></g><g><polygon fill="#E8783B" points="302.5,49.5 312.5,68.5 292.5,68.5" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></polygon><title>Rockets</title></g><g><polygon fill="#E8783B" points="302.5,110.5 312.5,129.5 292.5,129.5" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></polygon><title>Rockets</title></g><g><circle cx="215.5" cy="492.5" fill="#2E7E8E" r="9" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></circle><title>Nitros</title></g><g><circle cx="93.5" cy="403.5" fill="#2E7E8E" r="9" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></circle><title>Nitros</title></g><g><circle cx="401.6" cy="85.9" fill="#2E7E8E" r="9" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></circle><title>Nitros</title></g><g><circle cx="93.5" cy="351.5" fill="#2E7E8E" r="9" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></circle><title>Nitros</title></g><g><circle cx="121.5" cy="289.5" fill="#2E7E8E" r="9" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></circle><title>Nitros</title></g><g><circle cx="160.5" cy="225.5" fill="#2E7E8E" r="9" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></circle><title>Nitros</title></g><g><circle cx="302.5" cy="89.5" fill="#2E7E8E" r="9" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></circle><title>Nitros</title></g><g><circle cx="302.5" cy="150.5" fill="#2E7E8E" r="9" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></circle><title>Nitros</title></g><g><circle cx="215.5" cy="114.5" fill="#2E7E8E" r="9" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></circle><title>Nitros</title></g><g><circle cx="131.5" cy="392.5" fill="#2E7E8E" r="9" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></circle><title>Nitros</title></g><g><circle cx="401.6" cy="125.9" fill="#2E7E8E" r="9" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></circle><title>Nitros</title></g><g><circle cx="179.5" cy="536.5" fill="#2E7E8E" r="9" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></circle><title>Nitros</title></g><g><polygon fill="#f2c230" points="321.5,525.5 331.5,536.5 321.5,547.5 311.5,536.5" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></polygon><title>Shield</title></g><g><polygon fill="#f2c230" points="369.5,74.9 379.5,85.9 369.5,96.9 359.5,85.9" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></polygon><title>Shield</title></g><g><polygon fill="#f2c230" points="433.7,74.9 443.7,85.9 433.7,96.9 423.7,85.9" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></polygon><title>Shield</title></g><g><path d="M137.0,184.5h7v6.5h6.5v7h-6.5v6.5h-7v-6.5h-6.5v-7h6.5z" fill="#5fd93a" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></path><title>Health</title></g><g><path d="M366.0,115.9h7v6.5h6.5v7h-6.5v6.5h-7v-6.5h-6.5v-7h6.5z" fill="#5fd93a" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></path><title>Health</title></g><g><path d="M430.2,115.9h7v6.5h6.5v7h-6.5v6.5h-7v-6.5h-6.5v-7h6.5z" fill="#5fd93a" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></path><title>Health</title></g></svg></div><div><h3 style="margin-bottom:.5rem">Map A — Original zone plan</h3><p class="muted">Map A is the original zone-led layout. It established distinct moments for combat, recovery, collecting resources, navigating obstacles and maintaining the race line.</p><ul class="legend"><li><svg aria-hidden="true" viewbox="0 0 24 24"><polygon fill="#E8783B" points="12,1 22,20 2,20" stroke="#213D3A" stroke-linejoin="round" stroke-width="1.4"></polygon></svg><span>Rockets</span><span class="n">15</span></li><li><svg aria-hidden="true" viewbox="0 0 24 24"><circle cx="12" cy="12" fill="#2E7E8E" r="9" stroke="#213D3A" stroke-linejoin="round" stroke-width="1.4"></circle></svg><span>Nitros</span><span class="n">12</span></li><li><svg aria-hidden="true" viewbox="0 0 24 24"><polygon fill="#f2c230" points="12,1 22,12 12,23 2,12" stroke="#213D3A" stroke-linejoin="round" stroke-width="1.4"></polygon></svg><span>Shield</span><span class="n">3</span></li><li><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M8.5,2h7v6.5h6.5v7h-6.5v6.5h-7v-6.5h-6.5v-7h6.5z" fill="#5fd93a" stroke="#213D3A" stroke-linejoin="round" stroke-width="1.4"></path></svg><span>Health</span><span class="n">3</span></li></ul><label class="toggle"><input class="zt" type="checkbox"/> Show design reading layer</label><p class="small muted">Dashed outlines call out the resource corridor and resupply area; the complete zone strategy is summarised above.</p><p class="small muted">Markers preserve the relative placement and route relationships from the level layout.</p></div></div><div aria-labelledby="tab-exB" class="mapgrid" hidden="" id="p-exB" role="tabpanel"><div><svg aria-labelledby="t-exB d-exB" class="mapsvg" role="img" viewbox="60 40 510 530"><title id="t-exB">Map B — playtest-refined pickup layout</title><desc id="d-exB">Map B is the playtest-refined layout. Player feedback led to small pickup-placement adjustments while preserving the original activity-zone intent.</desc><path d="M114 514V106H509V514H114Z" fill="none" stroke="#9C845A" stroke-linecap="butt" stroke-linejoin="round" stroke-width="53"></path><path d="M119 278.5L205.5 112" fill="none" stroke="#9C845A" stroke-width="53"></path><path d="M114 514V106H509V514H114Z" fill="none" stroke="#43524A" stroke-linecap="butt" stroke-linejoin="round" stroke-width="47"></path><path d="M119 278.5L205.5 112" fill="none" stroke="#43524A" stroke-width="47"></path><path d="M114 514V106H509V514H114Z" fill="none" stroke="#D2C39A" stroke-dasharray="7 9" stroke-linejoin="round" stroke-width="1.5"></path><path d="M119 278.5L205.5 112" fill="none" stroke="#D2C39A" stroke-dasharray="7 9" stroke-width="1.5"></path><rect fill="#F4F1E6" height="8" width="8" x="418" y="490"></rect><rect fill="#213D3A" height="8" width="8" x="426" y="490"></rect><rect fill="#213D3A" height="8" width="8" x="418" y="498"></rect><rect fill="#F4F1E6" height="8" width="8" x="426" y="498"></rect><rect fill="#F4F1E6" height="8" width="8" x="418" y="506"></rect><rect fill="#213D3A" height="8" width="8" x="426" y="506"></rect><rect fill="#213D3A" height="8" width="8" x="418" y="514"></rect><rect fill="#F4F1E6" height="8" width="8" x="426" y="514"></rect><rect fill="#F4F1E6" height="8" width="8" x="418" y="522"></rect><rect fill="#213D3A" height="8" width="8" x="426" y="522"></rect><rect fill="#213D3A" height="8" width="8" x="418" y="530"></rect><rect fill="#F4F1E6" height="8" width="8" x="426" y="530"></rect><text fill="#213D3A" font-family="sans-serif" font-size="14" font-weight="700" text-anchor="middle" x="426" y="562">Start / finish</text><path d="M459 462H400" stroke="#2E7E8E" stroke-width="3"></path><path d="M408 455L400 462L408 469" fill="none" stroke="#2E7E8E" stroke-width="3"></path><g aria-hidden="true" class="zones" fill="none" stroke="#E9BF3E" stroke-dasharray="6 5" stroke-width="2"><rect height="270" rx="6" width="88" x="458" y="140"></rect><text class="zl" x="352" y="288">Rocket corridor</text><rect height="86" rx="6" width="100" x="352" y="68"></rect><text class="zl" x="344" y="182">Resupply grid</text></g><g><polygon fill="#E8783B" points="321.5,491.5 331.5,510.5 311.5,510.5" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></polygon><title>Rockets</title></g><g><polygon fill="#E8783B" points="93.5,450.5 103.5,469.5 83.5,469.5" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></polygon><title>Rockets</title></g><g><polygon fill="#E8783B" points="131.5,429.5 141.5,448.5 121.5,448.5" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></polygon><title>Rockets</title></g><g><polygon fill="#E8783B" points="485.2,73.1 495.2,92.1 475.2,92.1" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></polygon><title>Rockets</title></g><g><polygon fill="#E8783B" points="473.1,114.9 483.1,133.9 463.1,133.9" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></polygon><title>Rockets</title></g><g><polygon fill="#E8783B" points="530.9,150.7 540.9,169.7 520.9,169.7" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></polygon><title>Rockets</title></g><g><polygon fill="#E8783B" points="531.9,224.7 541.9,243.7 521.9,243.7" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></polygon><title>Rockets</title></g><g><polygon fill="#E8783B" points="530.5,369.8 540.5,388.8 520.5,388.8" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></polygon><title>Rockets</title></g><g><polygon fill="#E8783B" points="512.5,303.8 522.5,322.8 502.5,322.8" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></polygon><title>Rockets</title></g><g><polygon fill="#E8783B" points="488.5,371.8 498.5,390.8 478.5,390.8" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></polygon><title>Rockets</title></g><g><polygon fill="#E8783B" points="487.5,149.8 497.5,168.8 477.5,168.8" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></polygon><title>Rockets</title></g><g><polygon fill="#E8783B" points="488.5,223.8 498.5,242.8 478.5,242.8" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></polygon><title>Rockets</title></g><g><polygon fill="#E8783B" points="93.5,235.5 103.5,254.5 83.5,254.5" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></polygon><title>Rockets</title></g><g><polygon fill="#E8783B" points="302.5,49.5 312.5,68.5 292.5,68.5" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></polygon><title>Rockets</title></g><g><polygon fill="#E8783B" points="302.5,110.5 312.5,129.5 292.5,129.5" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></polygon><title>Rockets</title></g><g><circle cx="215.5" cy="499.5" fill="#2E7E8E" r="9" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></circle><title>Nitros</title></g><g><circle cx="93.5" cy="403.5" fill="#2E7E8E" r="9" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></circle><title>Nitros</title></g><g><circle cx="401.6" cy="85.9" fill="#2E7E8E" r="9" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></circle><title>Nitros</title></g><g><circle cx="93.5" cy="351.5" fill="#2E7E8E" r="9" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></circle><title>Nitros</title></g><g><circle cx="121.5" cy="289.5" fill="#2E7E8E" r="9" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></circle><title>Nitros</title></g><g><circle cx="113.5" cy="116.5" fill="#2E7E8E" r="9" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></circle><title>Nitros</title></g><g><circle cx="302.5" cy="89.5" fill="#2E7E8E" r="9" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></circle><title>Nitros</title></g><g><circle cx="302.5" cy="150.5" fill="#2E7E8E" r="9" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></circle><title>Nitros</title></g><g><circle cx="215.5" cy="114.5" fill="#2E7E8E" r="9" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></circle><title>Nitros</title></g><g><circle cx="131.5" cy="392.5" fill="#2E7E8E" r="9" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></circle><title>Nitros</title></g><g><circle cx="401.6" cy="125.9" fill="#2E7E8E" r="9" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></circle><title>Nitros</title></g><g><circle cx="172.5" cy="525.5" fill="#2E7E8E" r="9" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></circle><title>Nitros</title></g><g><polygon fill="#f2c230" points="321.5,525.5 331.5,536.5 321.5,547.5 311.5,536.5" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></polygon><title>Shield</title></g><g><polygon fill="#f2c230" points="369.5,74.9 379.5,85.9 369.5,96.9 359.5,85.9" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></polygon><title>Shield</title></g><g><polygon fill="#f2c230" points="433.7,74.9 443.7,85.9 433.7,96.9 423.7,85.9" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></polygon><title>Shield</title></g><g><path d="M115.0,244.5h7v6.5h6.5v7h-6.5v6.5h-7v-6.5h-6.5v-7h6.5z" fill="#5fd93a" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></path><title>Health</title></g><g><path d="M366.0,115.9h7v6.5h6.5v7h-6.5v6.5h-7v-6.5h-6.5v-7h6.5z" fill="#5fd93a" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></path><title>Health</title></g><g><path d="M485.0,184.5h7v6.5h6.5v7h-6.5v6.5h-7v-6.5h-6.5v-7h6.5z" fill="#5fd93a" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></path><title>Health</title></g><g><path d="M525.0,184.5h7v6.5h6.5v7h-6.5v6.5h-7v-6.5h-6.5v-7h6.5z" fill="#5fd93a" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></path><title>Health</title></g><g><path d="M430.2,115.9h7v6.5h6.5v7h-6.5v6.5h-7v-6.5h-6.5v-7h6.5z" fill="#5fd93a" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></path><title>Health</title></g></svg></div><div><h3 style="margin-bottom:.5rem">Map B — Playtest refinement</h3><p class="muted">Map B is the playtest-refined layout. After feedback, I made minor pickup-placement tweaks while preserving Map A’s zone intent; the data summary reflects the final health-pickup increase from 3 to 5.</p><ul class="legend"><li><svg aria-hidden="true" viewbox="0 0 24 24"><polygon fill="#E8783B" points="12,1 22,20 2,20" stroke="#213D3A" stroke-linejoin="round" stroke-width="1.4"></polygon></svg><span>Rockets</span><span class="n">15</span></li><li><svg aria-hidden="true" viewbox="0 0 24 24"><circle cx="12" cy="12" fill="#2E7E8E" r="9" stroke="#213D3A" stroke-linejoin="round" stroke-width="1.4"></circle></svg><span>Nitros</span><span class="n">12</span></li><li><svg aria-hidden="true" viewbox="0 0 24 24"><polygon fill="#f2c230" points="12,1 22,12 12,23 2,12" stroke="#213D3A" stroke-linejoin="round" stroke-width="1.4"></polygon></svg><span>Shield</span><span class="n">3</span></li><li><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M8.5,2h7v6.5h6.5v7h-6.5v6.5h-7v-6.5h-6.5v-7h6.5z" fill="#5fd93a" stroke="#213D3A" stroke-linejoin="round" stroke-width="1.4"></path></svg><span>Health</span><span class="n">5</span></li></ul><label class="toggle"><input class="zt" type="checkbox"/> Show design reading layer</label><p class="small muted">Dashed outlines call out the resource corridor and resupply area; the complete zone strategy is summarised above.</p><p class="small muted">Markers preserve the relative placement and route relationships from the level layout.</p></div></div><div aria-labelledby="tab-ftue" class="mapgrid" hidden="" id="p-ftue" role="tabpanel"><div><svg aria-labelledby="t-ftue d-ftue" class="mapsvg" role="img" viewbox="60 40 510 530"><title id="t-ftue">Final FTUE route — L-shaped onboarding path</title><desc id="d-ftue">The final FTUE route uses a focused L-shaped racing segment with rocket and nitro pickups placed to support in-race control learning.</desc><path d="M320 514H114V106H473" fill="none" stroke="#9C845A" stroke-linecap="butt" stroke-linejoin="round" stroke-width="53"></path><path d="M119 278.5L205.5 112" fill="none" stroke="#9C845A" stroke-width="53"></path><path d="M320 514H114V106H473" fill="none" stroke="#43524A" stroke-linecap="butt" stroke-linejoin="round" stroke-width="47"></path><path d="M119 278.5L205.5 112" fill="none" stroke="#43524A" stroke-width="47"></path><path d="M320 514H114V106H473" fill="none" stroke="#D2C39A" stroke-dasharray="7 9" stroke-linejoin="round" stroke-width="1.5"></path><path d="M119 278.5L205.5 112" fill="none" stroke="#D2C39A" stroke-dasharray="7 9" stroke-width="1.5"></path><rect fill="#F4F1E6" height="8" width="8" x="285" y="490"></rect><rect fill="#213D3A" height="8" width="8" x="293" y="490"></rect><rect fill="#213D3A" height="8" width="8" x="285" y="498"></rect><rect fill="#F4F1E6" height="8" width="8" x="293" y="498"></rect><rect fill="#F4F1E6" height="8" width="8" x="285" y="506"></rect><rect fill="#213D3A" height="8" width="8" x="293" y="506"></rect><rect fill="#213D3A" height="8" width="8" x="285" y="514"></rect><rect fill="#F4F1E6" height="8" width="8" x="293" y="514"></rect><rect fill="#F4F1E6" height="8" width="8" x="285" y="522"></rect><rect fill="#213D3A" height="8" width="8" x="293" y="522"></rect><rect fill="#213D3A" height="8" width="8" x="285" y="530"></rect><rect fill="#F4F1E6" height="8" width="8" x="293" y="530"></rect><rect fill="#F4F1E6" height="8" width="8" x="433" y="62"></rect><rect fill="#213D3A" height="8" width="8" x="441" y="62"></rect><rect fill="#213D3A" height="8" width="8" x="433" y="70"></rect><rect fill="#F4F1E6" height="8" width="8" x="441" y="70"></rect><rect fill="#F4F1E6" height="8" width="8" x="433" y="78"></rect><rect fill="#213D3A" height="8" width="8" x="441" y="78"></rect><rect fill="#213D3A" height="8" width="8" x="433" y="86"></rect><rect fill="#F4F1E6" height="8" width="8" x="441" y="86"></rect><rect fill="#F4F1E6" height="8" width="8" x="433" y="94"></rect><rect fill="#213D3A" height="8" width="8" x="441" y="94"></rect><rect fill="#213D3A" height="8" width="8" x="433" y="102"></rect><rect fill="#F4F1E6" height="8" width="8" x="441" y="102"></rect><text fill="#213D3A" font-family="sans-serif" font-size="14" font-weight="700" text-anchor="middle" x="262" y="568">Start</text><text fill="#213D3A" font-family="sans-serif" font-size="14" font-weight="700" text-anchor="middle" x="441" y="56">Finish</text><path d="M300 441H244" stroke="#2E7E8E" stroke-width="3"></path><path d="M252 434L244 441L252 448" fill="none" stroke="#2E7E8E" stroke-width="3"></path><g><polygon fill="#E8783B" points="113.5,408.5 123.5,427.5 103.5,427.5" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></polygon><title>Rockets</title></g><g><polygon fill="#E8783B" points="118.5,103.5 128.5,122.5 108.5,122.5" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></polygon><title>Rockets</title></g><g><polygon fill="#E8783B" points="93.5,235.5 103.5,254.5 83.5,254.5" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></polygon><title>Rockets</title></g><g><polygon fill="#E8783B" points="302.5,49.5 312.5,68.5 292.5,68.5" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></polygon><title>Rockets</title></g><g><polygon fill="#E8783B" points="302.5,110.5 312.5,129.5 292.5,129.5" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></polygon><title>Rockets</title></g><g><circle cx="113.5" cy="366.5" fill="#2E7E8E" r="9" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></circle><title>Nitros</title></g><g><circle cx="401.6" cy="85.9" fill="#2E7E8E" r="9" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></circle><title>Nitros</title></g><g><circle cx="160.5" cy="225.5" fill="#2E7E8E" r="9" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></circle><title>Nitros</title></g><g><circle cx="302.5" cy="89.5" fill="#2E7E8E" r="9" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></circle><title>Nitros</title></g><g><circle cx="302.5" cy="150.5" fill="#2E7E8E" r="9" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></circle><title>Nitros</title></g><g><circle cx="215.5" cy="114.5" fill="#2E7E8E" r="9" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></circle><title>Nitros</title></g><g><circle cx="113.5" cy="303.5" fill="#2E7E8E" r="9" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></circle><title>Nitros</title></g><g><circle cx="401.6" cy="125.9" fill="#2E7E8E" r="9" stroke="#213D3A" stroke-linejoin="round" stroke-width="2"></circle><title>Nitros</title></g></svg></div><div><h3 style="margin-bottom:.5rem">Final FTUE route</h3><p class="muted">This is the final shipped FTUE route: a focused L-shaped section with rocket and nitro pickups to teach core actions in the context of an active race.</p><ul class="legend"><li><svg aria-hidden="true" viewbox="0 0 24 24"><polygon fill="#E8783B" points="12,1 22,20 2,20" stroke="#213D3A" stroke-linejoin="round" stroke-width="1.4"></polygon></svg><span>Rockets</span><span class="n">5</span></li><li><svg aria-hidden="true" viewbox="0 0 24 24"><circle cx="12" cy="12" fill="#2E7E8E" r="9" stroke="#213D3A" stroke-linejoin="round" stroke-width="1.4"></circle></svg><span>Nitros</span><span class="n">8</span></li></ul><p class="small muted">Markers preserve the relative placement and route relationships from the level layout.</p></div></div></div>
+<div class="split" style="margin-top:var(--s4)">
+<div>
+<h3 style="margin-bottom:var(--s1)">What the layout is doing</h3>
+<ul class="clean">
+<li><strong>The loop has one shortcut.</strong> A diagonal cuts the top-left corner and carries nitro and health pickups.</li>
+<li><strong>Obstacles are sparse.</strong> The map has four, spread across the top, right and left sides. The markers show the four authored obstacle positions around the circuit.</li>
+<li><strong>Pickups are grouped by job.</strong> Rockets cluster on the right straight. A grid of shields, nitros and health sits on the top straight.</li>
+<li><strong>The FTUE route is shorter.</strong> It is an L-shaped run with only rockets and nitros, matching the two actions taught.</li>
+</ul>
+</div>
+<div class="note info"><p><strong>Design reading, not source fact.</strong> The files show where pickups are, not why. Turn on the design reading layer to see where I expect rocket duels and resupply decisions to happen. Check these with playtest heat maps. </p></div>
+</div>
+</div>
+</section>
+<section aria-labelledby="h-ai" class="sec" id="ai">
+<div class="wrap">
+<div class="sec-head"><h2 id="h-ai">AI difficulty design</h2><p>Opponents should keep a beginner in the race without becoming obviously passive, and keep a veteran under pressure without cheating in plain sight.</p></div>
+<div aria-label="How race results lead to AI behaviour" class="sysmap" role="group">
+<div class="nd"><h4>Race outcome</h4><ul><li>Finishing position</li><li>Kills</li><li>Survival time</li><li>Deaths</li></ul></div>
+<div aria-hidden="true" class="arr">›</div>
+<div class="nd key"><h4>Score S</h4><ul><li>Weighted sum of the four signals</li><li>Easy, Medium or Hard band</li></ul></div>
+<div aria-hidden="true" class="arr">›</div>
+<div class="nd"><h4>Tuning profile</h4><ul><li>Easy, New Easy, Medium, Hard</li><li>Noob for first-timers</li></ul></div>
+<div aria-hidden="true" class="arr">›</div>
+<div class="nd"><h4>AI behaviour</h4><ul><li>Throttle and target speed</li><li>How often it shoots and shields</li><li>Next race adapts to past play</li></ul></div>
+</div>
+<p class="small muted" style="margin-top:.8rem">The player-performance classifier feeds the AI tuning profiles. Race outcome signals map to a difficulty band, and the next race uses a profile tuned for the player. The available profiles include Existing, Easy, New Easy, Medium, Hard and Noob.</p>
+<hr class="rule"/>
+<h3 style="margin-bottom:var(--s1)">What the datasheet actually changes</h3>
+<p class="muted">Across the profiles, AI speed and ability use are tuned. Steering, edge detection and pickup chasing stay constant, so even the easiest AI still races and still goes for pickups.</p>
+<div class="tiers"><div class="tier"><h4>Top speed push <span class="mono muted">MaxThrottle</span></h4><div class="b base"><span>Existing</span><span class="track"><i style="width:67%;display:block"></i></span><span>2</span></div><div class="b"><span>Easy</span><span class="track"><i style="width:67%;display:block"></i></span><span>2</span></div><div class="b"><span>New Easy</span><span class="track"><i style="width:67%;display:block"></i></span><span>2</span></div><div class="b"><span>Medium</span><span class="track"><i style="width:83%;display:block"></i></span><span>2.5</span></div><div class="b"><span>Hard</span><span class="track"><i style="width:100%;display:block"></i></span><span>3</span></div><div class="b noob"><span>Noob</span><span class="track"><i style="width:50%;display:block"></i></span><span>1.5</span></div></div><div class="tier"><h4>Minimum target speed <span class="mono muted">TargetMinSpeed</span></h4><div class="b base"><span>Existing</span><span class="track"><i style="width:45%;display:block"></i></span><span>25</span></div><div class="b"><span>Easy</span><span class="track"><i style="width:45%;display:block"></i></span><span>25</span></div><div class="b"><span>New Easy</span><span class="track"><i style="width:55%;display:block"></i></span><span>30</span></div><div class="b"><span>Medium</span><span class="track"><i style="width:82%;display:block"></i></span><span>45</span></div><div class="b"><span>Hard</span><span class="track"><i style="width:100%;display:block"></i></span><span>55</span></div><div class="b noob"><span>Noob</span><span class="track"><i style="width:45%;display:block"></i></span><span>25</span></div></div><div class="tier"><h4>Shooting chance <span class="mono muted">ShootingProbability</span></h4><div class="b base"><span>Existing</span><span class="track"><i style="width:100%;display:block"></i></span><span>1</span></div><div class="b"><span>Easy</span><span class="track"><i style="width:40%;display:block"></i></span><span>0.4</span></div><div class="b"><span>New Easy</span><span class="track"><i style="width:30%;display:block"></i></span><span>0.3</span></div><div class="b"><span>Medium</span><span class="track"><i style="width:50%;display:block"></i></span><span>0.5</span></div><div class="b"><span>Hard</span><span class="track"><i style="width:60%;display:block"></i></span><span>0.6</span></div><div class="b noob"><span>Noob</span><span class="track"><i style="width:30%;display:block"></i></span><span>0.3</span></div></div><div class="tier"><h4>Shielding chance <span class="mono muted">Sheilding Probablity</span></h4><div class="b base"><span>Existing</span><span class="track"><i style="width:100%;display:block"></i></span><span>1</span></div><div class="b"><span>Easy</span><span class="track"><i style="width:20%;display:block"></i></span><span>0.2</span></div><div class="b"><span>New Easy</span><span class="track"><i style="width:20%;display:block"></i></span><span>0.2</span></div><div class="b"><span>Medium</span><span class="track"><i style="width:50%;display:block"></i></span><span>0.5</span></div><div class="b"><span>Hard</span><span class="track"><i style="width:60%;display:block"></i></span><span>0.6</span></div><div class="b noob"><span>Noob</span><span class="track"><i style="width:20%;display:block"></i></span><span>0.2</span></div></div></div><p class="small muted" style="margin-top:.8rem">Grey bars are the Existing baseline. Green bars are Noob. Each chart scales to its own largest value.</p>
+</div>
+</section>
+<section aria-labelledby="h-test" class="sec" id="testing">
+<div class="wrap">
+<div class="sec-head"><h2 id="h-test">Player testing and iteration</h2><p>This was the engine of the balance work. I watched people play, wrote down where they struggled, changed something and watched again. I did it for two audiences.</p></div>
+<ol aria-label="Playtest loop" class="loop">
+<li><h4>Play</h4><p>Observe players in a build.</p></li>
+<li><h4>Capture</h4><p>Record behaviour and what they say.</p></li>
+<li><h4>Diagnose</h4><p>Find the friction or the difficulty mismatch.</p></li>
+<li><h4>Tune</h4><p>Change a parameter, layout or prompt.</p></li>
+<li><h4>Re-test</h4><p>Play again and compare.</p></li>
+</ol>
+<div class="loopback">Repeat with both audiences</div>
+<div class="lanes" style="margin-top:var(--s4)">
+<div class="lane-card a">
+<h3>Experienced racing players</h3>
+<p class="muted">They know the genre. They want a contest.</p>
+<h4>Balancing focus</h4>
+<ul class="clean"><li>Keep opponents active and competitive rather than easy to ignore.</li><li>Make pickup and ability use create meaningful counterplay.</li><li>Keep catch-up pressure exciting without making it feel unfair.</li></ul>
+<h4>Levers in the datasheet</h4>
+<p class="small"><span class="mono">TargetMinSpeed</span>, <span class="mono">ShootingProbability</span>, <span class="mono">ShieldingProbability</span>, <span class="mono">MaxThrottle</span></p>
+</div>
+<div class="lane-card b">
+<h3>Players new to racing games</h3>
+<p class="muted">They are still learning controls and genre habits.</p>
+<h4>Balancing focus</h4>
+<ul class="clean"><li>Make controls and first-race prompts easy to understand.</li><li>Give players room to recover instead of overwhelming them immediately.</li><li>Make rockets and nitro readable, learnable parts of the race.</li></ul>
+<h4>Levers in the datasheet</h4>
+<p class="small"><span class="mono">Noob</span> column, <span class="mono">ShootingToAlProbability</span>, <span class="mono">MaxThrottle</span> (1.5 for Noob), FTUE prompt timing</p>
+</div>
+</div>
+<p class="small muted" style="margin-top:var(--s2)">Feedback from both audiences informed changes to AI speed, ability-use probabilities and onboarding. Easy, New Easy and Noob profiles support differentiated tuning rather than a single difficulty curve.</p>
+</div>
+</section>
+<section aria-labelledby="h-con" class="sec" id="constraint">
+<div class="wrap">
+<div class="sec-head"><h2 id="h-con">Technical constraint and design response</h2><p>AI opponents could drift away from the player because of engine and implementation constraints. I designed and shipped conditional repositioning to bring opponents back into a relevant race position.</p></div>
+<div aria-label="Conditional AI repositioning workflow" class="tree" role="group">
+<div><h4>Problem</h4><p class="small muted" style="margin:0">An opponent falls out of contact. The race loses its rival and the player loses a reason to push.</p></div>
+<div><h4>Check conditions</h4><ul><li>Player position</li><li>Camera visibility</li><li>Player acceleration</li></ul></div>
+<div class="out"><h4>If all conditions allow</h4><p class="small muted" style="margin:0">Reposition the AI so it is relevant again, out of sight.</p></div>
+<div><h4>Otherwise</h4><p class="small muted" style="margin:0">Leave it driving. No visible jump.</p></div>
+</div>
+<p class="small muted" style="margin-top:.8rem">The implementation is tuned around the AI distance and reposition-delay parameters, including MaxAllowedDistance and TeleportationDelay.</p>
+<h3 style="margin:var(--s4) 0 var(--s1)">Trade-offs I did not hide</h3>
+<table class="risk">
+<thead><tr><th scope="col">Risk</th><th scope="col">Player effect</th><th scope="col">Shipped design response</th></tr></thead>
+<tbody>
+<tr><td>Visible popping</td><td>Breaks immersion and looks like a bug.</td><td>Only reposition when the car is off camera.</td></tr>
+<tr><td>Perceived unfairness</td><td>Player feels the AI cheats.</td><td>Match speed and heading when placing the opponent so its return to the race reads naturally.</td></tr>
+<tr><td>Repeated catches</td><td>Player escapes, gets caught again, feels punished.</td><td>Per-car cooldown and a cap per race.</td></tr>
+</tbody>
+</table>
+<p class="small muted" style="margin-top:.8rem">The shipped implementation addresses visible popping, perceived unfairness and repeated catch-up by repositioning out of camera view, aligning the car to the track and managing repeated triggers.</p>
+</div>
+</section>
+<section aria-labelledby="h-sv" class="sec" id="soundvfx">
+<div class="wrap">
+<div class="sec-head"><h2 id="h-sv">Sound and VFX</h2><p>Sound and effects make rockets, nitro and shields readable at speed. Detailed lists are in the design document.</p></div>
+<div class="split">
+<div>
+<h3 style="margin-bottom:var(--s1)">Sound design: 19 listed items</h3>
+<div class="sv audio" role="list">
+<div role="listitem"><h4>Vehicle</h4><small>2 items</small></div>
+<div role="listitem"><h4>Collisions</h4><small>3 items</small></div>
+<div role="listitem"><h4>Power-ups</h4><small>9 items</small></div>
+<div role="listitem"><h4>Music</h4><small>3 items</small></div>
+<div role="listitem"><h4>Race start</h4><small>2 items</small></div>
+</div>
+<p class="small muted" style="margin-top:var(--s2)">I created and delivered the sound design across all 19 listed cues: vehicle response, collisions, power-ups, music and race start.</p>
+<p><a href="#g-sound">Read the sound requirements</a></p>
+</div>
+<div>
+<h3 style="margin-bottom:var(--s1)">VFX supervised: 22 listed items</h3>
+<div class="sv fx" role="list">
+<div role="listitem"><h4>Race start</h4><small>2</small></div>
+<div role="listitem"><h4>Car</h4><small>8</small></div>
+<div role="listitem"><h4>Collectibles</h4><small>1</small></div>
+<div role="listitem"><h4>Nitro</h4><small>6</small></div>
+<div role="listitem"><h4>Shield</h4><small>2</small></div>
+<div role="listitem"><h4>Rockets</h4><small>2</small></div>
+<div role="listitem"><h4>Health</h4><small>1</small></div>
+</div>
+<p class="small muted" style="margin-top:var(--s2)">I supervised delivery of the 22 listed visual effects across race start, vehicles, collectibles and gameplay abilities.</p>
+<p><a href="#g-vfx">Read the VFX scope</a></p>
+</div>
+</div>
+</div>
+</section>
+<section aria-labelledby="h-dem" class="sec" id="demonstrates">
+<div class="wrap">
+<div class="sec-head"><h2 id="h-dem">What this project shows about how I work</h2></div>
+<div class="demo">
+<div><h3>Systems thinking</h3><p>I linked entry flow, pickups, AI parameters and difficulty bands so a change in one was checked against the others.</p></div>
+<div><h3>Player-first iteration</h3><p>I tuned for two different audiences and treated feedback as the input, not an afterthought.</p></div>
+<div><h3>Cross-discipline work</h3><p>I coordinated with art on cars, supervised VFX and wrote an audio scope others could build from.</p></div>
+<div><h3>Design under constraint</h3><p>Designed and shipped conditional AI repositioning to address drift while keeping opponents relevant to the race.</p></div>
+</div>
+<p class="muted" style="margin-top:var(--s4)">The project strengthened my approach to iteration: observe player behaviour, identify friction, adjust a targeted system, and tune again for both audience types.</p>
+</div>
+</section>
+<!-- ============ PART B ============ -->
+<section aria-labelledby="h-gdd" class="gdd-start" id="gdd">
+<div class="wrap">
+<p class="kicker">Part B</p>
+<h2 id="h-gdd">Game design document</h2>
+<p class="muted" style="margin-top:var(--s2);font-size:1.15rem">The complete design reference: player flow, track layouts, tuning data, playtest iteration, sound/VFX implementation scope and QA checklists.</p>
+</div>
+</section>
+<div class="wrap">
+<div class="gdd">
+<aside aria-label="Design document contents" class="toc" id="toc">
+<ol>
+<li class="grp">Foundations</li>
+<li><a href="#g-purpose">Purpose and sources</a></li>
+<li><a href="#g-overview">Overview and goals</a></li>
+<li><a href="#g-loops">Core loops</a></li>
+<li><a href="#g-ftue">FTUE specification</a></li>
+<li><a href="#g-audience">Audiences</a></li>
+<li><a href="#g-testing">Testing process</a></li>
+<li class="grp">Content</li>
+<li><a href="#g-track">Track and level</a></li>
+<li><a href="#g-powerups">Power-ups</a></li>
+<li class="grp">Systems</li>
+<li><a href="#g-ai">AI system and data</a></li>
+<li><a href="#g-equation">Difficulty equation</a></li>
+<li><a href="#g-reposition">AI repositioning</a></li>
+<li class="grp">Audio and visual</li>
+<li><a href="#g-sound">Sound requirements</a></li>
+<li><a href="#g-vfx">VFX scope</a></li>
+<li><a href="#g-art">Art coordination</a></li>
+<li><a href="#g-qa">UI and QA checklists</a></li>
+<li class="grp">Review</li>
+<li><a href="#g-open">Discrepancies and next steps</a></li>
+</ol>
+</aside>
+<div class="gdd-body">
+<article class="chap" id="g-purpose">
+<h3>How to use this document</h3>
+<p class="intro">This GDD records the shipped design work in greater depth: entry flow, FTUE, track layout, AI difficulty and opponent behaviour, user-testing iteration, sound, VFX and art coordination.</p>
+<h4>Project files and design references</h4>
+<div class="scroll"><table class="tbl"><thead><tr><th>File</th><th>What it holds</th><th>How I used it</th></tr></thead><tbody>
+<tr><td>Race Ai datasheet.xlsx</td><td>One sheet, 6 tuning columns, 67 parameter rows</td><td>AI tables and tier charts</td></tr>
+<tr><td>Sound design requirement document</td><td>Four-part sound requirement list</td><td>Sound chapter</td></tr>
+<tr><td>Race Checklist.md / Race Particles.md</td><td>Project task list and VFX list (overlapping)</td><td>VFX and QA chapters</td></tr>
+<tr><td>Race difficulty level planing Equation.md</td><td>Classification formula, example weights, bands</td><td>Equation chapter</td></tr>
+<tr><td>AI in racing games.md</td><td>Reading notes on racing AI architecture</td><td>Background for AI chapter</td></tr>
+<tr><td>Planning maps (obstacles, existing pickups twice, FTUE pickups)</td><td>Track layout and pickup positions</td><td>Read for information only. Redrawn from scratch.</td></tr>
+<tr><td>FTUE flow chart and FTUE planning board</td><td>Step order, target times, three rules</td><td>Read for information only. Redrawn from scratch.</td></tr>
+</tbody></table></div>
+</article>
+<article class="chap" id="g-overview">
+<h3>Experience overview and goals</h3>
+<p class="intro">A quick-entry combat-racing experience designed to support immediate play, adaptive competition and readable action.</p>
+<ul class="clean">
+<li>Get players into a race in a few steps.</li>
+<li>Teach controls during play, one action at a time.</li>
+<li>Keep races engaging for racing veterans and newcomers.</li>
+<li>Keep AI opponents relevant through adaptive tuning and conditional repositioning.</li>
+</ul>
+</article>
+<article class="chap" id="g-loops">
+<h3>Core loops</h3>
+<h4>Entry-to-replay loop</h4>
+<ol class="clean">Player opens the game from the platform. Hero screen: one clear play action. Race begins with FTUE prompts in the first race. Result screen communicates win or loss and points based on performance. Replay or return to the platform.</ol>
+<div class="note">Post-race loop. The result communicates the race outcome and performance-based points, then makes replay the clearest next action.</div>
+<h4>Moment-to-moment loop</h4>
+<p>Drive. Steer. Collect rockets, nitros, shields and health. Fire rockets at opponents. Use nitro to gain speed. Use shields to absorb hits.  Drawn from the pickup maps, VFX list and sound list.</p>
+</article>
+<article class="chap" id="g-ftue">
+<h3>FTUE specification</h3>
+<p class="intro">Prompt timings are shown in seconds after the race starts.</p>
+<div class="scroll"><table class="tbl"><thead><tr><th>Step</th><th>Target time</th><th>Player action</th><th>UI shown</th><th>Intent (my reading)</th></tr></thead><tbody>
+<tr><td>1. Automatic acceleration</td><td>5–10 s</td><td>None. The car accelerates itself.</td><td>Start, then a prompt.</td><td>Show that no throttle control is needed.</td></tr>
+<tr><td>2. Steer left or right</td><td>15–20 s</td><td>Hold the buttons to turn.</td><td>Left and right buttons.</td><td>Teach steering with both directions at once.</td></tr>
+<tr><td>3. Use rockets</td><td>25–30 s</td><td>Tap to launch.</td><td>Rocket button.</td><td>Introduce the first combat action.</td></tr>
+<tr><td>4. Use nitro</td><td>45 s</td><td>Tap to activate.</td><td>Nitro button.</td><td>Introduce speed as a second tool.</td></tr>
+</tbody></table></div>
+<h4>Rules recorded on the board</h4>
+<ul class="clean"><li>One UI button at a time at each point.</li><li>Steer left and right together, not left alone.</li><li>Players start with one rocket and one boost for the FTUE.</li></ul>
+<p class="small muted">The FTUE starts with one rocket and one boost so players can try each action at the point it is introduced.</p>
+</article>
+<article class="chap" id="g-audience">
+<h3>Audience considerations</h3>
+<div class="split">
+<div><h4>Experienced racing players</h4><p>Need AI that pushes, uses abilities and keeps pace. Risk: the race feels like a tutorial.</p></div>
+<div><h4>New and non-racing players</h4><p>Need clear prompts, forgiving opponents and a first win within reach. Risk: they quit after being passed and hit repeatedly.</p></div>
+</div>
+<p class="small muted">Playtesting feedback informed balancing for both audiences, with the Easy, New Easy and Noob profiles providing distinct tuning targets.</p>
+</article>
+<article class="chap" id="g-testing"><h3>Testing and iteration process</h3>
+<p class="intro">Playtesting was part of the shipped balancing work. I participated in sessions, generated feedback, implemented tweaks and tuned the experience for experienced racing players and players new to the genre.</p>
+<ol aria-label="Shipped feedback and iteration process" class="loop">
+<li><strong>Observe</strong><p>Watch players in a build and capture what they do, where they hesitate and how they use abilities.</p></li>
+<li><strong>Separate needs</strong><p>Read feedback through the lens of experienced racers and newcomers.</p></li>
+<li><strong>Target the system</strong><p>Adjust AI speed, combat/ability probabilities, or tutorial timing based on the friction.</p></li>
+<li><strong>Re-test</strong><p>Play again and iterate until the race feels engaging and understandable for both groups.</p></li>
+</ol>
+<h4>Audience-led balancing</h4>
+<div class="scroll"><table class="tbl"><thead><tr><th>Audience</th><th>Design priority</th><th>Implemented response</th></tr></thead><tbody>
+<tr><td>Experienced racers</td><td>Opponent pressure, meaningful combat choices and competitive pacing.</td><td>Higher speed and ability-use profiles keep opponents active and create counterplay.</td></tr>
+<tr><td>Players new to racing games</td><td>Control clarity, recovery room and a readable introduction to abilities.</td><td>Easy, New Easy and Noob profiles reduce pressure in different ways; FTUE prompts introduce controls in context.</td></tr>
+</tbody></table></div>
+<h4>What the iteration connected</h4>
+<p>Feedback translated into concrete tuning changes across the first-race experience and AI profile parameters. The Easy and New Easy profiles show differentiated tuning, while the Noob profile supports players who need a gentler entry into the race.</p></article>
+<article class="chap" id="g-track">
+<h3>Track and level design</h3>
+<p class="intro">The track schematics document start/finish, route shape, obstacle placement, pickup distribution and the main combat and resupply zones.</p>
+<h4>Sections</h4>
+<ul class="clean">
+<li><strong>Start and finish:</strong> bottom straight. Travel direction runs toward the left corner.</li>
+<li><strong>Left side:</strong> nitro and rocket runs.</li>
+<li><strong>Diagonal shortcut:</strong> cuts the top-left corner. Holds nitro and health.</li>
+<li><strong>Top straight:</strong> grid of shield, nitro and health, plus a stacked column of rockets and nitros at the left of it.</li>
+<li><strong>Right straight:</strong> most of the rockets.</li>
+<li><strong>Obstacles:</strong> four placed on the top, right and left sides.</li>
+</ul>
+<h4>Pickup counts by map</h4>
+<div class="scroll"><table class="tbl"><thead><tr><th>Map</th><th>Rockets</th><th>Nitros</th><th>Shield</th><th>Health</th><th>Obstacles</th></tr></thead><tbody><tr><td>Obstacles</td><td>–</td><td>–</td><td>–</td><td>–</td><td>4</td></tr><tr><td>Map A — Original zone plan</td><td>15</td><td>12</td><td>3</td><td>3</td><td>–</td></tr><tr><td>Map B — Playtest refinement</td><td>15</td><td>12</td><td>3</td><td>5</td><td>–</td></tr><tr><td>Final FTUE route</td><td>5</td><td>8</td><td>–</td><td>–</td><td>–</td></tr></tbody></table></div>
+<div class="note">Map A established the intended activity zones; Map B is the shipped, playtest-informed refinement. Minor pickup-placement tweaks improved recovery and resource opportunities without changing the overall track concept.</div>
+<div class="note">The concentrated pickup stack on the top straight creates a high-attention resource opportunity and supports a more deliberate route decision. Map B carries the feedback-led refinements into the final layout.</div>
+<details class="acc"><summary>Track layout coordinates</summary><div><p class="small muted">Coordinates are retained from the authored planning diagrams, using their top-left origin and drawing-unit convention.</p><h4>Obstacles</h4><div class="scroll"><table class="tbl"><thead><tr><th>Type</th><th>Positions (x, y)</th></tr></thead><tbody><tr><td>Obstacles</td><td class="mono">287.5, 105.5; 441, 105.5; 508, 241; 113.5, 350.5</td></tr></tbody></table></div><h4>Map A — Original zone plan</h4><div class="scroll"><table class="tbl"><thead><tr><th>Type</th><th>Positions (x, y)</th></tr></thead><tbody><tr><td>Rockets</td><td class="mono">321.5, 502.5; 93.5, 461.5; 131.5, 440.5; 485.2, 84.1; 473.1, 125.9; 530.9, 161.7; 531.9, 235.7; 530.5, 380.8; 512.5, 314.8; 488.5, 382.8; 487.5, 160.8; 488.5, 234.8; 93.5, 246.5; 302.5, 60.5; 302.5, 121.5</td></tr><tr><td>Nitros</td><td class="mono">215.5, 492.5; 93.5, 403.5; 401.6, 85.9; 93.5, 351.5; 121.5, 289.5; 160.5, 225.5; 302.5, 89.5; 302.5, 150.5; 215.5, 114.5; 131.5, 392.5; 401.6, 125.9; 179.5, 536.5</td></tr><tr><td>Shield</td><td class="mono">321.5, 536.5; 369.5, 85.9; 433.7, 85.9</td></tr><tr><td>Health</td><td class="mono">140.5, 194.5; 369.5, 125.9; 433.7, 125.9</td></tr></tbody></table></div><h4>Map B — Playtest refinement</h4><div class="scroll"><table class="tbl"><thead><tr><th>Type</th><th>Positions (x, y)</th></tr></thead><tbody><tr><td>Rockets</td><td class="mono">321.5, 502.5; 93.5, 461.5; 131.5, 440.5; 485.2, 84.1; 473.1, 125.9; 530.9, 161.7; 531.9, 235.7; 530.5, 380.8; 512.5, 314.8; 488.5, 382.8; 487.5, 160.8; 488.5, 234.8; 93.5, 246.5; 302.5, 60.5; 302.5, 121.5</td></tr><tr><td>Nitros</td><td class="mono">215.5, 499.5; 93.5, 403.5; 401.6, 85.9; 93.5, 351.5; 121.5, 289.5; 113.5, 116.5; 302.5, 89.5; 302.5, 150.5; 215.5, 114.5; 131.5, 392.5; 401.6, 125.9; 172.5, 525.5</td></tr><tr><td>Shield</td><td class="mono">321.5, 536.5; 369.5, 85.9; 433.7, 85.9</td></tr><tr><td>Health</td><td class="mono">118.5, 254.5; 369.5, 125.9; 488.5, 194.5; 528.5, 194.5; 433.7, 125.9</td></tr></tbody></table></div><h4>Final FTUE route</h4><div class="scroll"><table class="tbl"><thead><tr><th>Type</th><th>Positions (x, y)</th></tr></thead><tbody><tr><td>Rockets</td><td class="mono">113.5, 419.5; 118.5, 114.5; 93.5, 246.5; 302.5, 60.5; 302.5, 121.5</td></tr><tr><td>Nitros</td><td class="mono">113.5, 366.5; 401.6, 85.9; 160.5, 225.5; 302.5, 89.5; 302.5, 150.5; 215.5, 114.5; 113.5, 303.5; 401.6, 125.9</td></tr></tbody></table></div></div></details>
+</article>
+<article class="chap" id="g-powerups">
+<h3>Power-ups</h3>
+<p class="intro">Four pickup categories exist in the maps. Each one links to AI parameters, sounds and effects.</p>
+<div class="scroll"><table class="tbl"><thead><tr><th>Power-up</th><th>On existing map</th><th>On FTUE route</th><th>Related datasheet rows</th><th>Sound items</th><th>VFX items</th></tr></thead><tbody>
+<tr><td>Rockets</td><td>15</td><td>5</td><td>Missile Ammo, MaxAmmo, ShootingProbability, ShootingCoolOffTime</td><td>Launch, damage</td><td>Launch smoke, smoke trail, impact shears</td></tr>
+<tr><td>Nitros</td><td>12</td><td>8</td><td>BoostProbability, BoosterEffectTimer, BoostMultiplier*</td><td>Activation, acceleration</td><td>Exhaust, chromatic aberration, motion blur, speed trail, tire smoke, speed lines</td></tr>
+<tr><td>Shield</td><td>3</td><td>0</td><td>ShieldCount, MaxShieldCount, ShieldTime, ShieldingProbability</td><td>Activation, rocket interaction, deactivation</td><td>Activation, impact while active</td></tr>
+<tr><td>Health</td><td>3 or 5 (two maps)</td><td>0</td><td>MaxHealth</td><td>Activation</td><td>Consuming effect</td></tr>
+</tbody></table></div>
+<p class="small muted">Counts represent the layout snapshots. The table connects each pickup to its related AI parameters, sound cues and VFX.</p>
+</article>
+<article class="chap" id="g-ai">
+<h3>AI system and balancing</h3>
+<p class="intro">Source parameter names and values are retained, with a separate readable label where a spelling correction improves scanning.</p>
+<h4>Reading notes on racing AI</h4>
+<p>These architecture concepts informed the design lens for layered racing behaviour and opponent decision-making.</p>
+<h4>AI checklist items from my notes</h4>
+<ul class="clean"><li>AI difficulty balancing and race-winning behaviour.</li><li>Getting collectibles</li><li>Stability in balancing itself</li><li>Edge detection: waypoint adjustments and tweaking</li><li>Using abilities: shooting, nitros, shield, health</li></ul>
+<h4>Datasheet explorer</h4>
+<p class="muted">The complete tuning sheet is included below. Values remain as recorded in the project datasheet.</p>
+<div class="ctl"><input aria-label="Search parameters" id="q" placeholder="Search parameters" type="search"/><label class="toggle" style="margin:0"><input id="onlyd" type="checkbox"/> Only rows that differ</label><label>Sort <select aria-label="Sort rows" id="sortby"><option value="src">Source order</option><option value="az">Name A to Z</option></select></label><span class="small muted" id="cnt"></span></div><div class="scroll dt"><table class="tbl" id="ait"><thead><tr><th scope="col">Parameter (source label)</th><th scope="col">Reads as</th><th scope="col">Existing</th><th scope="col">Easy</th><th scope="col">New Easy</th><th scope="col">Medium</th><th scope="col">Hard</th><th scope="col">Noob</th></tr></thead><tbody><tr class="s" data-sec="1"><td colspan="8">Vehicle control</td></tr><tr data-d="1" data-i="0" data-n="maxthrottle"><td class="mono">MaxThrottle</td><td></td><td class="d">2</td><td class="d">2</td><td class="d">2</td><td class="d">2.5</td><td class="d">3</td><td class="d">1.5</td></tr><tr data-d="1" data-i="1" data-n="minthrottle"><td class="mono">MinThrottle</td><td></td><td class="d">0.5</td><td class="d">0.5</td><td class="d">0.5</td><td class="d">1</td><td class="d">1</td><td class="d">0.5</td></tr><tr data-d="0" data-i="2" data-n="max steeringangle"><td class="mono">Max steeringAngle</td><td></td><td class="">20</td><td class="">20</td><td class="">20</td><td class="">20</td><td class="">20</td><td class="">20</td></tr><tr data-d="0" data-i="3" data-n="bakeforce"><td class="mono">BakeForce</td><td>BrakeForce</td><td class="">23000</td><td class="">23000</td><td class="">23000</td><td class="">23000</td><td class="">23000</td><td class="">23000</td></tr><tr data-d="0" data-i="4" data-n="acceleratiorforce"><td class="mono">Acceleratiorforce</td><td>AccelerationForce</td><td class="">25000</td><td class="">25000</td><td class="">25000</td><td class="">25000</td><td class="">25000</td><td class="">25000</td></tr><tr data-d="1" data-i="5" data-n="downward force"><td class="mono">Downward Force</td><td></td><td class="d">0</td><td class="d">50000</td><td class="d">50000</td><td class="d">50000</td><td class="d">50000</td><td class="d">50000</td></tr><tr data-d="0" data-i="6" data-n="waypoirtthreshold"><td class="mono">WaypoirtThreshold</td><td>WaypointThreshold</td><td class="">10</td><td class="">10</td><td class="">10</td><td class="">10</td><td class="">10</td><td class="">10</td></tr><tr data-d="0" data-i="7" data-n="offsetradius"><td class="mono">OffsetRadius</td><td></td><td class="">2</td><td class="">2</td><td class="">2</td><td class="">2</td><td class="">2</td><td class="">2</td></tr><tr data-d="0" data-i="8" data-n="maxspeed"><td class="mono">MaxSpeed</td><td></td><td class="">200</td><td class="">200</td><td class="">200</td><td class="">200</td><td class="">200</td><td class="">200</td></tr><tr class="s" data-sec="1"><td colspan="8">Target speeds and stuck check</td></tr><tr data-d="1" data-i="9" data-n="targetminspeed"><td class="mono">TargetMinSpeed</td><td></td><td class="d">25</td><td class="d">25</td><td class="d">30</td><td class="d">45</td><td class="d">55</td><td class="d">25</td></tr><tr data-d="1" data-i="10" data-n="targetminboostspeed"><td class="mono">TargetMinBoostSpeed</td><td></td><td class="d">50</td><td class="d">50</td><td class="d">60</td><td class="d">60</td><td class="d">60</td><td class="d">50</td></tr><tr data-d="0" data-i="11" data-n="stuckcheck interval"><td class="mono">StuckCheck Interval</td><td></td><td class="">2</td><td class="">2</td><td class="">2</td><td class="">2</td><td class="">2</td><td class="">2</td></tr><tr data-d="0" data-i="12" data-n="velocitythreshold"><td class="mono">VelocityThreshold</td><td></td><td class="">5</td><td class="">5</td><td class="">5</td><td class="">5</td><td class="">5</td><td class="">5</td></tr><tr class="s" data-sec="1"><td colspan="8">Avoidance and edge detection</td></tr><tr data-d="0" data-i="13" data-n="detection distance"><td class="mono">Detection Distance</td><td></td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td></tr><tr data-d="0" data-i="14" data-n="avoidarcesteerangle"><td class="mono">AvoidarceSteerAngle</td><td>AvoidanceSteerAngle</td><td class="">20</td><td class="">20</td><td class="">20</td><td class="">20</td><td class="">20</td><td class="">20</td></tr><tr data-d="0" data-i="15" data-n="edgedetectiondistance"><td class="mono">EdgeDetectiondistance</td><td></td><td class="">5</td><td class="">5</td><td class="">5</td><td class="">5</td><td class="">5</td><td class="">5</td></tr><tr data-d="0" data-i="16" data-n="edgeavoidarresteerangle"><td class="mono">EdgeAvoidarreSteerAngle</td><td>EdgeAvoidanceSteerAngle</td><td class="">15</td><td class="">15</td><td class="">15</td><td class="">15</td><td class="">15</td><td class="">15</td></tr><tr data-d="0" data-i="17" data-n="edgeavoidarrelerpmodifier"><td class="mono">EdgeAvoidarreLerpModifier</td><td>EdgeAvoidanceLerpModifier</td><td class="">2</td><td class="">2</td><td class="">2</td><td class="">2</td><td class="">2</td><td class="">2</td></tr><tr data-d="0" data-i="18" data-n="edgeavoidarrelerpthrottlemodifier"><td class="mono">EdgeAvoidarreLerpThrottleModifier</td><td>EdgeAvoidanceLerpThrottleModifier</td><td class="">0.5</td><td class="">0.5</td><td class="">0.5</td><td class="">0.5</td><td class="">0.5</td><td class="">0.5</td></tr><tr class="s" data-sec="1"><td colspan="8">Boost, shooting cadence and collectibles</td></tr><tr data-d="1" data-i="19" data-n="shootingcoolofftime"><td class="mono">ShootingCoolOffTime</td><td></td><td class="d">2</td><td class="d">3</td><td class="d">3</td><td class="d">3</td><td class="d">2</td><td class="d">3</td></tr><tr data-d="0" data-i="20" data-n="no. of boostavl"><td class="mono">no. of BoostAvl</td><td>NumberOfBoostAvailable</td><td class="">1</td><td class="">1</td><td class="">1</td><td class="">1</td><td class="">1</td><td class="">1</td></tr><tr data-d="0" data-i="21" data-n="boosterfirirgthresold"><td class="mono">BoosterFirirgThresold</td><td>BoosterFiringThreshold</td><td class="">5</td><td class="">5</td><td class="">5</td><td class="">5</td><td class="">5</td><td class="">5</td></tr><tr data-d="0" data-i="22" data-n="boostereffecttimer"><td class="mono">BoosterEffectTimer</td><td></td><td class="">2</td><td class="">2</td><td class="">2</td><td class="">2</td><td class="">2</td><td class="">2</td></tr><tr data-d="0" data-i="23" data-n="boostgenrationthresold"><td class="mono">BoostGenrationThresold</td><td>BoostGenerationThreshold</td><td class="">5</td><td class="">5</td><td class="">5</td><td class="">5</td><td class="">5</td><td class="">5</td></tr><tr data-d="0" data-i="24" data-n="boostmultiplayer"><td class="mono">BoostMultiplayer</td><td>BoostMultiplier</td><td class="">3</td><td class="">3</td><td class="">3</td><td class="">3</td><td class="">3</td><td class="">3</td></tr><tr data-d="0" data-i="25" data-n="collectiblethreshol"><td class="mono">CollectibleThreshol</td><td>CollectibleThreshold</td><td class="">1</td><td class="">1</td><td class="">1</td><td class="">1</td><td class="">1</td><td class="">1</td></tr><tr data-d="0" data-i="26" data-n="collectionradius"><td class="mono">CollectionRadius</td><td></td><td class="">0.2</td><td class="">0.2</td><td class="">0.2</td><td class="">0.2</td><td class="">0.2</td><td class="">0.2</td></tr><tr class="s" data-sec="1"><td colspan="8">Race setup</td></tr><tr data-d="0" data-i="27" data-n="totallaps"><td class="mono">TotalLaps</td><td></td><td class="">2</td><td class="">2</td><td class="">2</td><td class="">2</td><td class="">2</td><td class="">2</td></tr><tr class="s" data-sec="1"><td colspan="8">Behaviour probabilities and difficulty level</td></tr><tr data-d="1" data-i="28" data-n="shootingprobability"><td class="mono">ShootingProbability</td><td></td><td class="d">1</td><td class="d">0.4</td><td class="d">0.3</td><td class="d">0.5</td><td class="d">0.6</td><td class="d">0.3</td></tr><tr data-d="1" data-i="29" data-n="shootingtoalprobability"><td class="mono">ShootingToAlProbability</td><td>ShootingToAIProbability</td><td class="d">0</td><td class="d">0.1</td><td class="d">0.2</td><td class="d">0.2</td><td class="d">0.2</td><td class="d">0.2</td></tr><tr data-d="0" data-i="30" data-n="boostprobability"><td class="mono">BoostProbability</td><td></td><td class="">1</td><td class="">1</td><td class="">1</td><td class="">1</td><td class="">1</td><td class="">1</td></tr><tr data-d="0" data-i="31" data-n="collectiblechaseprobablity"><td class="mono">CollectibleChaseProbablity</td><td>CollectibleChaseProbability</td><td class="">0.9</td><td class="">0.9</td><td class="">0.9</td><td class="">0.9</td><td class="">0.9</td><td class="">0.9</td></tr><tr data-d="0" data-i="32" data-n="collectibleavoidprobability"><td class="mono">CollectibleAvoidProbability</td><td></td><td class="">0.1</td><td class="">0.1</td><td class="">0.1</td><td class="">0.1</td><td class="">0.1</td><td class="">0.1</td></tr><tr data-d="1" data-i="33" data-n="sheilding probablity"><td class="mono">Sheilding Probablity</td><td>ShieldingProbability</td><td class="d">1</td><td class="d">0.2</td><td class="d">0.2</td><td class="d">0.5</td><td class="d">0.6</td><td class="d">0.2</td></tr><tr data-d="0" data-i="34" data-n="al difficutylevel"><td class="mono">Al DifficUtyLevel</td><td>AIDifficultyLevel</td><td class="">1</td><td class="">1</td><td class="">1</td><td class="">1</td><td class="">1</td><td class="">1</td></tr><tr class="s" data-sec="1"><td colspan="8">Car-hit response</td></tr><tr data-d="0" data-i="35" data-n="carhitdetectionrange"><td class="mono">CarHitdetectionRange</td><td></td><td class="">10</td><td class="">10</td><td class="">10</td><td class="">10</td><td class="">10</td><td class="">10</td></tr><tr data-d="0" data-i="36" data-n="detectionangle"><td class="mono">DetectionAngle</td><td></td><td class="">45</td><td class="">45</td><td class="">45</td><td class="">45</td><td class="">45</td><td class="">45</td></tr><tr data-d="0" data-i="37" data-n="hitsteerlntensity"><td class="mono">HitSteerlntensity</td><td>HitSteerIntensity</td><td class="">1.2</td><td class="">1.2</td><td class="">1.2</td><td class="">1.2</td><td class="">1.2</td><td class="">1.2</td></tr><tr data-d="0" data-i="38" data-n="hitthrottleboost"><td class="mono">HitThrottleBoost</td><td></td><td class="">3</td><td class="">3</td><td class="">3</td><td class="">3</td><td class="">3</td><td class="">3</td></tr><tr class="s" data-sec="1"><td colspan="8">Distance gate and teleportation</td></tr><tr data-d="0" data-i="39" data-n="maxalloweddistance"><td class="mono">MaxAllowedDistance</td><td></td><td class="">250</td><td class="">250</td><td class="">250</td><td class="">250</td><td class="">250</td><td class="">250</td></tr><tr data-d="1" data-i="40" data-n="teleportationoelay"><td class="mono">TelePortationOelay</td><td>TeleportationDelay</td><td class="d">0</td><td class="d">0.5</td><td class="d">0.5</td><td class="d">0.5</td><td class="d">0.5</td><td class="d">0.5</td></tr><tr class="s" data-sec="1"><td colspan="8">AI health and shield</td></tr><tr data-d="0" data-i="41" data-n="maxhealth ai"><td class="mono">MaxHealth AI</td><td></td><td class="">25</td><td class="">25</td><td class="">25</td><td class="">25</td><td class="">25</td><td class="">25</td></tr><tr data-d="0" data-i="42" data-n="health"><td class="mono">Health</td><td></td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td></tr><tr data-d="0" data-i="43" data-n="healththresoldfor"><td class="mono">HealthThresoldFor</td><td>HealthThresholdFor…</td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td></tr><tr data-d="0" data-i="44" data-n="shieldcount"><td class="mono">ShieldCount</td><td></td><td class="">2</td><td class="">2</td><td class="">2</td><td class="">2</td><td class="">2</td><td class="">2</td></tr><tr data-d="0" data-i="45" data-n="maxshieldcount"><td class="mono">MaxShieldCount</td><td></td><td class="">5</td><td class="">5</td><td class="">5</td><td class="">5</td><td class="">5</td><td class="">5</td></tr><tr data-d="0" data-i="46" data-n="shieldthresolforal"><td class="mono">ShieldThresolForAl</td><td>ShieldThresholdForAI</td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td></tr><tr data-d="0" data-i="47" data-n="shieldtime"><td class="mono">ShieldTime</td><td></td><td class="">5</td><td class="">5</td><td class="">5</td><td class="">5</td><td class="">5</td><td class="">5</td></tr><tr data-d="0" data-i="48" data-n="collision interval"><td class="mono">Collision interval</td><td></td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td></tr><tr class="s" data-sec="1"><td colspan="8">AI missile</td></tr><tr data-d="0" data-i="49" data-n="ammo"><td class="mono">Ammo</td><td></td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td></tr><tr data-d="1" data-i="50" data-n="maxammo"><td class="mono">MaxAmmo</td><td></td><td class="d">2</td><td class="d">3</td><td class="d">3</td><td class="d">3</td><td class="d">3</td><td class="d">3</td></tr><tr data-d="0" data-i="51" data-n="ammothresoldfora"><td class="mono">AmmoThresoldForA</td><td>AmmoThresholdForA…</td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td></tr><tr data-d="0" data-i="52" data-n="accuracy"><td class="mono">Accuracy</td><td></td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td></tr><tr data-d="0" data-i="53" data-n="maxrandomrange"><td class="mono">MaxRandomRange</td><td></td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td></tr><tr class="s" data-sec="1"><td colspan="8">Player missile</td></tr><tr data-d="0" data-i="54" data-n="ammo"><td class="mono">Ammo</td><td></td><td class="">1</td><td class="">1</td><td class="">1</td><td class="">1</td><td class="">1</td><td class="">1</td></tr><tr data-d="1" data-i="55" data-n="maxammo"><td class="mono">MaxAmmo</td><td></td><td class="d">3</td><td class="d">3</td><td class="d">2</td><td class="d">2</td><td class="d">3</td><td class="d">2</td></tr><tr data-d="0" data-i="56" data-n="ammothresoldfora"><td class="mono">AmmoThresoldForA</td><td>AmmoThresholdForA…</td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td></tr><tr data-d="0" data-i="57" data-n="accuracy"><td class="mono">Accuracy</td><td></td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td></tr><tr data-d="0" data-i="58" data-n="maxrandomrange"><td class="mono">MaxRandomRange</td><td></td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td></tr><tr class="s" data-sec="1"><td colspan="8">Player health and shield</td></tr><tr data-d="0" data-i="59" data-n="maxhealth player"><td class="mono">MaxHealth Player</td><td></td><td class="">25</td><td class="">25</td><td class="">25</td><td class="">25</td><td class="">25</td><td class="">25</td></tr><tr data-d="0" data-i="60" data-n="health"><td class="mono">Health</td><td></td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td></tr><tr data-d="0" data-i="61" data-n="healththresoldfor"><td class="mono">HealthThresoldFor</td><td>HealthThresholdFor…</td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td></tr><tr data-d="1" data-i="62" data-n="shieldcount"><td class="mono">ShieldCount</td><td></td><td class="d">2</td><td class="d">2</td><td class="d">2</td><td class="d">3</td><td class="d">3</td><td class="d">2</td></tr><tr data-d="0" data-i="63" data-n="maxshieldcount"><td class="mono">MaxShieldCount</td><td></td><td class="">5</td><td class="">5</td><td class="">5</td><td class="">5</td><td class="">5</td><td class="">5</td></tr><tr data-d="0" data-i="64" data-n="shieldthresolforal"><td class="mono">ShieldThresolForAl</td><td>ShieldThresholdForAI</td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td></tr><tr data-d="0" data-i="65" data-n="shieldtime"><td class="mono">ShieldTime</td><td></td><td class="">5</td><td class="">5</td><td class="">5</td><td class="">5</td><td class="">5</td><td class="">5</td></tr><tr data-d="0" data-i="66" data-n="collision interval"><td class="mono">Collision interval</td><td></td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td><td class="">0</td></tr></tbody></table></div>
+<h4>Observations</h4>
+<ul class="clean">
+<li><span class="mono">AIDifficultyLevel</span> (source “Al DifficUtyLevel”) is 1 in every column, so it does not differ across profiles.</li>
+<li>Existing column has <span class="mono">ShootingProbability</span> and <span class="mono">ShieldingProbability</span> at 1, and <span class="mono">Downward Force</span> and <span class="mono">TeleportationDelay</span> at 0. Other columns do not.</li>
+<li>New Easy refines Easy: TargetMinSpeed rises from 25 to 30, TargetMinBoostSpeed from 50 to 60, ShootingProbability moves from 0.4 to 0.3, ShootingToAIProbability from 0.1 to 0.2, and player MaxAmmo moves from 3 to 2.</li>
+<li>Noob has the lowest MaxThrottle (1.5). Its TargetMinSpeed (25) matches Existing and Easy.</li>
+</ul>
+</article>
+<article class="chap" id="g-equation">
+<h3>Player difficulty classification</h3>
+<p class="intro">The classifier combines race position, kills, survival time and deaths into a score. That score maps performance into Easy, Medium or Hard and informs the next AI tuning profile.</p>
+<div aria-label="S equals w1 times P plus w2 times K minus w3 times ST plus w4 times D" class="formula" role="math">S = (w1 × P) + (w2 × K) - (w3 × ST) + (w4 × D)</div>
+<div class="scroll" style="margin-top:var(--s2)"><table class="tbl"><thead><tr><th>Symbol</th><th>Source definition</th><th>Example weight</th></tr></thead><tbody>
+<tr><td>P</td><td>Position score, 0 to 1. First place = 1, last = 0.</td><td>w1 = 0.4</td></tr>
+<tr><td>K</td><td>Number of kills. Higher kills = higher difficulty.</td><td>w2 = 0.2</td></tr>
+<tr><td>ST</td><td>Survival time percentage. 1 = survived to the end, 0 = died instantly.</td><td>w3 = 0.3</td></tr>
+<tr><td>D</td><td>Death factor. Higher deaths reduce difficulty classification.</td><td>w4 = -0.5</td></tr>
+</tbody></table></div>
+<p><strong>Bands:</strong> Easy S &lt; 0.4. Medium 0.4 ≤ S &lt; 0.7. Hard S ≥ 0.7.</p>
+<details class="acc"><summary>Explore the difficulty score <span class="r">interactive model</span></summary>
+<div>
+<p class="small muted">Adjust the race-performance signals to explore how the score maps to the three difficulty bands.</p>
+<form class="calc" id="calc" onsubmit="return false">
+<label>P (0 to 1)<input id="cP" max="1" min="0" step="0.05" type="number" value="0.5"/></label>
+<label>K (count)<input id="cK" min="0" step="1" type="number" value="0"/></label>
+<label>ST (0 to 1)<input id="cST" max="1" min="0" step="0.05" type="number" value="1"/></label>
+<label>D (value)<input id="cD" min="0" step="1" type="number" value="0"/></label>
+<div aria-live="polite" class="res"><div>S<output id="cS">0</output></div><div>Band<output id="cB">Easy</output></div></div>
+</form>
+</div>
+</details>
+</article>
+<article class="chap" id="g-reposition">
+<h3>AI behaviour and adaptive repositioning</h3>
+<p class="intro">I designed and shipped conditional AI repositioning to keep opponents relevant when they drifted too far from the player.</p>
+<h4>Signals</h4>
+<ul class="clean"><li>Player position on the track.</li><li>Whether the AI is visible to the player camera.</li><li>Player acceleration.</li><li>Distance between AI and player. The datasheet sets MaxAllowedDistance = 250.</li><li>A delay before acting. The datasheet has <span class="mono">TeleportationDelay</span> = 0 (Existing) and 0.5 (others).</li></ul>
+<h4>Intended outcome</h4>
+<p>Keep opponents within active race context while avoiding obvious camera-visible jumps.</p>
+<h4>Safety and visibility</h4>
+<ul class="clean"><li>Never reposition inside the camera view.</li><li>Place on a valid road position, facing along the track, not overlapping another car.</li><li>Match the surrounding speed so the car does not appear parked or flying.</li><li>Skip repositioning for a car that was just hit, so a successful rocket still matters.</li></ul>
+<h4>Edge cases</h4>
+<ul class="clean"><li>Player stopped or stuck.</li><li>Several AI cars flagged at once.</li><li>The diagonal shortcut, where two valid paths exist.</li><li>During FTUE prompts.</li><li>Near the finish on the last lap.</li></ul>
+<h4>Runtime behaviour</h4>
+<ul class="clean"><li>Evaluate player position, camera visibility, acceleration and AI distance before repositioning.</li><li>Place the opponent on a valid road position, aligned to the track and outside the player camera view.</li><li>Respect recent hits, simultaneous reposition triggers, FTUE prompts and the finish-line context.</li></ul>
+<p class="small muted">The shipped behaviour uses player position, camera visibility, acceleration and AI distance. MaxAllowedDistance = 250, while TeleportationDelay is 0 for Existing and 0.5 for the other tuning profiles.</p>
+</article>
+<article class="chap" id="g-sound">
+<h3>Sound design requirements</h3>
+<p class="intro">Sound design was delivered across vehicle response, collisions, pickups, abilities, music and race-start cues.</p>
+<details class="acc"><summary>Vehicle <span class="r">2 items</span></summary><div><div class="scroll"><table class="tbl"><thead><tr><th>Item</th><th>Delivery</th></tr></thead><tbody><tr><td>Engine sound</td><td>Shipped</td></tr><tr><td>Acceleration, deceleration (at impact or turnings) and high-speed sounds</td><td>Shipped</td></tr></tbody></table></div></div></details><details class="acc"><summary>Collisions <span class="r">3 items</span></summary><div><div class="scroll"><table class="tbl"><thead><tr><th>Item</th><th>Delivery</th></tr></thead><tbody><tr><td>Crashing against bots</td><td>Shipped</td></tr><tr><td>Crashing against wall</td><td>Shipped</td></tr><tr><td>Crashing against on-track obstacles</td><td>Shipped</td></tr></tbody></table></div></div></details><details class="acc"><summary>Power-ups <span class="r">9 items</span></summary><div><div class="scroll"><table class="tbl"><thead><tr><th>Item</th><th>Delivery</th></tr></thead><tbody><tr><td>Power pickup sound</td><td>Shipped</td></tr><tr><td>Nitro boost: activation</td><td>Shipped</td></tr><tr><td>Nitro boost: acceleration</td><td>Shipped</td></tr><tr><td>Rockets: launch sound</td><td>Shipped</td></tr><tr><td>Rockets: damage sound</td><td>Shipped</td></tr><tr><td>Shield: activation sound</td><td>Shipped</td></tr><tr><td>Shield: interaction with rocket</td><td>Shipped</td></tr><tr><td>Shield: deactivation</td><td>Shipped</td></tr><tr><td>Health: activation sound</td><td>Shipped</td></tr></tbody></table></div></div></details><details class="acc"><summary>Music <span class="r">3 items</span></summary><div><div class="scroll"><table class="tbl"><thead><tr><th>Item</th><th>Delivery</th></tr></thead><tbody><tr><td>Background music while racing</td><td>Shipped</td></tr><tr><td>Menu music</td><td>Shipped</td></tr><tr><td>Victory and defeat music</td><td>Shipped</td></tr></tbody></table></div></div></details><details class="acc"><summary>Race start <span class="r">2 items</span></summary><div><div class="scroll"><table class="tbl"><thead><tr><th>Item</th><th>Delivery</th></tr></thead><tbody><tr><td>Countdown</td><td>Shipped</td></tr><tr><td>Engine acceleration</td><td>Shipped</td></tr></tbody></table></div></div></details>
+</article>
+<article class="chap" id="g-vfx">
+<h3>VFX scope</h3>
+<p class="intro">I supervised the delivered visual effects across race starts, vehicles, collectibles and gameplay abilities.</p>
+<details class="acc"><summary>Race start <span class="r">2 items</span></summary><div><div class="scroll"><table class="tbl"><thead><tr><th>Item</th><th>Delivery</th></tr></thead><tbody><tr><td>3 2 1 Go: spark particles and smoke</td><td>Shipped</td></tr><tr><td>Smoke and spark particles on the side of the road</td><td>Shipped</td></tr></tbody></table></div></div></details><details class="acc"><summary>Car <span class="r">8 items</span></summary><div><div class="scroll"><table class="tbl"><thead><tr><th>Item</th><th>Delivery</th></tr></thead><tbody><tr><td>Gear shift: orange smoke</td><td>Shipped</td></tr><tr><td>Smoke from tires</td><td>Shipped</td></tr><tr><td>Impact on obstacles: impact spark and blast cloud</td><td>Shipped</td></tr><tr><td>Smoke at landing</td><td>Shipped</td></tr><tr><td>Impact from rocket: red shears (source wording)</td><td>Shipped</td></tr><tr><td>Impact from other cars: sparks</td><td>Shipped</td></tr><tr><td>Impact from railing and wall: sparks, similar to above</td><td>Shipped</td></tr><tr><td>At rams: trails (source wording)</td><td>Shipped</td></tr></tbody></table></div></div></details><details class="acc"><summary>Collectibles <span class="r">1 item</span></summary><div><div class="scroll"><table class="tbl"><thead><tr><th>Item</th><th>Delivery</th></tr></thead><tbody><tr><td>Pickup spark, unique per pickup (yellow, green, blue and red)</td><td>Shipped</td></tr></tbody></table></div></div></details><details class="acc"><summary>Nitro <span class="r">6 items</span></summary><div><div class="scroll"><table class="tbl"><thead><tr><th>Item</th><th>Delivery</th></tr></thead><tbody><tr><td>Exhaust: blue smoke</td><td>Shipped</td></tr><tr><td>Chromatic aberration</td><td>Shipped</td></tr><tr><td>Motion blur</td><td>Shipped</td></tr><tr><td>Speed trail on car (white stripes from tires)</td><td>Shipped</td></tr><tr><td>Increased smoke from tires</td><td>Shipped</td></tr><tr><td>Speed lines toward camera while nitro is active</td><td>Shipped</td></tr></tbody></table></div></div></details><details class="acc"><summary>Shield <span class="r">2 items</span></summary><div><div class="scroll"><table class="tbl"><thead><tr><th>Item</th><th>Delivery</th></tr></thead><tbody><tr><td>Activation of shield</td><td>Shipped</td></tr><tr><td>Impact of objects while shield is active</td><td>Shipped</td></tr></tbody></table></div></div></details><details class="acc"><summary>Rockets <span class="r">2 items</span></summary><div><div class="scroll"><table class="tbl"><thead><tr><th>Item</th><th>Delivery</th></tr></thead><tbody><tr><td>Smoke at launch</td><td>Shipped</td></tr><tr><td>Smoke trail</td><td>Shipped</td></tr></tbody></table></div></div></details><details class="acc"><summary>Health <span class="r">1 item</span></summary><div><div class="scroll"><table class="tbl"><thead><tr><th>Item</th><th>Delivery</th></tr></thead><tbody><tr><td>Consuming effect</td><td>Shipped</td></tr></tbody></table></div></div></details>
+</article>
+<article class="chap" id="g-art">
+<h3>Art coordination</h3>
+<p>I worked with the art team to define vehicle texture colours and the look of the cars, complementing the environment design supported by other designers. These decisions were carried into the shipped visuals.</p>
+<div aria-label="Placeholder swatches" class="sw"><div><h4>Vehicle identity</h4><p>Distinct colour and texture choices support quick recognition at racing speed.</p></div>
+<div><h4>Material character</h4><p>Surface and colour direction reinforces the vehicle’s visual personality.</p></div>
+<div><h4>Art alignment</h4><p>Vehicle treatment works alongside the wider environment art.</p></div></div>
+</article>
+<article class="chap" id="g-qa">
+<h3>UI, HUD, results and QA checklists</h3>
+<p class="intro">The shipped project checklist covers core race setup, optimisation, FTUE, HUD, VFX, menus and win/lose screens.</p>
+<div class="scroll"><table class="tbl"><thead><tr><th>Group</th><th>Item</th><th>Delivery</th></tr></thead><tbody>
+<tr><td rowspan="4">Core race</td><td>Collectibles (with shaders)</td><td>Shipped</td></tr><tr><td>Placement of collectibles</td><td>Shipped</td></tr><tr><td>Racing finish line</td><td>Shipped</td></tr><tr><td>Bounds (no render)</td><td>Shipped</td></tr>
+<tr><td rowspan="3">Optimisation</td><td>Environment</td><td>Shipped</td></tr><tr><td>Culling</td><td>Shipped</td></tr><tr><td>AI</td><td>Shipped</td></tr>
+<tr><td rowspan="6">Visuals and UI</td><td>FTUE elements and additions</td><td>Shipped</td></tr><tr><td>HUD elements and additions</td><td>Shipped</td></tr><tr><td>VFX for collectibles</td><td>Shipped</td></tr><tr><td>VFX at activation of collectibles</td><td>Shipped</td></tr><tr><td>Menu screen and UI</td><td>Shipped</td></tr><tr><td>Win and lose screens</td><td>Shipped</td></tr>
+</tbody></table></div>
+</article>
+<article class="chap" id="g-open"><h3>Delivered systems and design principles</h3>
+<p class="intro">The project brought together fast-entry UX, level planning, adaptive AI, playtest-led balancing, sound design, VFX supervision and cross-discipline art coordination into one cohesive racing experience.</p>
+<div class="dec">
+<div><h4>Fast entry</h4><p>A lock-and-go path and in-race FTUE get players into action quickly and introduce controls when they become useful.</p></div>
+<div><h4>Adaptive opponents</h4><p>Difficulty profiles tune opponent speed and ability use for different levels of racing experience.</p></div>
+<div><h4>Relevant race pressure</h4><p>Conditional repositioning addresses AI drift and keeps opponents part of the player’s active race.</p></div>
+<div><h4>Iteration through feedback</h4><p>User testing and feedback informed balancing changes for experienced racing players and newcomers.</p></div>
+</div>
+<h4>Design principles carried forward</h4>
+<ul class="clean">
+<li>Reduce friction between discovering a game and playing it.</li>
+<li>Keep opponent behaviour engaging without making the race feel unfair.</li>
+<li>Teach mechanics through action, using prompts at the moment they matter.</li>
+<li>Turn playtest observations into targeted, implemented changes.</li>
+<li>Use sound and VFX to communicate speed, impact, pickup collection and ability states.</li>
+</ul></article>
+</div>
+</div>
 </div>
 
-              
-              
-              
-              
-              
-              
-              
-              
-              <div class="project-module module embed project-module-embed js-js-project-module">
-  <div class="embed-dimensions" style="max-width: 1692px; max-height: 628px; margin: 0 auto;">
-                 <div class="embed-aspect-ratio" style="padding-bottom: 37.12%; position: relative; height: 0;">
-                   <iframe src="https://www.youtube.com/embed/YIWqi_ZsUBg" frameborder="0" allow=" autoplay; picture-in-picture" allowfullscreen style="position:absolute; top:0; left:0; width:100%; height:100%;" class="embed-content" sandbox="allow-same-origin allow-scripts allow-pointer-lock allow-forms allow-popups allow-popups-to-escape-sandbox"></iframe>
-                 </div>
-               </div>
+<div class="case-study-footer">
+  <div class="wrap">
+    <p>Death Race portfolio case study and design document · Game Design Intern</p>
+  </div>
+</div>
+</div>
 </div>
 
-              
-              
-              
-              
-              
-          </div>
+</div>
         </div>
       </div>
     </section>
@@ -494,6 +2004,76 @@
       </div>
     </div>
   </div>
+
+
+
+<script>(function(){
+'use strict';
+var $=function(s,r){return (r||document).querySelector(s)},$$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+// map tabs
+var tabs=$$('#mapbox [role=tab]');
+function sel(t){tabs.forEach(function(b){var on=b===t;b.setAttribute('aria-selected',on);b.tabIndex=on?0:-1;var p=document.getElementById(b.getAttribute('aria-controls'));p.hidden=!on});t.focus()}
+tabs.forEach(function(b,i){
+  b.addEventListener('click',function(){sel(b)});
+  b.addEventListener('keydown',function(e){var n=null;
+    if(e.key==='ArrowRight')n=tabs[(i+1)%tabs.length];else if(e.key==='ArrowLeft')n=tabs[(i-1+tabs.length)%tabs.length];else if(e.key==='Home')n=tabs[0];else if(e.key==='End')n=tabs[tabs.length-1];
+    if(n){e.preventDefault();sel(n)}});
+});
+$$('.zt').forEach(function(c){c.addEventListener('change',function(){
+  var on=c.checked;$$('.zt').forEach(function(o){o.checked=on});
+  $$('#mapbox [role=tabpanel]').forEach(function(p){p.classList.toggle('showz',on)});
+})});
+// AI table
+var tb=$('#ait tbody');
+if(tb){
+  var all=$$('tr',tb),q=$('#q'),od=$('#onlyd'),sb=$('#sortby'),cnt=$('#cnt');
+  var data=all.filter(function(r){return !r.dataset.sec});
+  function apply(){
+    var term=q.value.trim().toLowerCase(),only=od.checked,az=sb.value==='az',n=0;
+    var frag=document.createDocumentFragment();
+    var list=data.slice();
+    if(az)list.sort(function(a,b){return a.dataset.n<b.dataset.n?-1:1});
+    else list.sort(function(a,b){return a.dataset.i-b.dataset.i});
+    var order=az?list:all.filter(function(r){return r.dataset.sec||true});
+    // rebuild
+    var rowsOut=[];
+    if(az){list.forEach(function(r){rowsOut.push(r)})}else{all.forEach(function(r){rowsOut.push(r)})}
+    rowsOut.forEach(function(r){
+      if(r.dataset.sec){r.hidden=az||term||only;frag.appendChild(r);return}
+      var ok=(!term||(r.dataset.n+' '+r.cells[1].textContent.toLowerCase()).indexOf(term)>-1)&&(!only||r.dataset.d==='1');
+      r.hidden=!ok;if(ok)n++;frag.appendChild(r);
+    });
+    tb.appendChild(frag);
+    cnt.textContent=n+' of '+data.length+' rows shown';
+  }
+  q.addEventListener('input',apply);od.addEventListener('change',apply);sb.addEventListener('change',apply);apply();
+}
+// calculator
+var cs=['cP','cK','cST','cD'].map(function(i){return document.getElementById(i)});
+function calc(){
+  if(!cs[0])return;
+  var P=+cs[0].value||0,K=+cs[1].value||0,ST=+cs[2].value||0,D=+cs[3].value||0;
+  var S=(0.4*P)+(0.2*K)-(0.3*ST)+(-0.5*D);
+  $('#cS').textContent=S.toFixed(3);
+  $('#cB').textContent=S<0.4?'Easy':(S<0.7?'Medium':'Hard');
+}
+cs.forEach(function(c){if(c)c.addEventListener('input',calc)});calc();
+// progress bar + scrollspy
+var lap=$('#lap');
+function prog(){if(!lap)return;var h=document.documentElement;var m=h.scrollHeight-h.clientHeight;lap.style.width=(m>0?h.scrollTop/m*100:0)+'%'}
+if(lap){window.addEventListener('scroll',prog,{passive:true});prog();}
+function spy(links,ids){
+  if(!('IntersectionObserver' in window))return;
+  var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){a.classList.remove('on')});var a=map[e.target.id];if(a)a.classList.add('on')}})},{rootMargin:'-20% 0px -70% 0px'});
+  Object.keys(map).forEach(function(id){var el=document.getElementById(id);if(el)io.observe(el)});
+}
+spy($$('#toc a'));var topnavLinks=$$('#topnav a:not(.part)');if(topnavLinks.length)spy(topnavLinks);
+// print: open all details
+window.addEventListener('beforeprint',function(){$$('details').forEach(function(d){d.setAttribute('data-was',d.open?'1':'0');d.open=true})});
+window.addEventListener('afterprint',function(){$$('details').forEach(function(d){d.open=d.getAttribute('data-was')==='1'})});
+})();
+</script>
 </body>
 <script type="text/javascript">
   // fix for Safari's back/forward cache

@@ -34,6 +34,72 @@
       console.warn('Typekit not loaded.');
     }
     "></script>
+
+<style id="hover-gif-thumbnails-style">
+/* Project thumbnail hover-to-play GIF enhancement */
+.hover-gif-link {
+  display: block;
+  position: relative;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 4px;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.hover-gif-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+}
+
+.hover-gif-wrap {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.17%;
+  height: 0;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+}
+
+.hover-gif-static {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: opacity 0.35s ease, transform 0.4s cubic-bezier(0.2, 0, 0.2, 1);
+  z-index: 1;
+  display: block;
+}
+
+.hover-gif-anim {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0;
+  transition: opacity 0.35s ease, transform 0.4s cubic-bezier(0.2, 0, 0.2, 1);
+  z-index: 2;
+  pointer-events: none;
+  display: block;
+}
+
+/* On hover, fade in the animated GIF once loaded */
+.hover-gif-link:hover .hover-gif-anim.is-loaded {
+  opacity: 1 !important;
+}
+
+/* Subtle zoom effect on hover */
+.hover-gif-link:hover .hover-gif-wrap img {
+  transform: scale(1.02);
+}
+</style>
 </head>
   <body class="transition-enabled">  <div class='page-background-video page-background-video-with-panel'>
   </div>
@@ -293,74 +359,48 @@ padding-bottom: px;
               <div class="project-module module tree project-module-tree js-js-project-module e2e-site-project-module-tree" >
   <div class="tree-wrapper valign-top">
       <div class="tree-child-wrapper" style="flex: 101">
-        
-        <div class="project-module module image project-module-image js-js-project-module"  style="padding-top: px;
-padding-bottom: px;
-">
-    <a class="js-editable-link" href=death-race.html  target="_blank">
-      <div class="js-lightbox" data-src="./cdn.myportfolio.com/aa059c35-e724-4628-81da-b2ecf60fb164/3a24656c-32e8-4e56-a4eb-8d445b3076c0d508.gif?h=ab9eb4d12ce5147acac00fa3497ca581">
-            <img
-              class="js-lazy e2e-site-project-module-image"
-              src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-              data-src="./cdn.myportfolio.com/aa059c35-e724-4628-81da-b2ecf60fb164/3a24656c-32e8-4e56-a4eb-8d445b3076c0_rw_12003a15.gif?h=2377e27f09c7a6e2e468f0f276fec29d"
-              data-srcset="https://cdn.myportfolio.com/aa059c35-e724-4628-81da-b2ecf60fb164/3a24656c-32e8-4e56-a4eb-8d445b3076c0_rw_600.gif?h=e6d85f2edabcefbcce55d308e986c406 600w,https://cdn.myportfolio.com/aa059c35-e724-4628-81da-b2ecf60fb164/3a24656c-32e8-4e56-a4eb-8d445b3076c0_rw_1200.gif?h=2377e27f09c7a6e2e468f0f276fec29d 1080w,"
-              data-sizes="(max-width: 1080px) 100vw, 1080px"
-              width="1080"
-              height="0"
-              style="padding-bottom: 56.17%; background: rgba(0, 0, 0, 0.03)"
-               alt="Death race game"
-            >
-      </div>
-    </a>
-
-  
-
-  
-
-</div>
-
-        
-        
-        
-        
-        
-        
-        
+        <div class="project-module module image project-module-image js-js-project-module" style="padding-top: px; padding-bottom: px;">
+          <a class="js-editable-link hover-gif-link" href="death-race.html" target="_blank" aria-label="Death Race project">
+            <div class="hover-gif-wrap">
+              <img
+                class="hover-gif-static e2e-site-project-module-image"
+                src="./cdn.myportfolio.com/aa059c35-e724-4628-81da-b2ecf60fb164/deathrace_thumb.jpg"
+                alt="Death race game"
+                width="1080"
+                height="607"
+              >
+              <img
+                class="hover-gif-anim"
+                data-src="./cdn.myportfolio.com/aa059c35-e724-4628-81da-b2ecf60fb164/3a24656c-32e8-4e56-a4eb-8d445b3076c0_rw_12003a15.gif?h=2377e27f09c7a6e2e468f0f276fec29d"
+                alt="Death race game animation"
+                width="1080"
+                height="607"
+              >
+            </div>
+          </a>
+        </div>
       </div>
       <div class="tree-child-wrapper" style="flex: 99">
-        
-        <div class="project-module module image project-module-image js-js-project-module"  style="padding-top: px;
-padding-bottom: px;
-">
-    <a class="js-editable-link" href=pro-football.html  target="_blank">
-      <div class="js-lightbox" data-src="./cdn.myportfolio.com/aa059c35-e724-4628-81da-b2ecf60fb164/3066e3b5-6b52-4b90-9009-7f916a42d08707a3.gif?h=fa3cf16945577247685f359cc4e6a571">
-            <img
-              class="js-lazy e2e-site-project-module-image"
-              src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-              data-src="./cdn.myportfolio.com/aa059c35-e724-4628-81da-b2ecf60fb164/3066e3b5-6b52-4b90-9009-7f916a42d087_rw_1200227f.gif?h=2a8562dece5dae719351a9ed9e51a01e"
-              data-srcset="https://cdn.myportfolio.com/aa059c35-e724-4628-81da-b2ecf60fb164/3066e3b5-6b52-4b90-9009-7f916a42d087_rw_600.gif?h=0feed4164dd4712c40f31cb8b1b5024c 600w,https://cdn.myportfolio.com/aa059c35-e724-4628-81da-b2ecf60fb164/3066e3b5-6b52-4b90-9009-7f916a42d087_rw_1200.gif?h=2a8562dece5dae719351a9ed9e51a01e 1080w,"
-              data-sizes="(max-width: 1080px) 100vw, 1080px"
-              width="1080"
-              height="0"
-              style="padding-bottom: 56.17%; background: rgba(0, 0, 0, 0.03)"
-              
-            >
-      </div>
-    </a>
-
-  
-
-  
-
-</div>
-
-        
-        
-        
-        
-        
-        
-        
+        <div class="project-module module image project-module-image js-js-project-module" style="padding-top: px; padding-bottom: px;">
+          <a class="js-editable-link hover-gif-link" href="pro-football.html" target="_blank" aria-label="Pro Football project">
+            <div class="hover-gif-wrap">
+              <img
+                class="hover-gif-static e2e-site-project-module-image"
+                src="./cdn.myportfolio.com/aa059c35-e724-4628-81da-b2ecf60fb164/profootball_thumb.jpg"
+                alt="Pro Football game"
+                width="1080"
+                height="607"
+              >
+              <img
+                class="hover-gif-anim"
+                data-src="./cdn.myportfolio.com/aa059c35-e724-4628-81da-b2ecf60fb164/3066e3b5-6b52-4b90-9009-7f916a42d087_rw_1200227f.gif?h=2a8562dece5dae719351a9ed9e51a01e"
+                alt="Pro Football game animation"
+                width="1080"
+                height="607"
+              >
+            </div>
+          </a>
+        </div>
       </div>
   </div>
 </div>
@@ -603,6 +643,50 @@ padding-bottom: 47px;
       </div>
     </div>
   </div>
+
+<script id="hover-gif-loader">
+(function() {
+  function initHoverGifs() {
+    var animGifs = document.querySelectorAll('.hover-gif-anim[data-src]');
+    if (!animGifs.length) return;
+
+    var queue = Array.prototype.slice.call(animGifs);
+    
+    function loadNext() {
+      if (queue.length === 0) return;
+      var el = queue.shift();
+      var url = el.getAttribute('data-src');
+      if (!url) {
+        loadNext();
+        return;
+      }
+      
+      var preloader = new Image();
+      preloader.onload = function() {
+        el.src = url;
+        el.classList.add('is-loaded');
+        loadNext();
+      };
+      preloader.onerror = function() {
+        loadNext();
+      };
+      preloader.src = url;
+    }
+
+    if ('requestIdleCallback' in window) {
+      window.requestIdleCallback(function() { loadNext(); }, { timeout: 2000 });
+    } else {
+      setTimeout(loadNext, 300);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initHoverGifs);
+  } else {
+    initHoverGifs();
+  }
+})();
+</script>
 </body>
 <script type="text/javascript">
   // fix for Safari's back/forward cache
