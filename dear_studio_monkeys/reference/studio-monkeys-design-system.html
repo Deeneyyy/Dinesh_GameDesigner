@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Studio Monkeys - Design System Reference</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --sm-paper: #FEFAF0;
+      --sm-paper-warm: #F3EEE3;
+      --sm-paper-deep: #EFEADE;
+      --sm-ink: #000000;
+      --sm-charcoal: #414141;
+      --sm-grey: #727272;
+      --sm-grey-light: #B0B0B0;
+      --sm-yellow: #FFC82B;
+      --sm-yellow-deep: #F3B915;
+      --sm-gold: #C99E22;
+      --sm-sand: #DBD2BA;
+      --sm-blue-pale: #DCE8FF;
+      --sm-earth-deep: #322C23;
+      --sm-earth-olive: #897B55;
+      --sm-earth-olive-dark: #5D553F;
+      --sm-earth-taupe: #6A5D55;
+      --sm-clay: #A9806F;
+      --sm-copper: #8B614F;
+      --sm-brown: #633C2B;
+      --sm-rose-pale: #FFE9DF;
+      --sm-coral-pale: #FFBFA1;
+      --sm-orange-soft: #FA854F;
+      --sm-orange: #EA6020;
+      --sm-rust: #C94001;
+      --sm-red: #BE2326;
+
+      --font-serif: "Playfair Display", Georgia, serif;
+      --font-display: "Space Grotesk", sans-serif;
+      --font-body: "DM Sans", sans-serif;
+
+      --content-width: 1240px;
+      --radius-small: 4px;
+      --radius-medium: 10px;
+      --radius-pill: 999px;
+    }
+    body {
+      background: var(--sm-paper);
+      color: var(--sm-ink);
+      font-family: var(--font-body);
+      padding: 40px 20px;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: var(--content-width);
+      margin: 0 auto;
+    }
+    h1, h2, h3 {
+      font-family: var(--font-display);
+    }
+    .hero-sample {
+      font-family: var(--font-serif);
+      font-size: 3rem;
+      font-weight: 600;
+      line-height: 1.1;
+      margin: 20px 0;
+    }
+    .swatches {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 16px;
+      margin: 24px 0 48px;
+    }
+    .swatch {
+      padding: 24px 12px 12px;
+      border: 1px solid rgba(0,0,0,0.12);
+      border-radius: var(--radius-small);
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Studio Monkeys Design System</h1>
+    <p>Reference tokens, palette, and typography for landing page implementations.</p>
+
+    <h2>Editorial Serif Display</h2>
+    <div class="hero-sample">Shaping your coherent brand identity through films, designs and motions.</div>
+
+    <h2>Core Color Palette</h2>
+    <div class="swatches">
+      <div class="swatch" style="background: #FEFAF0;">#FEFAF0<br>Paper</div>
+      <div class="swatch" style="background: #F3EEE3;">#F3EEE3<br>Warm Paper</div>
+      <div class="swatch" style="background: #EFEADE;">#EFEADE<br>Deeper Paper</div>
+      <div class="swatch" style="background: #FFC82B; color: #000;">#FFC82B<br>Yellow</div>
+      <div class="swatch" style="background: #F3B915; color: #000;">#F3B915<br>Yellow Deep</div>
+      <div class="swatch" style="background: #000000; color: #FFF;">#000000<br>Ink</div>
+      <div class="swatch" style="background: #414141; color: #FFF;">#414141<br>Charcoal</div>
+      <div class="swatch" style="background: #C94001; color: #FFF;">#C94001<br>Rust</div>
+      <div class="swatch" style="background: #BE2326; color: #FFF;">#BE2326<br>Red</div>
+      <div class="swatch" style="background: #DCE8FF;">#DCE8FF<br>Pale Blue</div>
+      <div class="swatch" style="background: #FFE9DF;">#FFE9DF<br>Pale Rose</div>
+      <div class="swatch" style="background: #322C23; color: #FFF;">#322C23<br>Earth Brown</div>
+    </div>
+  </div>
+</body>
+</html>
