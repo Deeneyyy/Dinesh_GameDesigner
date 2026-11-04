@@ -460,3 +460,416 @@ h1,h2,h3 { max-width:100%; text-wrap:balance; }
   border: 0;
 }
 .thumbnail-feature > .thumbnail-video-embed { grid-column: 1 / -1; }
+
+
+/* ===== Aesthetic Landing Collage, Behance Integration, Indie Showcase & Video Links ===== */
+
+/* Header Behance button */
+.header-behance {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border: 1.5px solid #000;
+  padding: 10px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  background: #fff;
+  color: #000;
+  box-shadow: 3px 3px #000;
+  transition: transform .25s, box-shadow .25s, background .25s;
+}
+.header-behance:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px #000;
+  background: var(--yellow);
+}
+.header-behance .arrow {
+  font-size: 11px;
+  font-weight: 900;
+}
+
+/* Hero CTA Behance button */
+.btn-behance {
+  background: #000;
+  color: #fff !important;
+  border-color: #000;
+}
+.btn-behance:hover {
+  background: var(--yellow);
+  color: #000 !important;
+}
+.behance-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.behance-icon {
+  flex-shrink: 0;
+}
+
+/* Landing Section Aesthetic Collage */
+.hero-art {
+  height: 570px;
+  position: relative;
+  isolation: isolate;
+}
+.hero-yellow-block {
+  position: absolute;
+  inset: 7% 1% 6% 8%;
+  background: #000;
+  transform: rotate(2.5deg);
+  z-index: -1;
+  box-shadow: 10px 10px 0 rgba(0,0,0,0.18);
+}
+.hero-card {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  border: 5px solid #fff;
+  box-shadow: 7px 7px #000;
+  overflow: hidden;
+  background: #111;
+  transition: transform .35s cubic-bezier(.2,1,.3,1), box-shadow .35s ease;
+}
+.hero-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+.hero-card:hover {
+  z-index: 12 !important;
+  transform: translateY(-6px) scale(1.035) !important;
+  box-shadow: 12px 14px #000;
+}
+
+/* Card 1: Frangipani thumbnail (Indie music key art) */
+.hero-card-frangipani {
+  top: 5%;
+  right: 4%;
+  width: 58%;
+  height: 47%;
+  transform: rotate(-2.5deg);
+  z-index: 4;
+}
+
+/* Card 2: Oozhi thumbnail (Film torn-paper key art) */
+.hero-card-oozhi {
+  top: 37%;
+  left: 5%;
+  width: 54%;
+  height: 42%;
+  transform: rotate(3deg);
+  z-index: 5;
+  border-width: 6px;
+}
+
+/* Card 3: Unakkum Enna (Acoustic session art) */
+.hero-card-unakkum {
+  bottom: 3%;
+  right: 8%;
+  width: 44%;
+  height: 35%;
+  transform: rotate(-3.5deg);
+  z-index: 3;
+}
+
+/* Card 4: 3D Workstation Render */
+.hero-card-3d {
+  top: 10%;
+  left: 1%;
+  width: 42%;
+  height: 32%;
+  transform: rotate(-5deg);
+  z-index: 2;
+}
+
+/* Card 5: Tactile Still Life Photography */
+.hero-card-still {
+  top: 25%;
+  right: 33%;
+  width: 27%;
+  height: 27%;
+  transform: rotate(6deg);
+  z-index: 1;
+}
+
+/* Collage Badges and Micro-tags */
+.hero-mini-tag {
+  position: absolute;
+  z-index: 8;
+  background: #000;
+  color: var(--yellow);
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 1.4px;
+  padding: 3px 8px;
+  border: 1px solid var(--yellow);
+  box-shadow: 2px 2px #000;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+.tag-3d {
+  top: 6%;
+  left: 36%;
+  transform: rotate(3deg);
+}
+.tag-indie {
+  bottom: 12%;
+  left: 20%;
+  transform: rotate(-4deg);
+}
+
+/* Thumbnail and Poster Exploration for Indie Artist Gallery */
+.thumbnail-gallery-indie {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+  align-items: stretch;
+}
+.indie-thumb-card {
+  background: #fff;
+  border: 1px solid #000;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  box-shadow: 3px 3px #000;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.indie-thumb-card:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 6px 6px #000;
+}
+.thumb-media-link {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 10;
+  background: #111;
+  overflow: hidden;
+  border-bottom: 1px solid #000;
+}
+.thumb-media-link img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .4s ease;
+}
+.thumb-media-link:hover img {
+  transform: scale(1.04);
+}
+.thumb-zoom-badge {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background: rgba(0,0,0,0.85);
+  color: var(--yellow);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  padding: 4px 8px;
+  border: 1px solid rgba(255,255,255,0.2);
+  opacity: 0;
+  transition: opacity .2s;
+}
+.thumb-media-link:hover .thumb-zoom-badge {
+  opacity: 1;
+}
+
+/* Video link overlay on Oozhi card */
+.video-play-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: rgba(0,0,0,0.45);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  transition: background .2s;
+}
+.video-play-overlay svg {
+  background: #ff0000;
+  color: #fff;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  padding: 10px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.6);
+}
+.thumb-media-link:hover .video-play-overlay {
+  background: rgba(0,0,0,0.65);
+}
+.btn-video-text-link {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 14px;
+  font-size: 11px;
+  font-weight: 900;
+  color: #000;
+  border-bottom: 1.5px solid #000;
+  width: fit-content;
+  padding-bottom: 2px;
+}
+.btn-video-text-link:hover {
+  color: #d00;
+  border-color: #d00;
+}
+
+.thumb-card-body {
+  padding: 20px 18px 22px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.thumb-tag {
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  color: #000;
+  background: var(--yellow);
+  padding: 3px 7px;
+  display: inline-block;
+  width: fit-content;
+  margin-bottom: 10px;
+  border: 1px solid #000;
+}
+.thumb-card-body h3 {
+  font-size: 21px;
+  line-height: 1.15;
+  margin: 0 0 10px;
+  letter-spacing: -.5px;
+}
+.thumb-card-body p {
+  font-size: 13px;
+  line-height: 1.5;
+  color: #333;
+  margin: 0;
+  flex: 1;
+}
+
+/* Reel Link Cards (Pacha Perundhu, One Piece) */
+.reel-link-card {
+  background: #111 !important;
+  color: #fff !important;
+  border: 1.5px solid #000;
+  box-shadow: 4px 4px #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 380px;
+}
+.reel-link-card .reel-title {
+  border-bottom: 1px solid #333;
+}
+.reel-link-card .reel-title span {
+  color: var(--yellow);
+}
+.reel-link-card .reel-title h3 {
+  color: #fff;
+}
+.reel-link-body {
+  padding: 24px 16px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 14px;
+}
+.reel-badge-pill {
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  background: var(--yellow);
+  color: #000;
+  padding: 3px 8px;
+  border-radius: 2px;
+}
+.reel-link-desc {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #ccc;
+  margin: 0;
+}
+.btn-reel-external {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: #fff;
+  color: #000 !important;
+  font-size: 11px;
+  font-weight: 900;
+  padding: 10px 15px;
+  border: 1.5px solid #000;
+  box-shadow: 3px 3px #ffee00;
+  transition: transform .2s, box-shadow .2s;
+  margin-top: 6px;
+}
+.btn-reel-external:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px #ffee00;
+  background: var(--yellow);
+}
+.reel-card-footer {
+  border-top: 1px solid #333 !important;
+  color: #aaa !important;
+  padding: 12px 14px !important;
+  font-size: 10px;
+  font-weight: 900;
+  display: block;
+}
+.reel-card-footer:hover {
+  color: var(--yellow) !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .thumbnail-gallery-indie {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+}
+@media (max-width: 640px) {
+  .hero-art {
+    height: 380px;
+    margin: 0 4px 20px;
+  }
+  .hero-card-frangipani {
+    width: 65%;
+    height: 50%;
+    right: 2%;
+    top: 4%;
+  }
+  .hero-card-oozhi {
+    width: 60%;
+    height: 44%;
+    left: 3%;
+    top: 36%;
+  }
+  .hero-card-3d {
+    width: 44%;
+    height: 30%;
+    left: 0;
+    top: 8%;
+  }
+  .hero-card-unakkum {
+    width: 48%;
+    height: 34%;
+    right: 4%;
+    bottom: 2%;
+  }
+  .hero-card-still {
+    display: none;
+  }
+  .thumbnail-gallery-indie {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
