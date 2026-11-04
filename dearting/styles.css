@@ -873,3 +873,18 @@ h1,h2,h3 { max-width:100%; text-wrap:balance; }
     gap: 16px;
   }
 }
+
+@media (max-width: 640px) {
+  .hero-caption {
+    left: 8px !important;
+    top: 2px !important;
+  }
+  .hero-mini-tag.tag-3d {
+    left: 32% !important;
+    top: 4% !important;
+  }
+  .hero-mini-tag.tag-indie {
+    left: 16% !important;
+    bottom: 10% !important;
+  }
+}
