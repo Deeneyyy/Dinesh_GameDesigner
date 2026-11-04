@@ -11,3 +11,6 @@ __pycache__/
 
 # Temporary scratch scripts
 scratch/
+
+# Local project source workspace (deployed to /dearting/)
+ting-senior-visualiser-portfolio/
