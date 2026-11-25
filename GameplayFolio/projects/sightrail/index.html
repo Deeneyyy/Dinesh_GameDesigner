@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script>
+      (function () {
+        try {
+          var currentFetch = window.fetch;
+          var desc = Object.getOwnPropertyDescriptor(window, 'fetch') ||
+                     Object.getOwnPropertyDescriptor(Window.prototype, 'fetch');
+          if (desc && desc.configurable !== false && (!desc.writable && !desc.set)) {
+            Object.defineProperty(window, 'fetch', {
+              configurable: true,
+              enumerable: true,
+              get: function () { return currentFetch; },
+              set: function (fn) { currentFetch = fn; }
+            });
+          }
+        } catch (e) {}
+        window.addEventListener('error', function (event) {
+          if (event && event.filename && event.filename.indexOf('chrome-extension://') === 0) {
+            event.stopImmediatePropagation();
+            event.preventDefault();
+          }
+        }, true);
+      })();
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f4f0e7" />
+    <title>Dinesh A — Game Design Portfolio</title>
+    <meta name="description" content="Dinesh A — game designer exploring mechanics, systems, interaction and experiences made to be played." />
+    <meta property="og:title" content="Dinesh A — Game Design Portfolio" />
+    <meta property="og:description" content="Games, systems and experiences made to be played." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://deendesigns.in/GameplayFolio/portfolio/covers/ancient-recall.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400..600;1,9..144,400..600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <script type="module" crossorigin src="/GameplayFolio/assets/index-D1xqzCWQ.js"></script>
+    <link rel="stylesheet" crossorigin href="/GameplayFolio/assets/index-mONcqM2w.css">
+  </head>
+  <body class="bg-[#f4f0e7] text-[#24251f] antialiased selection:bg-[#e9c84f] selection:text-[#24251f]">
+    <div id="root"></div>
+  </body>
+</html>
+
